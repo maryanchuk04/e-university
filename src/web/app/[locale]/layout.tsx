@@ -21,7 +21,7 @@ type Props = {
 const RootLayout = ({ children, params: { locale } }: Props) => {
     const messages = useMessages();
     return (
-        <html lang={locale} suppressHydrationWarning={true}>
+        <html lang={locale ?? 'ua'} suppressHydrationWarning={true}>
             <NextIntlClientProvider messages={messages}>
                 <body className={inter.className} suppressHydrationWarning={true}>
                     <Providers>{children}</Providers>
