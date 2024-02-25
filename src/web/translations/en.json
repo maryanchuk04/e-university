@@ -1,0 +1,13 @@
+{
+    "test": "This is just a test",
+    "authenticate": {
+        "welcome": "Welcome!",
+        "login": "Log In",
+        "org_email_requirements": "Authorization on the website is only available for users with university corporate email @chnu.edu.ua",
+        "link": {
+            "website": "<a href='https://www.chnu.edu.ua/' target='_blank'>Website</a>",
+            "youtube": "YouTube",
+            "tiktok": "TikTok"
+        }
+    }
+}
