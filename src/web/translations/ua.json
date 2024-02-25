@@ -1,0 +1,13 @@
+{
+    "test": "Це лише тест",
+    "authenticate": {
+        "welcome": "Ласкаво просимо!",
+        "login": "Увійти",
+        "org_email_requirements": "Авторизація на сайті доступна тільки для користувачів університетської корпоративної пошти @chnu.edu.ua",
+        "link": {
+            "website": "<a href='https://www.chnu.edu.ua/' target='_blank'>Веб-сайт</a>",
+            "youtube": "YouTube",
+            "tiktok": "TikTok"
+        }
+    }
+}
