@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddGatewayServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //add mediatR and tell it to scan this assembly
+        // add mediatR and tell it to scan this assembly
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
     }
 
