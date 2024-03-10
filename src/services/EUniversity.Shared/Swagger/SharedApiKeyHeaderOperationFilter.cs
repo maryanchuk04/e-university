@@ -12,7 +12,7 @@ public class SharedApiKeyHeaderOperationFilter : IOperationFilter
         // PreShared key parameter
         operation.Parameters.Add(new OpenApiParameter
         {
-            Name = SwaggerConstants.ApiKeyHeaderName,
+            Name = ApiKeyConstants.HeaderName,
             In = ParameterLocation.Header,
             Required = true,
             Schema = new OpenApiSchema

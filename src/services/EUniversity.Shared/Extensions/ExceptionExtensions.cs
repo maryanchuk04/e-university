@@ -6,7 +6,7 @@ public static class ExceptionExtensions
 {
     public static T ThrowIfNull<T>(this T argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
     {
-        ArgumentNullException.ThrowIfNull(argument);
+        ArgumentNullException.ThrowIfNull(argument, paramName);
 
         return argument;
     }

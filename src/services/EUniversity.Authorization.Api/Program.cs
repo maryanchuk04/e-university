@@ -1,4 +1,11 @@
+using EUniversity.Authorization.Api.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// ****************************************
+// Configure services
+// ****************************************
+builder.Services.AddAuthorizationServices(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
