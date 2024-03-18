@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react';
-import { Language } from './Language';
+import { Language } from '../../../core/models/Language';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 

@@ -1,12 +1,16 @@
 import createMiddleware from 'next-intl/middleware';
-import { Language, supportedLanguages } from './app/components/LanguageSwitcher/Language';
+import { defaultLanguage, supportedLanguages } from './core/models/Language';
+import { NextRequest } from 'next/server';
 
-export default createMiddleware({
+const I18nMiddleware = createMiddleware({
     locales: supportedLanguages,
-
-    defaultLocale: Language.ua,
+    defaultLocale: defaultLanguage,
 });
 
+export function middleware(request: NextRequest) {
+    return I18nMiddleware(request);
+}
+
 export const config = {
-    matcher: ['/', '/(ua|en)/:path*'],
+    matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)'],
 };

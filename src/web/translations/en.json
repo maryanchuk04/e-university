@@ -9,5 +9,8 @@
             "youtube": "YouTube",
             "tiktok": "TikTok"
         }
+    },
+    "profile": {
+        "label": "Profile"
     }
 }

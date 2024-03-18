@@ -1,9 +1,11 @@
+'use client';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Button, Divider, Link } from '@nextui-org/react';
 import { AuthenticateUISettings } from '@/app/models/authenticate-ui-settings';
 import ThemeSwitcher from '@/app/components/ThemeSwitcher';
 import LanguageSwitcher from '@/app/components/LanguageSwitcher';
+import { signIn } from 'next-auth/react';
 
 const Authenticate = () => {
     const authenticateSettings: AuthenticateUISettings = {
@@ -15,6 +17,10 @@ const Authenticate = () => {
             youtube: '',
             website: '',
         },
+    };
+
+    const login = async () => {
+        await signIn('google', { callbackUrl: `/profile` });
     };
 
     const t = useTranslations('authenticate');
@@ -29,7 +35,13 @@ const Authenticate = () => {
                 <form className='h-full grid place-items-center'>
                     <div className='w-1/2 h-full text-center flex flex-col justify-center align-items-center'>
                         <h2 className='text-4xl text-center font-bold mb-8'>{t('welcome')}</h2>
-                        <Button color='primary' className='text-2xl p-8 w-full flex align-items-center' size='lg' variant='shadow'>
+                        <Button
+                            color='primary'
+                            onClick={login}
+                            className='text-2xl p-8 w-full flex align-items-center'
+                            size='lg'
+                            variant='shadow'
+                        >
                             <img src='/images/google.png' className='w-12' />
                             <span className='font-bold'>{authenticateSettings.domain}</span>
                         </Button>

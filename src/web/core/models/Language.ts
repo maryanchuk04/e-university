@@ -4,3 +4,5 @@ export enum Language {
 }
 
 export const supportedLanguages = [Language.ua, Language.en];
+
+export const defaultLanguage: Language = Language.ua;

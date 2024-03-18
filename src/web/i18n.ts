@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import { supportedLanguages } from './app/components/LanguageSwitcher/Language';
+import { supportedLanguages } from './core/models/Language';
 
 const locales = supportedLanguages;
 
 export default getRequestConfig(async ({ locale }) => {
-	if (!locale) {
+    if (!locale) {
         return {
             messages: (await import(`./translations/ua.json`)).default,
         };
