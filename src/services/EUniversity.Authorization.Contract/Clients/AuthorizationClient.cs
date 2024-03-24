@@ -6,10 +6,17 @@ namespace EUniversity.Authorization.Contract.Clients;
 public class AuthorizationClient(HttpClient httpClient) : IAuthorizationClient
 {
     private const string RegistrationRoute = "/api/registration";
+    private const string AutheticateRoute = "/api/authenticate";
+
     private readonly HttpClient _httpClient = httpClient.ThrowIfNull();
 
     /// <inheritdoc/>
     public Task AuthenticateAsync(string email, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

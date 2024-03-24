@@ -1,6 +1,10 @@
 ﻿using System.Reflection;
+using EUniversity.Authorization.Contract.Clients;
+using EUniversity.Authorization.Contract.Factories;
 using EUniversity.Gateway.Api.Swagger;
 using EUniversity.Gateway.Contract;
+using EUniversity.Gateway.Contract.Requests;
+using EUniversity.Shared.Exceptions;
 using EUniversity.Shared.Swagger;
 using Microsoft.OpenApi.Models;
 
@@ -10,8 +14,23 @@ public static class ServiceCollectionExtensions
 {
     public static void AddGatewayServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // add mediatR and tell it to scan this assembly
+        // add MediatR and tell it to scan this assembly
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+    }
+
+    public static void AddUniversityMicroservices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IAuthorizationClientFactory, AuthorizationClientFactory>();
+
+        services.AddScoped<IAuthorizationClient>(sp =>
+        {
+            var factory = sp.GetRequiredService<IAuthorizationClientFactory>();
+
+            var baseAddress = configuration.GetSecretOrThrow<string>("MicroserviceBaseAddress:Authorization");
+            var apiKey = configuration.GetSecretOrThrow<string>("ApiKeys:Authorization");
+
+            return factory.Create(baseAddress, apiKey);
+        });
     }
 
     public static void AddGatewaySwaggerConfiguration(this IServiceCollection services)
@@ -24,11 +43,9 @@ public static class ServiceCollectionExtensions
                 Version = GatewaySwaggerConstants.APIVersion,
                 Description = GatewaySwaggerConstants.APIDescription,
             });
-
-            sa.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             sa.OperationFilter<SharedApiKeyHeaderOperationFilter>();
             var apiXmlPath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-            var contractXmlPath = Path.Combine(AppContext.BaseDirectory, $"{AssemblyName.GetAssemblyName(typeof(Class1).Assembly.Location).Name}.xml");
+            var contractXmlPath = Path.Combine(AppContext.BaseDirectory, $"{AssemblyName.GetAssemblyName(typeof(AuthenticateRequest).Assembly.Location).Name}.xml");
 
             sa.IncludeXmlComments(apiXmlPath, includeControllerXmlComments: true);
             sa.IncludeXmlComments(contractXmlPath);

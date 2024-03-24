@@ -17,6 +17,8 @@ public interface IAuthorizationClient
     /// <returns></returns>
     Task AuthenticateAsync(string email, CancellationToken cancellationToken = default);
 
+    Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default);
+
     Task GetUserRoleAsync(string email, CancellationToken cancellationToken = default);
 
     Task GetUserAsync(string email, CancellationToken cancellationToken = default);

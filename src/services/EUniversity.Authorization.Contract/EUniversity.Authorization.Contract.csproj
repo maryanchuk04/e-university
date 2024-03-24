@@ -11,6 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EUniversity.Authorization.Data\EUniversity.Authorization.Data.csproj" />
+        <ProjectReference Include="..\EUniversity.Core\EUniversity.Core.csproj" />
         <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
     </ItemGroup>
 

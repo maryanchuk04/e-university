@@ -21,8 +21,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EUniversity.Authorization.Contract\EUniversity.Authorization.Contract.csproj" />
         <ProjectReference Include="..\EUniversity.Gateway.Contract\EUniversity.Gateway.Contract.csproj" />
         <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Queries\" />
+    </ItemGroup>
 </Project>

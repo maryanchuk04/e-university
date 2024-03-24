@@ -11,9 +11,4 @@
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Folder Include="Responses\" />
-        <Folder Include="Requests\" />
-    </ItemGroup>
-
 </Project>

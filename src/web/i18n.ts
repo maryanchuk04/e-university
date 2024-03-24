@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
-import { supportedLanguages } from './core/models/Language';
+import { supportedLanguages } from './core/models/language';
 
 const locales = supportedLanguages;
 

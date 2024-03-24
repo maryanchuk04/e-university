@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EUniversity.Gateway.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +17,13 @@ public class AuthenticationController(
     /// <summary>
     /// Authenticate user endpoint
     /// </summary>
-    /// <param name="email"></param>
+    /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> AuthenticateAsync([FromQuery, Required] string email, CancellationToken cancellationToken)
+    public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("[AuthenticationController]: Received request to authenticate user = {Email}", email);
+        _logger.LogInformation("[AuthenticationController]: Received request to authenticate user = {Email}", request.Email);
         return Ok();
     }
 }

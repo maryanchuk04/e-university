@@ -1,5 +1,5 @@
 import createMiddleware from 'next-intl/middleware';
-import { defaultLanguage, supportedLanguages } from './core/models/Language';
+import { defaultLanguage, supportedLanguages } from './core/models/language';
 import { NextRequest } from 'next/server';
 
 const I18nMiddleware = createMiddleware({
