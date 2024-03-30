@@ -1,6 +1,6 @@
 ﻿using System.Text.Encodings.Web;
-using BizPlanner.AuthorizationMiddleware.Extensions;
-using BizPlanner.AuthorizationMiddleware.Options;
+using EUniversity.Shared.Extensions;
+using EUniversity.Shared.Options;
 using EUniversity.Shared.Swagger;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;

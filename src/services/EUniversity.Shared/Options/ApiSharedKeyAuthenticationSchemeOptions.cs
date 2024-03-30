@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 
-namespace BizPlanner.AuthorizationMiddleware.Options;
+namespace EUniversity.Shared.Options;
 
 /// <summary>
 /// Options for ApiSharedKeyAuthenticationSchemeOptions

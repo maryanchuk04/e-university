@@ -1,9 +1,9 @@
-﻿using BizPlanner.AuthorizationMiddleware.Options;
-using EUniversity.Shared.Handlers;
+﻿using EUniversity.Shared.Handlers;
+using EUniversity.Shared.Options;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BizPlanner.AuthorizationMiddleware.Extensions;
+namespace EUniversity.Shared.Extensions;
 
 public static class ApiSharedKeyAuthenticationExtensions
 {
