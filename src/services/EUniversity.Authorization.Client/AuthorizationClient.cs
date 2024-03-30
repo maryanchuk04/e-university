@@ -1,7 +1,6 @@
-﻿
-using EUniversity.Shared.Extensions;
+﻿using EUniversity.Shared.Extensions;
 
-namespace EUniversity.Authorization.Contract.Clients;
+namespace EUniversity.Authorization.Client;
 
 public class AuthorizationClient(HttpClient httpClient) : IAuthorizationClient
 {
@@ -13,7 +12,7 @@ public class AuthorizationClient(HttpClient httpClient) : IAuthorizationClient
     /// <inheritdoc/>
     public Task AuthenticateAsync(string email, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return _httpClient.PostAsync(AutheticateRoute, null, cancellationToken);
     }
 
     public Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default)
@@ -36,6 +35,6 @@ public class AuthorizationClient(HttpClient httpClient) : IAuthorizationClient
     /// <inheritdoc/>
     public Task RegisterUserAsync(string email, CancellationToken cancellationToken = default)
     {
-        return _httpClient.PostAsync(RegistrationRoute, null,cancellationToken: cancellationToken);
+        return _httpClient.PostAsync(RegistrationRoute, null, cancellationToken: cancellationToken);
     }
 }

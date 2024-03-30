@@ -1,4 +1,5 @@
-﻿using EUniversity.Gateway.Contract.Requests;
+﻿using EUniversity.Gateway.Api.Commands;
+using EUniversity.Gateway.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ public class AuthenticationController(
     public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("[AuthenticationController]: Received request to authenticate user = {Email}", request.Email);
+        await _mediator.Send(new AuthenticateUserCommand(request), cancellationToken);
         return Ok();
     }
 }

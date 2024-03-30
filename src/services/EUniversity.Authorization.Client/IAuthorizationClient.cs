@@ -1,4 +1,4 @@
-﻿namespace EUniversity.Authorization.Contract.Clients;
+﻿namespace EUniversity.Authorization.Client;
 
 public interface IAuthorizationClient
 {

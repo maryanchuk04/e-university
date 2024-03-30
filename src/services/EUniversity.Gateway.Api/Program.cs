@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 // Configure services
 // ****************************************
 builder.Services.AddGatewayServices(builder.Configuration);
+builder.Services.AddUniversityMicroservices(builder.Configuration);
 builder.Services.AddGatewaySwaggerConfiguration();
 builder.Services.AddCorrelationIdTrackingServices();
 

@@ -1,4 +1,4 @@
-﻿using EUniversity.Authorization.Contract.Clients;
+﻿using EUniversity.Authorization.Client;
 using EUniversity.Gateway.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;
@@ -14,12 +14,12 @@ public class AuthenticateUserCommandHandler(IAuthorizationClient authorizationCl
 {
     private readonly IAuthorizationClient _authorizationClient = authorizationClient.ThrowIfNull();
 
-    public Task<string> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
+    public async Task<string> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
     {
         command.ThrowIfNull().request.ThrowIfNull();
 
-        //await _authorizationClient.AuthenticateAsync();
-        return Task.FromResult("");
+        await _authorizationClient.AuthenticateAsync(command.request.Email, cancellationToken);
+        return string.Empty;
     }
 }
 

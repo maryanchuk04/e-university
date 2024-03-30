@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using EUniversity.Authorization.Contract.Clients;
-using EUniversity.Authorization.Contract.Factories;
+using EUniversity.Authorization.Client;
+using EUniversity.Authorization.Client.Factories;
 using EUniversity.Gateway.Api.Swagger;
-using EUniversity.Gateway.Contract;
 using EUniversity.Gateway.Contract.Requests;
 using EUniversity.Shared.Exceptions;
 using EUniversity.Shared.Swagger;
@@ -22,7 +21,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IAuthorizationClientFactory, AuthorizationClientFactory>();
 
-        services.AddScoped<IAuthorizationClient>(sp =>
+        services.AddScoped(sp =>
         {
             var factory = sp.GetRequiredService<IAuthorizationClientFactory>();
 

@@ -1,8 +1,7 @@
 ﻿using System.Net.Http.Headers;
-using EUniversity.Authorization.Contract.Clients;
 using EUniversity.Shared.Swagger;
 
-namespace EUniversity.Authorization.Contract.Factories;
+namespace EUniversity.Authorization.Client.Factories;
 
 /// <summary>
 /// Factory that`s create instance of IAuthorizationClient.
