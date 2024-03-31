@@ -7,14 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 // ****************************************
 builder.Services.AddAuthorizationServices(builder.Configuration);
 
+// ****************************************
+// Swagger settings
+// ****************************************
+builder.Services.AddAuthenticationServiceSwaggerConfiguration();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseAuthorizationSwaggerUI();
 
 app.UseCors(x =>
 {
@@ -24,9 +28,8 @@ app.UseCors(x =>
 });
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

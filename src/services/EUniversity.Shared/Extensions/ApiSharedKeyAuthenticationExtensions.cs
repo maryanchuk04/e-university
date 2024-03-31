@@ -1,4 +1,5 @@
-﻿using EUniversity.Shared.Handlers;
+﻿using EUniversity.Shared.Constants;
+using EUniversity.Shared.Handlers;
 using EUniversity.Shared.Options;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,16 +8,19 @@ namespace EUniversity.Shared.Extensions;
 
 public static class ApiSharedKeyAuthenticationExtensions
 {
-    public const string AuthenticationSchemeName = "Api Shared Key Scheme";
-    private const string AuthenticationSchemeDisplayName = "Api Shared Key Authentication Scheme";
+    public const string AuthenticationSchemeName = SharedApiKeyContants.SchemeName;
+    private const string AuthenticationSchemeDisplayName = SharedApiKeyContants.SchemeDisplayName;
 
     /// <summary>
     /// Add Pre-Shared Key Authorization to an IServiceCollection.
     /// </summary>
     public static IServiceCollection AddPreSharedKeyAuthorization(this IServiceCollection services, string preSharedKeyValue)
     {
+        Console.WriteLine($"------------------------ API KEY = {preSharedKeyValue} ------------------------");
         services
-            .AddAuthentication(options => options.AddSharedKeyScheme());
+            .AddAuthentication(options => options.AddSharedKeyScheme())
+            .AddSharedKeyAuthentication(x => x.PreSharedKeyValue = preSharedKeyValue);
+
         return services;
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using EUniversity.Shared.Constants;
 using EUniversity.Shared.Swagger;
 
 namespace EUniversity.Authorization.Client.Factories;
@@ -20,7 +21,7 @@ public class AuthorizationClientFactory : IAuthorizationClientFactory
         {
             BaseAddress = new Uri(baseAddress)
         };
-        httpClient.DefaultRequestHeaders.TryAddWithoutValidation(ApiKeyConstants.HeaderName, apiKey);
+        httpClient.DefaultRequestHeaders.TryAddWithoutValidation(SharedApiKeyContants.HeaderName, apiKey);
         httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

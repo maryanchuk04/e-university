@@ -1,4 +1,5 @@
-﻿using EUniversity.Shared.Extensions;
+﻿using EUniversity.Shared.Constants;
+using EUniversity.Shared.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace EUniversity.Authorization.Api.Controllers;
 
 [ApiController]
 [Route("api/authenticate")]
-[Authorize]
+[Authorize(AuthenticationSchemes = SharedApiKeyContants.SchemeName)]
 public class AuthenticationController(ILogger<AuthenticationController> logger) : ControllerBase
 {
     private readonly ILogger<AuthenticationController> _logger = logger.ThrowIfNull();
