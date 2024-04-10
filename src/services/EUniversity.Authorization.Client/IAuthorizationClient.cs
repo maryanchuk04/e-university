@@ -1,4 +1,7 @@
-﻿namespace EUniversity.Authorization.Client;
+﻿using EUniversity.Authorization.Contract.Requests;
+using EUniversity.Authorization.Contract.Response;
+
+namespace EUniversity.Authorization.Client;
 
 public interface IAuthorizationClient
 {
@@ -12,10 +15,10 @@ public interface IAuthorizationClient
     /// <summary>
     /// Authenticate user.
     /// </summary>
-    /// <param name="email">User email.</param>
+    /// <param name="request">Auth request with information about user.</param>
     /// <param name="cancellationToken">Cancellation Token.</param>
     /// <returns></returns>
-    Task AuthenticateAsync(string email, CancellationToken cancellationToken = default);
+    Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request, CancellationToken cancellationToken = default);
 
     Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default);
 

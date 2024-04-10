@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EUniversity.Authorization.Contract\EUniversity.Authorization.Contract.csproj" />
     <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
   </ItemGroup>
 

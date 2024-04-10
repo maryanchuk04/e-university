@@ -1,25 +1,28 @@
 ﻿using EUniversity.Authorization.Client;
+using EUniversity.Gateway.Contract.Models;
 using EUniversity.Gateway.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;
 
 namespace EUniversity.Gateway.Api.Commands;
 
-public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest<string>
+public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest<TokenDTO>
 {
     public AuthenticateRequest request = request.ThrowIfNull();
 }
 
-public class AuthenticateUserCommandHandler(IAuthorizationClient authorizationClient) : IRequestHandler<AuthenticateUserCommand, string>
+public class AuthenticateUserCommandHandler(IAuthorizationClient authorizationClient) : IRequestHandler<AuthenticateUserCommand, TokenDTO>
 {
     private readonly IAuthorizationClient _authorizationClient = authorizationClient.ThrowIfNull();
 
-    public async Task<string> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
+    public async Task<TokenDTO> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
     {
-        command.ThrowIfNull().request.ThrowIfNull();
+        var request = command.ThrowIfNull().request.ThrowIfNull();
 
-        await _authorizationClient.AuthenticateAsync(command.request.Email, cancellationToken);
-        return string.Empty;
+        if (!request.IsEmailVerified)
+            throw new Exception($"Email = {request.Email} in not verified!");
+        await _authorizationClient.AuthenticateAsync(
+            new Authorization.Contract.Requests.AuthenticateRequest(request.Email, request.Picture), cancellationToken);
     }
 }
 
