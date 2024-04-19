@@ -1,6 +1,7 @@
 ﻿using EUniversity.Authorization.Api.Queries;
 using EUniversity.Authorization.Contract.Exceptions;
 using EUniversity.Authorization.Contract.Requests;
+using EUniversity.Authorization.Contract.Response;
 using EUniversity.Authorization.Contract.Services;
 using EUniversity.Authorization.Data;
 using EUniversity.Authorization.Data.Models;
@@ -10,19 +11,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EUniversity.Authorization.Api.Commands;
 
-public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest
+public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest<AuthenticateResponse>
 {
     public string Email { get; set; } = request.Email;
     public string Picture { get; set; } = request.Picture;
 }
 
-public class AuthenticateUserCommandHandler(IMediator mediator, ITokenGenerator tokenGenerator, AuthorizationDbContext db) : IRequestHandler<AuthenticateUserCommand>
+public class AuthenticateUserCommandHandler(
+    IMediator mediator,
+    ITokenGenerator tokenGenerator,
+    AuthorizationDbContext db,
+    ILogger<AuthenticateUserCommandHandler> logger)
+    : IRequestHandler<AuthenticateUserCommand, AuthenticateResponse>
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
     private readonly ITokenGenerator _tokenGenerator = tokenGenerator.ThrowIfNull();
     private readonly AuthorizationDbContext _db = db.ThrowIfNull();
+    private readonly ILogger<AuthenticateUserCommandHandler> _logger = logger.ThrowIfNull();
 
-    public async Task Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
+    public async Task<AuthenticateResponse> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
     {
         Guid userId = Guid.Empty;
 
@@ -31,6 +38,8 @@ public class AuthenticateUserCommandHandler(IMediator mediator, ITokenGenerator 
             // Register user if it not already exist.
             userId = await _mediator.Send(new RegisterUserCommand(command.Email, command.Picture), cancellationToken);
         }
+
+        _logger.LogInformation("Starting login for new user with email = '{Email}'", command.Email);
 
         User user;
         if (userId == Guid.Empty)
@@ -49,6 +58,19 @@ public class AuthenticateUserCommandHandler(IMediator mediator, ITokenGenerator 
             .Select(ur => ur.RoleId)
             .ToListAsync(cancellationToken: cancellationToken);
 
-        var accessToken = _tokenGenerator.GenerateAccessToken(user.Id, user.Email, userRoles);
+        var accessToken = _tokenGenerator.GenerateAccessToken(userId, user.Email, userRoles);
+        var refreshToken = _tokenGenerator.GenerateRefreshToken();
+
+        await _db.UserTokens.AddAsync(new UserToken
+        {
+            Token = refreshToken,
+            TokenType = Data.Enums.TokenType.RefreshToken,
+            CreatedOn = DateTime.UtcNow,
+            ExpiredOn = DateTime.UtcNow.AddDays(15),
+            IsActive = true,
+        }, cancellationToken);
+        await _db.SaveChangesAsync(cancellationToken);
+
+        return new AuthenticateResponse(userId, accessToken, refreshToken);
     }
-} 
+}

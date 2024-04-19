@@ -37,8 +37,16 @@ public class RegisterUserCommandHandler(ILogger<RegisterUserCommandHandler> logg
             // TODO: Add Some logic with separation to different groups...
 
             var userId = (await _db.Users.AddAsync(user, cancellationToken)).Entity.Id;
+
+            await _db.UserRoles.AddAsync(new UserRole
+            {
+                UserId = userId,
+                RoleId = Core.Enums.Role.User,
+            }, cancellationToken);
+
             await _db.SaveChangesAsync(cancellationToken);
 
+            _logger.LogInformation("Successfully register new user with email = '{Email}'", request.Email);
             return userId;
         }
         catch (Exception ex)

@@ -1,9 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
-using EUniversity.Authorization.Data.Models;
-using EUniversity.Shared.Auth.Settings;
 using EUniversity.Shared.Authentication.Models;
+using EUniversity.Shared.Authentication.Settings;
 using EUniversity.Shared.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -12,15 +12,27 @@ namespace EUniversity.Authorization.Contract.Services;
 
 public interface ITokenGenerator
 {
+    /// <summary>
+    /// Generate access token for user.
+    /// </summary>
+    /// <param name="userId">UserId.</param>
+    /// <param name="email">User email.</param>
+    /// <param name="roles">User roles.</param>
+    /// <returns>JWT Access token with user information.</returns>
     string GenerateAccessToken(Guid userId, string email, IList<Core.Enums.Role> roles);
 
-    string GenerateRefreshToken(UserRole userRole);
+    /// <summary>
+    /// Generate refresh token.
+    /// </summary>
+    /// <returns>Refresh token (in base64string format).</returns>
+    string GenerateRefreshToken();
 }
 
 public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
 {
     private readonly JwtSettings _jwtSettings = jwtSettings.ThrowIfNull().Value.ThrowIfNull();
 
+    // <inheritdoc />
     public string GenerateAccessToken(Guid userId, string email, IList<Core.Enums.Role> roles)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -28,8 +40,6 @@ public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, userId.ToString()),
-            new(ClaimTypes.Email, email),
             new(EUniversityClaimTypes.Email, email),
             new(EUniversityClaimTypes.UserId, userId.ToString())
         };
@@ -52,8 +62,14 @@ public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
         return tokenHandler.WriteToken(token);
     }
 
-    public string GenerateRefreshToken(UserRole userRole)
+    // <inheritdoc />
+    public string GenerateRefreshToken()
     {
-        throw new NotImplementedException();
+        var randomNumber = new byte[32];
+        using var rng = RandomNumberGenerator.Create();
+
+        rng.GetBytes(randomNumber);
+
+        return Convert.ToBase64String(randomNumber);
     }
 }

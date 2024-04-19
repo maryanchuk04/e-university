@@ -25,6 +25,6 @@ public class AuthorizationClientFactory : IAuthorizationClientFactory
         httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        return new AuthorizationClient(httpClient);
+        return new AuthorizationClient("", null, null);
     }
 }

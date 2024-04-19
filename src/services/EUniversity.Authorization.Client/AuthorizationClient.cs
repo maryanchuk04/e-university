@@ -1,18 +1,16 @@
-﻿using System.Net.Http;
-using EUniversity.Authorization.Contract.Requests;
+﻿using EUniversity.Authorization.Contract.Requests;
 using EUniversity.Authorization.Contract.Response;
 using EUniversity.Core.Http;
-using EUniversity.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace EUniversity.Authorization.Client;
 
 public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>, IAuthorizationClient
 {
-    private const string RegistrationRoute = "/api/registration";
     private const string AutheticateRoute = "/api/authenticate";
 
-    public AuthorizationClient(string endpoint,
+    public AuthorizationClient(
+        string endpoint,
         IHttpClientFactory httpClientFactory,
         ILogger<AuthorizationClient> logger,
         TimeSpan? timeout = null)
@@ -21,9 +19,9 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
     }
 
     /// <inheritdoc/>
-    public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request, CancellationToken cancellationToken = default)
+    public Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request, CancellationToken cancellationToken = default)
     {
-        await PostAsync(AutheticateRoute, request, cancellationToken);
+        return PostAsync<AuthenticateRequest, AuthenticateResponse>(AutheticateRoute, request);
     }
 
     public Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default)
@@ -41,11 +39,5 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
     public Task GetUserRoleAsync(string email, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
-    }
-
-    /// <inheritdoc/>
-    public Task RegisterUserAsync(string email, CancellationToken cancellationToken = default)
-    {
-        return _httpClient.PostAsync(RegistrationRoute, null, cancellationToken: cancellationToken);
     }
 }

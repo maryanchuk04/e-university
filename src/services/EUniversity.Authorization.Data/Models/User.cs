@@ -6,6 +6,6 @@ public class User
     public string Email { get; set; }
     public string Picture { get; set; }
 
-    public virtual ICollection<UserRole> UserRoles { get; set; }
+    public virtual UserRole UserRole { get; set; }
     public virtual ICollection<UserToken> UserTokens { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿using EUniversity.Authorization.Contract.Services;
 using EUniversity.Core.Enums;
-using EUniversity.Shared.Auth.Settings;
+using EUniversity.Shared.Authentication.Settings;
 using Microsoft.Extensions.Options;
 using Moq;
 

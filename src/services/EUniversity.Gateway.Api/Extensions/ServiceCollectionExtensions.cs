@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using EUniversity.Authorization.Client;
 using EUniversity.Authorization.Client.Factories;
 using EUniversity.Gateway.Api.Swagger;
 using EUniversity.Gateway.Contract.Requests;
