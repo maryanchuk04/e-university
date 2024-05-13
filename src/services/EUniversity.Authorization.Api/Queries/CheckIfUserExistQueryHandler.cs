@@ -10,10 +10,10 @@ public class CheckIfUserExistQuery(string email) : IRequest<bool>
     public string Email { get; set; } = email;
 }
 
-public class CheckIfUserExistQueryHandler(ILogger<CheckIfUserExistQueryHandler> logger)
+public class CheckIfUserExistQueryHandler(ILogger<CheckIfUserExistQueryHandler> logger, AuthorizationDbContext db)
     : IRequestHandler<CheckIfUserExistQuery, bool>
 {
-    //private readonly AuthorizationDbContext _db = db.ThrowIfNull();
+    private readonly AuthorizationDbContext _db = db.ThrowIfNull();
     private readonly ILogger<CheckIfUserExistQueryHandler> _logger = logger.ThrowIfNull();
 
     public async Task<bool> Handle(CheckIfUserExistQuery query, CancellationToken cancellationToken)

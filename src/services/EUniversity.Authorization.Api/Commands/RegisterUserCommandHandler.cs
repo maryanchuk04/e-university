@@ -44,6 +44,12 @@ public class RegisterUserCommandHandler(ILogger<RegisterUserCommandHandler> logg
                 RoleId = Core.Enums.Role.User,
             }, cancellationToken);
 
+            await _db.UserPermissions.AddAsync(new UserPermission
+            {
+                UserId = user.Id,
+                PermissionId = _db.Permissions.Single(p => p.Type == PermissionType.NoAccess).Id
+            }, cancellationToken);
+
             await _db.SaveChangesAsync(cancellationToken);
 
             _logger.LogInformation("Successfully register new user with email = '{Email}'", request.Email);

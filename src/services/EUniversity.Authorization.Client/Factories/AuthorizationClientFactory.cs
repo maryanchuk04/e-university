@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using EUniversity.Shared.Constants;
+using EUniversity.Shared.Extensions;
 using EUniversity.Shared.Swagger;
+using Microsoft.Extensions.Logging;
 
 namespace EUniversity.Authorization.Client.Factories;
 
@@ -13,18 +15,13 @@ public interface IAuthorizationClientFactory
 }
 
 /// <inheritdoc/>
-public class AuthorizationClientFactory : IAuthorizationClientFactory
+public class AuthorizationClientFactory(IHttpClientFactory httpClientFactory, ILogger<AuthorizationClient> logger) : IAuthorizationClientFactory
 {
+    private readonly IHttpClientFactory _httpClientFactory = httpClientFactory.ThrowIfNull();
+    private readonly ILogger<AuthorizationClient> _logger = logger.ThrowIfNull();
+
     public IAuthorizationClient Create(string baseAddress, string apiKey)
     {
-        var httpClient = new HttpClient
-        {
-            BaseAddress = new Uri(baseAddress)
-        };
-        httpClient.DefaultRequestHeaders.TryAddWithoutValidation(SharedApiKeyContants.HeaderName, apiKey);
-        httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
-        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-        return new AuthorizationClient("", null, null);
+        return new AuthorizationClient(baseAddress, apiKey, _httpClientFactory, _logger);
     }
 }

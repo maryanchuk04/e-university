@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 using EUniversity.Core.Exceptions;
+using EUniversity.Shared.Constants;
 using EUniversity.Shared.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ public abstract class MicroservicesClientBase<T>
 {
     private readonly Uri _endpointUri;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly string ApiKey;
     private readonly TimeSpan _defaultClientTimeout = TimeSpan.FromSeconds(100);
 
     protected ILogger<T> _logger { get; private set; }
@@ -29,6 +31,7 @@ public abstract class MicroservicesClientBase<T>
         string endpoint,
         IHttpClientFactory httpClientFactory,
         ILogger<T> logger,
+        string apiKey = null,
         TimeSpan? timeout = null)
     {
         if (!Uri.TryCreate(endpoint, UriKind.Absolute, out var endpointUri))
@@ -40,6 +43,9 @@ public abstract class MicroservicesClientBase<T>
         _httpClientFactory = httpClientFactory.ThrowIfNull();
 
         _endpointUri = endpointUri;
+
+        if (!string.IsNullOrEmpty(apiKey))
+            ApiKey = apiKey;
 
         if (timeout?.TotalSeconds == 0)
         {
@@ -97,6 +103,9 @@ public abstract class MicroservicesClientBase<T>
         http.BaseAddress = _endpointUri;
         http.Timeout = timeout ?? _defaultClientTimeout;
         http.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+        if (string.IsNullOrEmpty(ApiKey))
+            http.DefaultRequestHeaders.TryAddWithoutValidation(SharedApiKeyContants.HeaderName, ApiKey);
 
         return http;
     }

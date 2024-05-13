@@ -21,13 +21,15 @@ public class AuthenticateUserCommandHandler(
     IMediator mediator,
     ITokenGenerator tokenGenerator,
     AuthorizationDbContext db,
-    ILogger<AuthenticateUserCommandHandler> logger)
+    ILogger<AuthenticateUserCommandHandler> logger,
+    IPermissionsService permissionsService)
     : IRequestHandler<AuthenticateUserCommand, AuthenticateResponse>
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
     private readonly ITokenGenerator _tokenGenerator = tokenGenerator.ThrowIfNull();
     private readonly AuthorizationDbContext _db = db.ThrowIfNull();
     private readonly ILogger<AuthenticateUserCommandHandler> _logger = logger.ThrowIfNull();
+    private readonly IPermissionsService _permissionsService = permissionsService.ThrowIfNull();
 
     public async Task<AuthenticateResponse> Handle(AuthenticateUserCommand command, CancellationToken cancellationToken)
     {
@@ -56,9 +58,16 @@ public class AuthenticateUserCommandHandler(
         var userRoles = await _db.UserRoles
             .Where(ur => ur.UserId == user.Id)
             .Select(ur => ur.RoleId)
+            .Distinct()
             .ToListAsync(cancellationToken: cancellationToken);
 
-        var accessToken = _tokenGenerator.GenerateAccessToken(userId, user.Email, userRoles);
+        var userPermissions = await _db.UserPermissions
+            .Include(p => p.Permission)
+            .Where(p => p.UserId == user.Id)
+            .Select(p => p.Permission.Name)
+            .ToListAsync(cancellationToken: cancellationToken);
+
+        var accessToken = _tokenGenerator.GenerateAccessToken(user.Id, user.Email, userRoles, userPermissions);
         var refreshToken = _tokenGenerator.GenerateRefreshToken();
 
         await _db.UserTokens.AddAsync(new UserToken
@@ -71,6 +80,6 @@ public class AuthenticateUserCommandHandler(
         }, cancellationToken);
         await _db.SaveChangesAsync(cancellationToken);
 
-        return new AuthenticateResponse(userId, accessToken, refreshToken);
+        return new AuthenticateResponse(user.Id, accessToken, refreshToken);
     }
 }

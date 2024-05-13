@@ -29,7 +29,7 @@ public class AuthenticateUserCommandHandler(
         try
         {
             var authResponse = await _authorizationClient.AuthenticateAsync(
-            new Authorization.Contract.Requests.AuthenticateRequest(request.Email, request.Picture), cancellationToken);
+                new Authorization.Contract.Requests.AuthenticateRequest(request.Email, request.Picture), cancellationToken);
 
             return new AuthenticateResponse(authResponse.AccessToken, authResponse.RefreshToken, authResponse.UserId);
         }

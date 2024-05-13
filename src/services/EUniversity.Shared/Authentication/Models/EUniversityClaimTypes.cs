@@ -9,5 +9,6 @@ public static class EUniversityClaimTypes
 
     public const string UserId = $"{BaseUrl}/userId";
     public const string Permissions = $"{BaseUrl}/permissions";
+    public const string Roles = $"{BaseUrl}/roles";
     public const string Email = $"{BaseUrl}/email";
 }

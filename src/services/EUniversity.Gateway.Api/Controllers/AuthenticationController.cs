@@ -18,14 +18,11 @@ public class AuthenticationController(
     /// <summary>
     /// Authenticate user endpoint
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("[AuthenticationController]: Received request to authenticate user = {Email}", request.Email);
-        await _mediator.Send(new AuthenticateUserCommand(request), cancellationToken);
-        return Ok();
+        var res = await _mediator.Send(new AuthenticateUserCommand(request), cancellationToken);
+        return Ok(res);
     }
 }

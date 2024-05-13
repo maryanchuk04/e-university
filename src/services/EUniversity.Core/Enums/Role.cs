@@ -5,7 +5,8 @@ public enum Role
 {
     User = 0,
     Student = 1,
-    ScheduleAdmin = 2,
-    FacultyAdmin = 4,
-    Admin = 8,
+    Teacher = 2,
+    ScheduleAdmin = 4,
+    FacultyAdmin = 8,
+    Admin = 16,
 }

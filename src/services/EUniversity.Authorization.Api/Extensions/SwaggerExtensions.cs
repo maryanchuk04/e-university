@@ -2,7 +2,6 @@
 using EUniversity.Authorization.Api.Swagger;
 using EUniversity.Authorization.Contract.Requests;
 using EUniversity.Shared.Swagger;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.OpenApi.Models;
 
 namespace EUniversity.Authorization.Api.Extensions;

@@ -11,10 +11,11 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
 
     public AuthorizationClient(
         string endpoint,
+        string apiKey,
         IHttpClientFactory httpClientFactory,
         ILogger<AuthorizationClient> logger,
         TimeSpan? timeout = null)
-        : base(endpoint, httpClientFactory, logger, timeout)
+        : base(endpoint, httpClientFactory, logger, apiKey, timeout)
     {
     }
 
@@ -24,6 +25,7 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
         return PostAsync<AuthenticateRequest, AuthenticateResponse>(AutheticateRoute, request);
     }
 
+    /// <inheritdoc/>
     public Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();

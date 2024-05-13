@@ -8,4 +8,5 @@ public class User
 
     public virtual UserRole UserRole { get; set; }
     public virtual ICollection<UserToken> UserTokens { get; set; }
+    public virtual ICollection<UserPermission> UserPermissions { get; set; }
 }

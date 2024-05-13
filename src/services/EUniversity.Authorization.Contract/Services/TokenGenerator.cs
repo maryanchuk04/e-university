@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using EUniversity.Authorization.Data.Models;
 using EUniversity.Shared.Authentication.Models;
 using EUniversity.Shared.Authentication.Settings;
 using EUniversity.Shared.Extensions;
@@ -18,8 +19,9 @@ public interface ITokenGenerator
     /// <param name="userId">UserId.</param>
     /// <param name="email">User email.</param>
     /// <param name="roles">User roles.</param>
+    /// <param name="permissions">User Permissions.</param>
     /// <returns>JWT Access token with user information.</returns>
-    string GenerateAccessToken(Guid userId, string email, IList<Core.Enums.Role> roles);
+    string GenerateAccessToken(Guid userId, string email, IList<Core.Enums.Role> roles, IList<string> permissions);
 
     /// <summary>
     /// Generate refresh token.
@@ -33,7 +35,7 @@ public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
     private readonly JwtSettings _jwtSettings = jwtSettings.ThrowIfNull().Value.ThrowIfNull();
 
     // <inheritdoc />
-    public string GenerateAccessToken(Guid userId, string email, IList<Core.Enums.Role> roles)
+    public string GenerateAccessToken(Guid userId, string email, IList<Core.Enums.Role> roles, IList<string> permissions)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_jwtSettings.Key);
@@ -46,7 +48,12 @@ public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
 
         foreach (var role in roles)
         {
-            claims.Add(new Claim(EUniversityClaimTypes.Permissions, role.ToString()));
+            claims.Add(new Claim(EUniversityClaimTypes.Roles, role.ToString()));
+        }
+
+        foreach (var permission in permissions)
+        {
+            claims.Add(new Claim(EUniversityClaimTypes.Permissions, permission));
         }
 
         var tokenDescriptor = new SecurityTokenDescriptor
