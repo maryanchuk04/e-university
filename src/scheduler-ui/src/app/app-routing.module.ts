@@ -2,13 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthenticateComponent } from './auth/authenticate/authenticate.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 const routes: Routes = [
     {
         path: 'authenticate',
         component: AuthenticateComponent,
+    },
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard-routing.module').then((m) => m.DashboardRoutingModule),
     }
-
 ];
 
 @NgModule({

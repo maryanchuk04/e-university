@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 
-import { BaseComponent } from './components/base.component';
+import { BaseComponent } from './components/base/base.component';
 
 @NgModule({
     declarations: [BaseComponent],

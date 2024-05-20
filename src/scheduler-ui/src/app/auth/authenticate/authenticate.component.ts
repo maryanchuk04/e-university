@@ -4,7 +4,7 @@ import { EMPTY, takeUntil } from 'rxjs';
 
 import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 
-import { BaseComponent } from '../../shared/components/base.component';
+import { BaseComponent } from '../../shared/components/base/base.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
