@@ -26,8 +26,9 @@ internal class TokenGeneratorTests
         var userId = Guid.NewGuid();
         var email = "lion20914king@gmail.com";
         var roles = new List<Role> { Role.User, Role.FacultyAdmin };
+        var permissions = new List<string> { "permission" };
 
-        var res = _tokenGenerator.GenerateAccessToken(userId, email, roles);
+        var res = _tokenGenerator.GenerateAccessToken(userId, email, roles, permissions);
 
         Assert.That(res, Is.Not.Empty);
     }

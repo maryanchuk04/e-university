@@ -1,4 +1,4 @@
-﻿using EUniversity.Authorization.Api.Queries;
+﻿using EUniversity.Authorization.Api.Queries.Users;
 using EUniversity.Authorization.Contract.Exceptions;
 using EUniversity.Authorization.Contract.Requests;
 using EUniversity.Authorization.Contract.Response;

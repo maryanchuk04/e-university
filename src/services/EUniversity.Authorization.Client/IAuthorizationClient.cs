@@ -10,12 +10,15 @@ public interface IAuthorizationClient
     /// </summary>
     /// <param name="request">Auth request with information about user.</param>
     /// <param name="cancellationToken">Cancellation Token.</param>
-    /// <returns></returns>
     Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request, CancellationToken cancellationToken = default);
 
-    Task<bool> CheckIfUserExistAsync(string email, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Get user by email.
+    /// </summary>
+    Task<UserResponse> GetUserAsync(string email, CancellationToken cancellationToken = default);
 
-    Task GetUserRoleAsync(string email, CancellationToken cancellationToken = default);
-
-    Task GetUserAsync(string email, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Get user by id.
+    /// </summary>
+    Task<UserResponse> GetUserAsync(Guid userId, CancellationToken cancellationToken = default);
 }
