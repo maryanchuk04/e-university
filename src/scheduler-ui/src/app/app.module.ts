@@ -2,15 +2,21 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieService } from 'ngx-cookie-service';
 
+import { MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { Language } from './core/models/languages';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { SharedModule } from './shared/shared.module';
 
 export function LanguageLoader(translate: TranslateService, cookieService: CookieService): () => Promise<void> {
@@ -37,6 +43,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
         AppRoutingModule,
         SharedModule,
         AuthModule,
+        DashboardModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {
@@ -54,7 +61,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
             useFactory: LanguageLoader,
             multi: true,
             deps: [TranslateService, CookieService],
-        },
+        }
     ],
     bootstrap: [AppComponent],
 })
