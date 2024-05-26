@@ -11,6 +11,10 @@ module.exports = {
 				sm: '576px',
 				xs: '0px',
 			},
+            colors: {
+                primary: '#0047ab',
+                dark: '#181a29',
+            }
 		},
 	},
 	plugins: [],

@@ -12,5 +12,18 @@
     },
     "profile": {
         "label": "Профіль"
+    },
+    "dashboard": {
+        "hello": "Привіт, ",
+        "logout": "Вийти",
+        "my_day": {
+            "title": "Мій день",
+            "teacher_label": "Викладач: "
+        }
+    },
+    "chip": {
+        "online": "Онлайн",
+        "practice": "Практика",
+        "lecture": "Лекція"
     }
 }

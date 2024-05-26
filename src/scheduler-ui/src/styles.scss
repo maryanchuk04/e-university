@@ -4,7 +4,17 @@
 
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
 
-body{
+body {
     margin: 0;
+}
+
+*:focus {
+    box-shadow: none !important;
+}
+
+.app-container {
+    width: 93%;
+    margin: 0 auto;
 }

@@ -1,0 +1,24 @@
+header {
+    transition: height 0.5s ease-in-out;
+}
+
+header.h-auto {
+    height: calc(100vh - 8rem);
+}
+
+header .user-info {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+header .user-info.ng-hide {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.expanded-header {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    top: 0;
+}

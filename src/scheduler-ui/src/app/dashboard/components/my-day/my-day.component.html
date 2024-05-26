@@ -1,0 +1,30 @@
+<div id="my-day" class="">
+    <div class="flex justify-between items-center">
+        <h1 class="" translate="dashboard.my_day.title"></h1>
+        <p-tag class="text-2xl" [value]="today"/>
+    </div>
+
+    <div class="flex flex-col gap-3 overflow-y-auto h-[65vh] pr-2">
+        @for (lesson of myDay.lessons; track $index) {
+        <div id="lesson-{{$index}}" class="text-white bg-blue-400 p-2 px-4 rounded-xl">
+            <h2 class="mb-1 mt-0">{{lesson.name}}</h2>
+            <p class="my-0 mb-2" translate="dashboard.my_day.teacher_label"><span>{{lesson.teacher}}</span></p>
+            <div class="flex flex-wrap gap-2">
+                <p-chip [label]="lesson.startTime + ' - ' + lesson.endTime" icon="pi pi-clock" />
+                @if(lesson.isOnline){
+                    <p-chip [label]="'chip.online' | translate" icon="pi pi-desktop" />
+                } @else {
+                    <p-chip [label]="lesson.audience" icon="pi pi-map-marker"/>
+                }
+                @if(lesson.type === LessonType.Practice){
+                    <p-chip [label]="'chip.practice' | translate" />
+                }
+                @if(lesson.type === LessonType.Lecture){
+                    <p-chip [label]="'chip.lecture' | translate" />
+                }
+            </div>
+        </div>
+        }
+        <span class="mb-8"></span>
+    </div>
+</div>
