@@ -1,8 +1,10 @@
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { Component, OnInit } from '@angular/core';
 
-import { LessonType, mockMyDay } from '../../../core/models/lesson-view';
+import { LessonType, LessonView, mockMyDay } from '../../../core/models/lesson-view';
 import { toENDay, toUADay } from '../../../utils/date';
+import { LessonInfoModalComponent } from '../../lesson-info-modal/lesson-info-modal.component';
 
 @Component({
     selector: 'uni-my-day',
@@ -15,6 +17,8 @@ export class MyDayComponent implements OnInit {
     today: string;
     LessonType = LessonType;
 
+    constructor(private dialogService: DialogService) { }
+
     ngOnInit(): void {
         this.today = this.getToday();
     }
@@ -26,4 +30,8 @@ export class MyDayComponent implements OnInit {
         }
         return toENDay(new Date())
     };
+
+    openLessonModal(lesson: LessonView) {
+        this.dialogService.open(LessonInfoModalComponent, { data: { lesson }, header: lesson.name });
+    }
 }

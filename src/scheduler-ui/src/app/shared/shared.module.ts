@@ -4,6 +4,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { RippleModule } from 'primeng/ripple';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
@@ -37,9 +38,9 @@ import { NotificationsComponent } from './components/notifications/notifications
         RippleModule,
         ChipModule,
         MenuBarComponent,
-        TagModule
+        TagModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    providers: [MessageService],
+    providers: [MessageService, DialogService],
 })
 export class SharedModule { }

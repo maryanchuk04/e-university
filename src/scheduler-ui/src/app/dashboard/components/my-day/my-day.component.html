@@ -6,7 +6,7 @@
 
     <div class="flex flex-col gap-3 overflow-y-auto h-[65vh] pr-2">
         @for (lesson of myDay.lessons; track $index) {
-        <div id="lesson-{{$index}}" class="text-white bg-blue-400 p-2 px-4 rounded-xl">
+        <div (click)="openLessonModal(lesson)" id="lesson-{{$index}}" class="text-white bg-blue-400 p-2 px-4 rounded-xl">
             <h2 class="mb-1 mt-0">{{lesson.name}}</h2>
             <p class="my-0 mb-2" translate="dashboard.my_day.teacher_label"><span>{{lesson.teacher}}</span></p>
             <div class="flex flex-wrap gap-2">
