@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { EMPTY, takeUntil, } from 'rxjs';
 
-import { EMPTY, takeUntil } from 'rxjs';
+import { GoogleLoginProvider, SocialAuthService, } from '@abacritt/angularx-social-login';
+import { BreakpointObserver, BreakpointState, } from '@angular/cdk/layout';
+import { Component, OnInit, } from '@angular/core';
 
-import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
-
-import { BaseComponent } from '../../shared/components/base/base.component';
-import { AuthService } from '../services/auth.service';
+import { MediaService, ScreenSize, } from '../../core/services/media.service';
+import { BaseComponent, } from '../../shared/components/base/base.component';
+import { AuthService, } from '../services/auth.service';
 
 @Component({
     selector: 'uni-authenticate',
     templateUrl: './authenticate.component.html',
 })
 export class AuthenticateComponent extends BaseComponent implements OnInit {
-    constructor(private socialAuthService: SocialAuthService, private authService: AuthService) {
+    ScreenSize = ScreenSize;
+
+    constructor(
+        private socialAuthService: SocialAuthService,
+        private authService: AuthService,
+        private media: MediaService
+    ) {
         super();
     }
 
@@ -28,4 +35,6 @@ export class AuthenticateComponent extends BaseComponent implements OnInit {
     login() {
         this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(() => EMPTY);
     }
+
+    getScreenSize = () => this.media.getScreenSize();
 }

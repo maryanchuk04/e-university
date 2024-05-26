@@ -1,8 +1,8 @@
 {
-    "maxLineLength": 140,
-    "quoteMark": "single",
-    "tabSize": 4,
-    "insertFinalNewline": true,
-    "maxBindingNamesPerLine": 0,
-    "maxDefaultAndBindingNamesPerLine": 0
+	"maxLineLength": 140,
+	"quoteMark": "single",
+	"tabSize": 4,
+	"insertFinalNewline": true,
+	"maxBindingNamesPerLine": 0,
+	"maxDefaultAndBindingNamesPerLine": 0
 }
