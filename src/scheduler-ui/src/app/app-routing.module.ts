@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthenticateComponent } from './auth/authenticate/authenticate.component';
-import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 const routes: Routes = [
     {
@@ -17,6 +16,10 @@ const routes: Routes = [
     {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard-routing.module').then((m) => m.DashboardRoutingModule),
+    },
+    {
+        path: 'schedule',
+        loadChildren: () => import('./schedule/schedule-routing.module').then((m) => m.ScheduleRoutingModule)
     }
 ];
 
@@ -24,4 +27,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

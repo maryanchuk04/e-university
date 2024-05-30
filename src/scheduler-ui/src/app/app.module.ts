@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { Language } from './core/models/languages';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ScheduleModule } from './schedule/schedule.module';
 import { SharedModule } from './shared/shared.module';
 
 export function LanguageLoader(translate: TranslateService, cookieService: CookieService): () => Promise<void> {
@@ -42,6 +43,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
         SharedModule,
         AuthModule,
         DashboardModule,
+        ScheduleModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {

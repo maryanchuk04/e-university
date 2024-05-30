@@ -8,15 +8,15 @@ interface MenuItem {
 const navigationLinks: MenuItem[] = [
     {
         icon: 'pi-home',
-        link: '/'
+        link: '/dashboard'
     },
     {
         icon: 'pi-calendar-clock',
-        link: 'schedule',
+        link: '/schedule',
     },
     {
         icon: 'pi-calendar-clock',
-        link: 'schedule',
+        link: '/other',
     }
 ]
 
