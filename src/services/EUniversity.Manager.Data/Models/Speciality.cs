@@ -2,7 +2,7 @@
 
 namespace EUniversity.Manager.Data.Models;
 
-public class Faculty : BaseEntity
+public class Speciality : BaseEntity
 {
     public Guid Id { get; set; }
 
@@ -10,8 +10,6 @@ public class Faculty : BaseEntity
 
     public string Description { get; set; }
 
-    public string Adress { get; set; }
-
-    public Guid DeanId { get; set; }
-    public virtual Teacher Dean { get; set; }
+    public Guid FacultyId { get; set; }
+    public Faculty Faculty { get; set; }
 }

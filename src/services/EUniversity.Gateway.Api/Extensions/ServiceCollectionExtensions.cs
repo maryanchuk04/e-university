@@ -18,6 +18,7 @@ public static class ServiceCollectionExtensions
 
     public static void AddUniversityMicroservices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddHttpClient();
         services.AddScoped<IAuthorizationClientFactory, AuthorizationClientFactory>();
 
         services.AddScoped(sp =>

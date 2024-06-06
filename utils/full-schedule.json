@@ -1,0 +1,42 @@
+// Schedule for semester (All Groups)
+{
+    "semesterNumber": "1",
+    "startDate": "Some date",
+    "endDate": "End Date",
+    "schedule": {
+        "evenWeek": {
+            "groups": [
+                {
+                    "id": "",
+                    "name": "",
+                    "students": [], // Array of students
+                    "days": [
+                        {
+                            "day": "1",
+                            "lessons": [
+                                {
+                                    "id": "",
+                                    "teacher": {},
+                                    "room": ""
+                                    // Other fields
+                                }
+                            ]
+                        },
+                        {
+                            "day": "2",
+                            "lessons": [
+                                {
+                                    "id": "",
+                                    "teacher": {},
+                                    "room": ""
+                                    // Other fields
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "oddWeek": []
+    }
+}

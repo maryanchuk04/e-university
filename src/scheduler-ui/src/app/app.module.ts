@@ -6,7 +6,10 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-    TranslateLoader, TranslateModule, TranslateService, TranslateStore,
+    TranslateLoader,
+    TranslateModule,
+    TranslateService,
+    TranslateStore,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -18,8 +21,11 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { SharedModule } from './shared/shared.module';
 
-export function LanguageLoader(translate: TranslateService, cookieService: CookieService): () => Promise<void> {
-    let promise = new Promise<void>((resolve) => {
+export function LanguageLoader(
+    translate: TranslateService,
+    cookieService: CookieService
+): () => Promise<void> {
+    let promise = new Promise<void>(resolve => {
         const cookieLang = cookieService.get('skLanguageCode');
         const browserLang = cookieLang || translate.getBrowserLang();
         const lang = browserLang?.match(/en|ua/) ? browserLang : Language.ua;
@@ -66,4 +72,4 @@ export function TranslationLoaderFactory(http: HttpClient) {
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,0 +1,16 @@
+// Group Schedule per one Day
+{
+    "group": {
+        "name": "",
+        "id": ""
+    },
+    "day": "1",
+    "lessons": [
+        {
+            "id": "",
+            "teacher": {},
+            "room": ""
+            // Other fields
+        }
+    ]
+}
