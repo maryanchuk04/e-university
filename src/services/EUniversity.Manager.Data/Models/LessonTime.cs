@@ -1,4 +1,4 @@
-﻿namespace EUniversity.Manager.Data.Models;
+﻿namespace EUniversity.Schedule.Manager.Data.Models;
 
 public class LessonTime
 {

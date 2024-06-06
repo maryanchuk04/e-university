@@ -1,12 +1,29 @@
-﻿using EUniversity.Manager.Data.Models;
-using EUniversity.Manager.Data.Models.Base;
+﻿using EUniversity.Schedule.Manager.Data.Models;
+using EUniversity.Schedule.Manager.Data.Models.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace EUniversity.Manager.Data;
+namespace EUniversity.Schedule.Manager.Data;
 
-public class UniversityManagerContext : DbContext
+public class UniversityManagerContext : DbContext, IUniversityScheduleManagerContext
 {
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+    }
+
+    public DbSet<Week> Weeks { get; set; }
+    public DbSet<TimeTable> TimeTables { get; set; }
     public DbSet<Subject> Subjects { get; set; }
+    public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<Speciality> Specialities { get; set; }
+    public DbSet<Faculty> Faculties { get; set; }
+    public DbSet<LessonTime> LessonTimes { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Models.Schedule> Schedules { get; set; }
+    public DbSet<Semester> Semesters { get; set; }
+    public DbSet<Room> Rooms { get; set; }
 
     #region Context Modifications
 

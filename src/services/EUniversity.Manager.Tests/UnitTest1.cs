@@ -1,4 +1,4 @@
-namespace EUniversity.Manager.Tests;
+namespace EUniversity.Schedule.Manager.Tests;
 
 public class Tests
 {

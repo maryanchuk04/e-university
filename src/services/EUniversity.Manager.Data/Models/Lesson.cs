@@ -1,7 +1,8 @@
 ﻿using EUniversity.Core.Enums;
-using EUniversity.Manager.Data.Models.Base;
+using EUniversity.Schedule.Manager.Data.Models;
+using EUniversity.Schedule.Manager.Data.Models.Base;
 
-namespace EUniversity.Manager.Data.Models;
+namespace EUniversity.Schedule.Manager.Data.Models;
 
 public class Lesson : BaseEntity
 {

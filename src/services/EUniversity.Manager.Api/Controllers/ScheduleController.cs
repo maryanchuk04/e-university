@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EUniversity.Manager.Api.Controllers;
+namespace EUniversity.Schedule.Manager.Api.Controllers;
 
 [ApiController]
 [Route("api/schedule")]

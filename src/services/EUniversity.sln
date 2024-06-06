@@ -17,15 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Shared", "EUniv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Gateway.Contract", "EUniversity.Gateway.Contract\EUniversity.Gateway.Contract.csproj", "{ED2B82FD-4BD5-4447-9E50-B078A2E1057A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eUniversityManager", "eUniversityManager", "{B617B9D4-A48A-4966-B0C3-AF1B46FFE4E6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eUniversityScheduleManager", "eUniversityScheduleManager", "{B617B9D4-A48A-4966-B0C3-AF1B46FFE4E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Manager.Api", "EUniversity.Manager.Api\EUniversity.Manager.Api.csproj", "{4D8CFB9B-A9BE-494C-A0E0-22AD548486CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Schedule.Manager.Api", "EUniversity.Manager.Api\EUniversity.Schedule.Manager.Api.csproj", "{4D8CFB9B-A9BE-494C-A0E0-22AD548486CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Manager.Contract", "EUniversity.Manager.Contract\EUniversity.Manager.Contract.csproj", "{E8A7FCB9-3132-4F4E-AB2C-BBE66C67F2E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Schedule.Manager.Contract", "EUniversity.Manager.Contract\EUniversity.Schedule.Manager.Contract.csproj", "{E8A7FCB9-3132-4F4E-AB2C-BBE66C67F2E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Manager.Tests", "EUniversity.Manager.Tests\EUniversity.Manager.Tests.csproj", "{1C2D4251-B20F-4521-8524-B708376B1595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Schedule.Manager.Tests", "EUniversity.Manager.Tests\EUniversity.Schedule.Manager.Tests.csproj", "{1C2D4251-B20F-4521-8524-B708376B1595}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Manager.Data", "EUniversity.Manager.Data\EUniversity.Manager.Data.csproj", "{31465509-41F5-40CA-B766-D52E24BD5146}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Schedule.Manager.Data", "EUniversity.Manager.Data\EUniversity.Schedule.Manager.Data.csproj", "{31465509-41F5-40CA-B766-D52E24BD5146}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eUniversityAuthorization", "eUniversityAuthorization", "{70835381-D655-4C40-85DF-E0CA9B1D5509}"
 EndProject
@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Authorization.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Core", "EUniversity.Core\EUniversity.Core.csproj", "{6F97128B-0FD8-4482-A55E-131340A40132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EUniversity.Authorization.Client", "EUniversity.Authorization.Client\EUniversity.Authorization.Client.csproj", "{88067E24-C6DC-47C4-B846-5C6FB538F012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Authorization.Client", "EUniversity.Authorization.Client\EUniversity.Authorization.Client.csproj", "{88067E24-C6DC-47C4-B846-5C6FB538F012}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9C3066A-77EE-4593-A7FF-3DFC27A2036D}"
 	ProjectSection(SolutionItems) = preProject

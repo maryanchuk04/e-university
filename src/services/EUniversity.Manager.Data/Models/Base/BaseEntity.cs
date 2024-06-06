@@ -1,4 +1,4 @@
-﻿namespace EUniversity.Manager.Data.Models.Base;
+﻿namespace EUniversity.Schedule.Manager.Data.Models.Base;
 
 public class BaseEntity
 {
