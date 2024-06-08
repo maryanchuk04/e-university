@@ -1,5 +1,4 @@
-﻿
-using EUniversity.Schedule.Gateway.Api.Commands;
+﻿using EUniversity.Schedule.Gateway.Api.Commands.Authentication;
 using EUniversity.Schedule.Gateway.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;

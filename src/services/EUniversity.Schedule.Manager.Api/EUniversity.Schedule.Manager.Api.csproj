@@ -30,8 +30,4 @@
       <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Queries\" />
-    </ItemGroup>
-
 </Project>

@@ -46,6 +46,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EUniversity.Schedule.Manager.Client", "EUniversity.Schedule.Manager.Client\EUniversity.Schedule.Manager.Client.csproj", "{C6562E6D-6924-4151-B46E-B91C9B715B50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +110,10 @@ Global
 		{88067E24-C6DC-47C4-B846-5C6FB538F012}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88067E24-C6DC-47C4-B846-5C6FB538F012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88067E24-C6DC-47C4-B846-5C6FB538F012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6562E6D-6924-4151-B46E-B91C9B715B50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6562E6D-6924-4151-B46E-B91C9B715B50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6562E6D-6924-4151-B46E-B91C9B715B50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6562E6D-6924-4151-B46E-B91C9B715B50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{86F18743-82F0-4B26-A110-CAD1838A786C} = {70835381-D655-4C40-85DF-E0CA9B1D5509}
 		{6F97128B-0FD8-4482-A55E-131340A40132} = {39177E39-6D88-499D-A926-893E08FB178D}
 		{88067E24-C6DC-47C4-B846-5C6FB538F012} = {70835381-D655-4C40-85DF-E0CA9B1D5509}
+		{C6562E6D-6924-4151-B46E-B91C9B715B50} = {B617B9D4-A48A-4966-B0C3-AF1B46FFE4E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D99B5A6-2546-404B-94DD-3CA811DE3B54}

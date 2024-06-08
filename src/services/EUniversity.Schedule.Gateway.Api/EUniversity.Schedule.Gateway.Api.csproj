@@ -24,6 +24,7 @@
         <ProjectReference Include="..\EUniversity.Authorization.Client\EUniversity.Authorization.Client.csproj" />
         <ProjectReference Include="..\EUniversity.Authorization.Contract\EUniversity.Authorization.Contract.csproj" />
         <ProjectReference Include="..\EUniversity.Schedule.Gateway.Contract\EUniversity.Schedule.Gateway.Contract.csproj" />
+        <ProjectReference Include="..\EUniversity.Schedule.Manager.Client\EUniversity.Schedule.Manager.Client.csproj" />
         <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
     </ItemGroup>
 

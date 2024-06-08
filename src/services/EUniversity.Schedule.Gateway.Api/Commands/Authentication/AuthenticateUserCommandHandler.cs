@@ -4,7 +4,7 @@ using EUniversity.Schedule.Gateway.Contract.Responses;
 using EUniversity.Shared.Extensions;
 using MediatR;
 
-namespace EUniversity.Schedule.Gateway.Api.Commands;
+namespace EUniversity.Schedule.Gateway.Api.Commands.Authentication;
 
 public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest<AuthenticateResponse>
 {

@@ -17,14 +17,14 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
         IHttpClientFactory httpClientFactory,
         ILogger<AuthorizationClient> logger,
         TimeSpan? timeout = null)
-        : base(endpoint, httpClientFactory, logger, apiKey, timeout)
+        : base(endpoint, apiKey, httpClientFactory, logger,timeout)
     {
     }
 
     /// <inheritdoc />
     public Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request, CancellationToken cancellationToken = default)
     {
-        return PostAsync<AuthenticateRequest, AuthenticateResponse>(AutheticateRoute, request);
+        return PostAsync<AuthenticateRequest, AuthenticateResponse>(AutheticateRoute, request, cancellationToken: cancellationToken);
     }
 
     /// <inheritdoc />

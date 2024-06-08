@@ -2,6 +2,7 @@
 using EUniversity.Authorization.Client.Factories;
 using EUniversity.Schedule.Gateway.Api.Swagger;
 using EUniversity.Schedule.Gateway.Contract.Requests;
+using EUniversity.Schedule.Manager.Client.Factories;
 using EUniversity.Shared.Exceptions;
 using EUniversity.Shared.Swagger;
 using Microsoft.OpenApi.Models;
@@ -27,6 +28,18 @@ public static class ServiceCollectionExtensions
 
             var baseAddress = configuration.GetSecretOrThrow<string>("MicroserviceBaseAddress:Authorization");
             var apiKey = configuration.GetSecretOrThrow<string>("ApiKeys:Authorization");
+
+            return factory.Create(baseAddress, apiKey);
+        });
+
+        services.AddScoped<IScheduleManagerClientFactory, ScheduleManagerClientFactory>();
+
+        services.AddScoped(sp =>
+        {
+            var factory = sp.GetRequiredService<IScheduleManagerClientFactory>();
+
+            var baseAddress = configuration.GetSecretOrThrow<string>("MicroserviceBaseAddress:Manager");
+            var apiKey = configuration.GetSecretOrThrow<string>("ApiKeys:Manager");
 
             return factory.Create(baseAddress, apiKey);
         });

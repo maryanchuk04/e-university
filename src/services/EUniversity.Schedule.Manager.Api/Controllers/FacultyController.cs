@@ -2,6 +2,8 @@
 using EUniversity.Core.Error;
 using EUniversity.Schedule.Manager.Api.Commands.Faculty;
 using EUniversity.Schedule.Manager.Api.Error;
+using EUniversity.Schedule.Manager.Api.Queries;
+using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;
@@ -16,8 +18,15 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
     private readonly IMediator _mediator = mediator.ThrowIfNull();
     private readonly ILogger<FacultyController> _logger = logger.ThrowIfNull();
 
+    [HttpGet]
+    public async Task<ActionResult<IList<FacultyDto>>> GetFacultiesAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Get faculties was executed");
+        return Ok(await _mediator.Send(new GetFacultiesQuery(), cancellationToken));
+    }
+
     [HttpPost]
-    public async Task<IActionResult> CreateFacultyAsync([FromBody] CreateFacultyRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<Guid>> CreateFacultyAsync([FromBody] CreateFacultyRequest request, CancellationToken cancellationToken)
     {
         try
         {
@@ -35,7 +44,7 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
 
     [HttpPost]
     [Route("{facultyId:guid}/timetable")]
-    public async Task<IActionResult> CreateFacultyTimeTable(Guid facultyId, [FromBody] CreateTimeTableRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateFacultyTimeTableAsync(Guid facultyId, [FromBody] CreateTimeTableRequest request, CancellationToken cancellationToken)
     {
         try
         {
