@@ -16,6 +16,7 @@ public class Teacher : BaseEntity
     public Guid UserId { get; set; }
 
     public ICollection<Lesson> Lessons { get; set; }
+    public ICollection<TeacherFaculty> TeacherFaculties { get; set; }
 
     public bool IsDisabled { get; set; } = false;
 }

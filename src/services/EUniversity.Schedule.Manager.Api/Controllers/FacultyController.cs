@@ -1,12 +1,11 @@
-﻿using EUniversity.Core.Error;
+﻿using System.Net;
+using EUniversity.Core.Error;
+using EUniversity.Schedule.Manager.Api.Commands.Faculty;
 using EUniversity.Schedule.Manager.Api.Error;
-using System.Net;
 using EUniversity.Schedule.Manager.Contract.Requests;
 using EUniversity.Shared.Extensions;
-using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using EUniversity.Schedule.Manager.Api.Commands.Faculty;
-using EUniversity.Schedule.Manager.Api.Commands.TimeTable;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EUniversity.Schedule.Manager.Api.Controllers;
 
@@ -24,8 +23,8 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
         {
             request.ThrowIfNull();
 
-            await _mediator.Send(new CreateFacultyCommand(request), cancellationToken);
-            return Ok();
+            var facultyId = await _mediator.Send(new CreateFacultyCommand(request), cancellationToken);
+            return Ok(facultyId);
         }
         catch (ArgumentNullException ex)
         {
@@ -43,7 +42,7 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
             request.ThrowIfNull();
             facultyId.ThrowIfNullOrDefault();
 
-            await _mediator.Send(new CreateTimeTableCommand(facultyId, request), cancellationToken);
+            await _mediator.Send(new CreateFacultyTimeTableCommand(facultyId, request), cancellationToken);
 
             return Ok();
         }

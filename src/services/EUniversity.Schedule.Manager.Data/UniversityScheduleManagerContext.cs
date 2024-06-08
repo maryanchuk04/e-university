@@ -20,6 +20,7 @@ public class UniversityScheduleManagerContext(DbContextOptions options)
     public DbSet<Models.Schedule> Schedules { get; set; }
     public DbSet<Semester> Semesters { get; set; }
     public DbSet<Room> Rooms { get; set; }
+    public DbSet<TeacherFaculty> TeacherFaculties { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

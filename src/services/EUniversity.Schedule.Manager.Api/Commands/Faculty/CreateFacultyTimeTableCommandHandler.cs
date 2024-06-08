@@ -8,14 +8,14 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TimeTableEntity = EUniversity.Schedule.Manager.Data.Models.TimeTable;
 
-namespace EUniversity.Schedule.Manager.Api.Commands.TimeTable;
+namespace EUniversity.Schedule.Manager.Api.Commands.Faculty;
 
-internal class CreateTimeTableCommand : IRequest<Unit>
+internal class CreateFacultyTimeTableCommand : IRequest<Unit>
 {
     public Guid FacultyId { get; }
     public List<LessonTimeDetails> LessonTimeDetails { get; }
 
-    public CreateTimeTableCommand(Guid facultyId, CreateTimeTableRequest request)
+    public CreateFacultyTimeTableCommand(Guid facultyId, CreateTimeTableRequest request)
     {
         request.ThrowIfNull();
 
@@ -24,11 +24,11 @@ internal class CreateTimeTableCommand : IRequest<Unit>
     }
 }
 
-internal class CreateTimeTableCommandHandler(UniversityScheduleManagerContext db) : IRequestHandler<CreateTimeTableCommand, Unit>
+internal class CreateFacultyTimeTableCommandHandler(UniversityScheduleManagerContext db) : IRequestHandler<CreateFacultyTimeTableCommand, Unit>
 {
     private readonly UniversityScheduleManagerContext _db = db.ThrowIfNull();
 
-    public async Task<Unit> Handle(CreateTimeTableCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(CreateFacultyTimeTableCommand command, CancellationToken cancellationToken)
     {
         var faculty = await _db.Faculties
             .AsNoTracking()

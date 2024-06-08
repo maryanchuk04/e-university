@@ -20,4 +20,5 @@ public class Faculty : BaseEntity
 
     public ICollection<Speciality> Specialities { get; set; }
     public ICollection<Room> Rooms { get; set; }
+    public ICollection<TeacherFaculty> TeacherFaculties { get; set; }
 }

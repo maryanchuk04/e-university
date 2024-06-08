@@ -1,6 +1,8 @@
-﻿namespace EUniversity.Schedule.Manager.Data.Models;
+﻿using EUniversity.Schedule.Manager.Data.Models.Base;
 
-public class LessonTime
+namespace EUniversity.Schedule.Manager.Data.Models;
+
+public class LessonTime : BaseEntity
 {
     public Guid Id { get; set; }
     public int LessonNumber { get; set; }
