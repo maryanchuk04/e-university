@@ -1,12 +1,12 @@
-import { EMPTY, takeUntil, } from 'rxjs';
+import { EMPTY, takeUntil } from 'rxjs';
 
-import { GoogleLoginProvider, SocialAuthService, } from '@abacritt/angularx-social-login';
-import { BreakpointObserver, BreakpointState, } from '@angular/cdk/layout';
-import { Component, OnInit, } from '@angular/core';
+import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { MediaService, ScreenSize, } from '../../core/services/media.service';
-import { BaseComponent, } from '../../shared/components/base/base.component';
-import { AuthService, } from '../services/auth.service';
+import { MediaService, ScreenSize } from '../../core/services/media.service';
+import { BaseComponent } from '../../shared/components/base/base.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'uni-authenticate',
@@ -18,17 +18,22 @@ export class AuthenticateComponent extends BaseComponent implements OnInit {
     constructor(
         private socialAuthService: SocialAuthService,
         private authService: AuthService,
-        private media: MediaService
+        private media: MediaService,
+        private router: Router,
     ) {
         super();
     }
 
     ngOnInit(): void {
         this.socialAuthService.authState.pipe(takeUntil(this.destroy$)).subscribe((user) => {
+            console.log('work');
             this.authService
-                .authenticate({ email: user.email, picture: user.photoUrl, name: user.name })
+                .authenticate({ email: user.email, picture: user.photoUrl, })
                 .pipe(takeUntil(this.destroy$))
-                .subscribe((x) => console.log(x));
+                .subscribe(() => {
+
+                    this.router.navigate(['/']);
+                });
         });
     }
 

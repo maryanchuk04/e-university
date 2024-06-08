@@ -23,9 +23,6 @@ public class AuthenticateUserCommandHandler(
     {
         var request = command.ThrowIfNull().request.ThrowIfNull();
 
-        if (!request.IsEmailVerified)
-            throw new Exception($"Email = {request.Email} in not verified!");
-
         try
         {
             var authResponse = await _authorizationClient.AuthenticateAsync(
@@ -33,9 +30,9 @@ public class AuthenticateUserCommandHandler(
 
             return new AuthenticateResponse(authResponse.AccessToken, authResponse.RefreshToken, authResponse.UserId);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            _logger.LogError(ex, "Unnable to authenticate user with email = '{Email}'", request.Email);
             throw;
         }
     }

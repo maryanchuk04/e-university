@@ -4,7 +4,5 @@ public class AuthenticateRequest
 {
     public string Email { get; set; }
 
-    public bool IsEmailVerified { get; set; }
-
     public string Picture { get; set; }
 }

@@ -1,10 +1,14 @@
 ﻿using System.Reflection;
+using System.Text;
 using EUniversity.Authorization.Client.Factories;
 using EUniversity.Schedule.Gateway.Api.Swagger;
 using EUniversity.Schedule.Gateway.Contract.Requests;
 using EUniversity.Schedule.Manager.Client.Factories;
+using EUniversity.Shared.Authentication.Settings;
 using EUniversity.Shared.Exceptions;
 using EUniversity.Shared.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace EUniversity.Schedule.Gateway.Api.Extensions;
@@ -61,6 +65,34 @@ public static class ServiceCollectionExtensions
 
             sa.IncludeXmlComments(apiXmlPath, includeControllerXmlComments: true);
             sa.IncludeXmlComments(contractXmlPath);
+        });
+    }
+
+    public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+        var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("JwtSettings:Key"));
+        var issuer = configuration.GetValue<string>("JwtSettings:Issuer");
+        var audience = configuration.GetValue<string>("JwtSettings:Audience");
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = true;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = issuer,
+                ValidAudience = audience,
+                IssuerSigningKey = new SymmetricSecurityKey(key)
+            };
         });
     }
 }

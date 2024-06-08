@@ -17,20 +17,30 @@ builder.Services.AddGatewayServices(builder.Configuration);
 builder.Services.AddUniversityMicroservices(builder.Configuration);
 builder.Services.AddGatewaySwaggerConfiguration();
 builder.Services.AddCorrelationIdTrackingServices();
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("GatewayPolicy",
+        builder =>
+        {
+            builder.WithOrigins(allowedOrigins)
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCorrelationIdTrackingMiddleware();
-app.UseCors(x =>
-{
-    x.AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowAnyOrigin();
-});
+app.UseCors("GatewayPolicy");
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

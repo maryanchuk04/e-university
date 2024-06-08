@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using EUniversity.Authorization.Data.Models;
 using EUniversity.Shared.Authentication.Models;
 using EUniversity.Shared.Authentication.Settings;
 using EUniversity.Shared.Extensions;
@@ -59,7 +58,8 @@ public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-
+            Audience = jwtSettings.Value.Audience,
+            Issuer = jwtSettings.Value.Issuer,
             Expires = DateTime.UtcNow.AddMinutes(30),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EUniversity.Schedule.Gateway.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class UserController : ControllerBase
 {
     /// <summary>
@@ -16,23 +18,23 @@ public class UserController : ControllerBase
         return Ok();
     }
 
-    /// <summary>
-    /// Retrieve User by Id
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    public IActionResult GetByid(Guid Id)
-    {
-        return Ok();
-    }
+    ///// <summary>
+    ///// Retrieve User by Id
+    ///// </summary>
+    ///// <returns></returns>
+    //[HttpGet]
+    //public IActionResult GetByid(Guid Id)
+    //{
+    //    return Ok();
+    //}
 
-    /// <summary>
-    /// Retrieve Current user by access token.
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    public IActionResult GetCurrentUser()
-    {
-        return Ok();
-    }
+    ///// <summary>
+    ///// Retrieve Current user by access token.
+    ///// </summary>
+    ///// <returns></returns>
+    //[HttpGet]
+    //public IActionResult GetCurrentUser()
+    //{
+    //    return Ok();
+    //}
 }

@@ -11,7 +11,7 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
     [HttpGet]
     public async Task<ActionResult> GetAllFacultiesAsync(CancellationToken cancellationToken)
     {
-        logger.LogInformation("Get all faculties was called in Gateway");
+        logger.LogInformation("[FacultyController]: Get all faculties was called in Gateway");
         return Ok(await mediator.Send(new GetAllFacultiesQuery(), cancellationToken));
     }
 }

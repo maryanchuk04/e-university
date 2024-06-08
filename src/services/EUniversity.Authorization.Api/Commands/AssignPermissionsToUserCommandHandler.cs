@@ -14,9 +14,10 @@ public class AssignPermissionsToUserCommand(Guid userId, PermissionType[] permis
     public PermissionType[] Permissions { get; set; } = permissions;
 }
 
-public class AssignPermissionsToUserCommandHandler(AuthorizationDbContext db) : IRequestHandler<AssignPermissionsToUserCommand>
+public class AssignPermissionsToUserCommandHandler(AuthorizationDbContext db, ILogger<AssignPermissionsToUserCommandHandler> logger) : IRequestHandler<AssignPermissionsToUserCommand>
 {
     private readonly AuthorizationDbContext _db = db.ThrowIfNull();
+    private readonly ILogger<AssignPermissionsToUserCommandHandler> _logger = logger.ThrowIfNull();
 
     public async Task Handle(AssignPermissionsToUserCommand command, CancellationToken cancellationToken)
     {
@@ -28,6 +29,42 @@ public class AssignPermissionsToUserCommandHandler(AuthorizationDbContext db) : 
             .ThenInclude(p => p.Permission)
             .SingleOrDefaultAsync(u => u.Id == command.UserId, cancellationToken)
             ?? throw new UserNotFoundException(command.UserId);
+
+        if (command.Permissions.Any(p => p == PermissionType.NoAccess))
+        {
+            _logger.LogInformation("Reset Permissions to NoAccess for UserId = '{UserId}'", user.Id);
+            // that means reset permision to NoAccess
+            user.UserPermissions =
+            [
+                new()
+                {
+                    PermissionId = _db.Permissions.First(p => p.Type == PermissionType.NoAccess).Id, UserId = user.Id
+                }
+            ];
+
+            _db.UserPermissions.UpdateRange(user.UserPermissions);
+            await _db.SaveChangesAsync(cancellationToken);
+
+            return;
+        }
+
+        if (command.Permissions.Any(p => p == PermissionType.FullAccess))
+        {
+            _logger.LogInformation("Set FullAccess permission for UserId = '{UserId}'", user.Id);
+            // that means this user should be ADMIN.
+            user.UserPermissions =
+            [
+                new()
+                {
+                    PermissionId = _db.Permissions.First(p => p.Type == PermissionType.FullAccess).Id, UserId = user.Id
+                }
+            ];
+
+            _db.UserPermissions.UpdateRange(user.UserPermissions);
+            await _db.SaveChangesAsync(cancellationToken);
+
+            return;
+        }
 
         var userPermissionTypes = user.UserPermissions.Select(p => p.Permission.Type);
 
