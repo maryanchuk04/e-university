@@ -12,5 +12,7 @@ public class Room : BaseEntity
 
     public Faculty Faculty { get; set; }
 
+    public ICollection<Lesson> Lessons { get; set; }
+
     public bool IsDisabled { get; set; }
 }

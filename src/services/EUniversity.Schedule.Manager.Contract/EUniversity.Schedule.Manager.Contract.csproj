@@ -11,4 +11,12 @@
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Exceptions\Faculty\" />
+    </ItemGroup>
+
 </Project>

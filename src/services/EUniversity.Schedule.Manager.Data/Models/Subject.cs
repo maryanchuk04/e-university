@@ -8,4 +8,6 @@ public class Subject : BaseEntity
     public string Name { get; set; }
 
     public bool IsDisabled { get; set; } = false;
+
+    public ICollection<Lesson> Lessons { get; set; }
 }

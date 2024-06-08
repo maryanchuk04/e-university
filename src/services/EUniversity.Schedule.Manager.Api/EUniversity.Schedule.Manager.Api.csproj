@@ -14,8 +14,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+        <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EUniversity.Schedule.Manager.Contract\EUniversity.Schedule.Manager.Contract.csproj" />
+      <ProjectReference Include="..\EUniversity.Schedule.Manager.Data\EUniversity.Schedule.Manager.Data.csproj" />
+      <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Queries\" />
     </ItemGroup>
 
 </Project>

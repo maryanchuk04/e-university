@@ -1,5 +1,4 @@
-﻿using EUniversity.Schedule.Manager.Data.Models;
-using EUniversity.Schedule.Manager.Data.Models.Base;
+﻿using EUniversity.Schedule.Manager.Data.Models.Base;
 
 namespace EUniversity.Schedule.Manager.Data.Models;
 
@@ -24,6 +23,7 @@ public class Group : BaseEntity
     public virtual Teacher Curator { get; set; }
 
     public ICollection<Student> Students { get; set; }
+    public ICollection<Lesson> Lessons { get; set; }
 
     public bool IsDisabled { get; set; } = false;
 }

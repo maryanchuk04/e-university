@@ -1,5 +1,4 @@
 ﻿using EUniversity.Core.Enums;
-using EUniversity.Schedule.Manager.Data.Models;
 using EUniversity.Schedule.Manager.Data.Models.Base;
 
 namespace EUniversity.Schedule.Manager.Data.Models;

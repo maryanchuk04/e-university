@@ -10,4 +10,6 @@ public class LessonTime
 
     public Guid TimeTableId { get; set; }
     public virtual TimeTable TimeTable { get; set; }
+
+    public ICollection<Lesson> Lessons { get; set; }
 }

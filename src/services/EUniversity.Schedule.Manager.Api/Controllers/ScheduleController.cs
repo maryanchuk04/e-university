@@ -18,4 +18,10 @@ public class ScheduleController : ControllerBase
         return Ok();
     }
 
+    [HttpPost]
+    public async Task<IActionResult> CreateFromJsonAsync(CancellationToken token)
+    {
+        await Task.CompletedTask;
+        return Ok();
+    }
 }
