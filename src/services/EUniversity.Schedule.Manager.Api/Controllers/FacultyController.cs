@@ -1,10 +1,10 @@
 ﻿using System.Net;
 using EUniversity.Core.Error;
 using EUniversity.Schedule.Manager.Api.Commands.Faculty;
-using EUniversity.Schedule.Manager.Api.Error;
-using EUniversity.Schedule.Manager.Api.Queries;
+using EUniversity.Schedule.Manager.Api.Queries.Faculty;
 using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
+using EUniversity.Shared.ErrorHandling;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

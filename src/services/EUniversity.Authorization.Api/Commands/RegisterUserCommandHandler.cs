@@ -1,14 +1,16 @@
 ﻿using EUniversity.Authorization.Data;
 using EUniversity.Authorization.Data.Models;
+using EUniversity.Core.Enums;
 using EUniversity.Shared.Extensions;
 using MediatR;
 
 namespace EUniversity.Authorization.Api.Commands;
 
-public class RegisterUserCommand(string email, string picture) : IRequest<Guid>
+public class RegisterUserCommand(string email, string picture, string fullName) : IRequest<Guid>
 {
     public string Email { get; set; } = email;
     public string Picture { get; set; } = picture;
+    public string FullName { get; set; } = fullName;
 }
 
 public class RegisterUserCommandHandler(ILogger<RegisterUserCommandHandler> logger, AuthorizationDbContext db) : IRequestHandler<RegisterUserCommand, Guid>
@@ -32,6 +34,7 @@ public class RegisterUserCommandHandler(ILogger<RegisterUserCommandHandler> logg
             {
                 Email = request.Email,
                 Picture = request.Picture,
+                FullName = request.FullName
             };
 
             // TODO: Add Some logic with separation to different groups...

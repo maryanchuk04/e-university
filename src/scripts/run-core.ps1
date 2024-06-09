@@ -1,11 +1,11 @@
 Write-Host "🔥🔥🔥 Magic start here: e-University 🔥🔥🔥"
 
-$portPattern = ":3000\s.+LISTENING\s+\d+$"
+$portPattern = ":4200\s.+LISTENING\s+\d+$"
 
 function Get-PidNumber() {
 	$pidNumberPattern = "\d+$"
 
-	$foundProcesses = netstat -ano | findstr :"3000"
+	$foundProcesses = netstat -ano | findstr :"4200"
 	$processes = $foundProcesses | Select-String -Pattern $portPattern
 	$firstMatch = $processes.Matches.Get(0).Value
 
@@ -30,8 +30,8 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 $authPath = Get-ServiceApiPath "Authorization"
-$gatewayPath = Get-ServiceApiPath "Gateway"
-$managerPath = Get-ServiceApiPath "Manager"
+$gatewayPath = Get-ServiceApiPath "Schedule.Gateway"
+$managerPath = Get-ServiceApiPath "Schedule.Manager"
 
 
 Write-Host "*************************🚀 Starting Authorization.Api 🚀*************************"
@@ -50,21 +50,21 @@ $gatewayServiceProcess = Start-Process -FilePath dotnet -ArgumentList "watch run
 Start-Sleep -Seconds 2
 
 # check to see if the UI is still running, and if so, don't launch another one.
-$foundUI = netstat -ano | findstr :"3000"
-Write-Host "*************************🔥 Starting College UI 🔥*************************"
+$foundUI = netstat -ano | findstr :"4200"
+Write-Host "*************************🔥 Starting Angular UI 🔥*************************"
 
 If ($foundUI | Select-String -Pattern $portPattern -Quiet) {
-	Write-Host "UI is already running on port 3000..."
+	Write-Host "UI is already running on port 4200..."
 	$pidNumber = Get-PidNumber
 	$webClientProcess = Get-Process -Id $pidNumber
 }
 Else {
-	Write-Host "************************* Starting Next UI *************************"
+	Write-Host "************************* Starting Angular UI *************************"
 	Set-Location $clientAppPath
 	Start-Process -FilePath npm -ArgumentList "run dev" -PassThru
 
 	Start-Sleep -Seconds 25
-	Start-Process "http://localhost:3000" -PassThru
+	Start-Process "http://localhost:4200" -PassThru
 	Set-Location $codePath
 
 	$pidNumber = Get-PidNumber
@@ -73,7 +73,7 @@ Else {
 }
 
 # Stop all process
-Read-Host -Prompt '🔥🛑 Press the <ANY> key to quit and kill backend services'
+Read-Host --Prompt "🔥🛑 Press the <ANY> key to quit and kill backend services"
 
 $authServiceProcess | Stop-Process -Force -ErrorAction SilentlyContinue
 $managerServiceProcess | Stop-Process -Force -ErrorAction SilentlyContinue

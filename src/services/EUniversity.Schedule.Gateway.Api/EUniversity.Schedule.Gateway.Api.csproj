@@ -15,6 +15,7 @@
 
     <ItemGroup>
         <PackageReference Include="CorrelationTracking" Version="0.0.2" />
+        <PackageReference Include="DateOnlyTimeOnly.AspNet" Version="2.1.1" />
         <PackageReference Include="MediatR" Version="12.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
@@ -27,6 +28,10 @@
         <ProjectReference Include="..\EUniversity.Schedule.Gateway.Contract\EUniversity.Schedule.Gateway.Contract.csproj" />
         <ProjectReference Include="..\EUniversity.Schedule.Manager.Client\EUniversity.Schedule.Manager.Client.csproj" />
         <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Queries\Users\Teachers\" />
     </ItemGroup>
 
 </Project>

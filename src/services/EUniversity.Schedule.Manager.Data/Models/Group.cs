@@ -16,11 +16,11 @@ public class Group : BaseEntity
     public Guid SpecialityId { get; set; }
     public Speciality Speciality { get; set; }
 
-    public Guid HeadStudentId { get; set; }
-    public virtual Student HeadStudent { get; set; }
+    public Guid? HeadStudentId { get; set; }
+    public virtual Student? HeadStudent { get; set; }
 
-    public Guid CuratorId { get; set; }
-    public virtual Teacher Curator { get; set; }
+    public Guid? CuratorId { get; set; }
+    public virtual Teacher? Curator { get; set; }
 
     public ICollection<Student> Students { get; set; }
     public ICollection<Lesson> Lessons { get; set; }

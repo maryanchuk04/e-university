@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using EUniversity.Core.Error;
-using EUniversity.Schedule.Manager.Api.Error;
+using EUniversity.Shared.ErrorHandling;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace EUniversity.Schedule.Manager.Api.ExceptionHandlers;

@@ -1,4 +1,4 @@
-﻿using EUniversity.Authorization.Data.Models;
+﻿using EUniversity.Core.Enums;
 
 namespace EUniversity.Authorization.Contract.Requests;
 

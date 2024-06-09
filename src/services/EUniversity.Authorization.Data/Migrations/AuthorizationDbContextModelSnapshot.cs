@@ -134,6 +134,10 @@ namespace EUniversity.Authorization.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -227,7 +231,7 @@ namespace EUniversity.Authorization.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("EUniversity.Authorization.Data.Models.User", "User")
-                        .WithMany()
+                        .WithMany("UserPermissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -265,6 +269,8 @@ namespace EUniversity.Authorization.Data.Migrations
 
             modelBuilder.Entity("EUniversity.Authorization.Data.Models.User", b =>
                 {
+                    b.Navigation("UserPermissions");
+
                     b.Navigation("UserRole")
                         .IsRequired();
 

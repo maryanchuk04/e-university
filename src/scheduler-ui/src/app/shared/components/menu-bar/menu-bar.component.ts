@@ -17,6 +17,10 @@ const navigationLinks: MenuItem[] = [
     {
         icon: 'pi-calendar-clock',
         link: '/other',
+    },
+    {
+        icon: 'pi-user',
+        link: '/profile ',
     }
 ]
 

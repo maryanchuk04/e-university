@@ -1,0 +1,13 @@
+﻿namespace EUniversity.Schedule.Manager.Contract.Models;
+
+public class StudentInfoDto
+{
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+    public Guid GroupId { get; set; }
+    public string GroupName { get; set; }
+    public Guid FacultyId { get; set; }
+    public string FacultyName { get; set; }
+    public Guid SpecialityId { get; set; }
+    public string SpecialityName { get; set; }
+}

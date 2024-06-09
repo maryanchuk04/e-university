@@ -1,5 +1,6 @@
 ﻿using EUniversity.Authorization.Data;
 using EUniversity.Authorization.Data.Models;
+using EUniversity.Core.Enums;
 using EUniversity.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 

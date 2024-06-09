@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using EUniversity.Core.Error;
 using EUniversity.Schedule.Manager.Api.Commands.Teacher;
-using EUniversity.Schedule.Manager.Api.Error;
 using EUniversity.Schedule.Manager.Contract.Requests;
+using EUniversity.Shared.ErrorHandling;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-
 import { MessageService } from 'primeng/api';
+
+import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ToastrService {
@@ -26,7 +26,12 @@ export class ToastrService {
         this.showMessage('contrast', summary, detail, sticky);
     }
 
-    private showMessage(severity: string, summary: string, detail: string, sticky = false) {
-        this.message.add({ severity, summary, detail, sticky })
+    private showMessage(
+        severity: string,
+        summary: string,
+        detail: string,
+        sticky = false
+    ) {
+        this.message.add({ severity, summary, detail, sticky });
     }
 }

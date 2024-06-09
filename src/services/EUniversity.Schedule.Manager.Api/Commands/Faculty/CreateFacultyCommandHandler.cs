@@ -19,7 +19,7 @@ public class CreateFacultyCommandHandler(UniversityScheduleManagerContext db) : 
 
     public async Task<Guid> Handle(CreateFacultyCommand command, CancellationToken cancellationToken)
     {
-        if (await _db.Faculties.AnyAsync(f => f.Name.Equals(command.Faculty.Name, StringComparison.CurrentCultureIgnoreCase), cancellationToken: cancellationToken))
+        if (await _db.Faculties.AnyAsync(f => f.Name.ToLower() == command.Faculty.Name.ToLower(), cancellationToken: cancellationToken))
             throw new EntityAlreadyExistException(nameof(FacultyEntity), command.Faculty.Name);
 
         var faculty = new FacultyEntity

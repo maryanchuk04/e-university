@@ -46,13 +46,18 @@ internal class CreateFacultyTimeTableCommandHandler(UniversityScheduleManagerCon
             EndAt = lessonTimeDetails.EndAt,
         }).ToList();
 
+        
+        var ttId = Guid.NewGuid();
+        faculty.TimeTableId = ttId;
+
         var timeTable = new TimeTableEntity
         {
-            Id = Guid.NewGuid(),
+            Id = ttId,
             FacultyId = faculty.Id,
             LessonTimes = lessonTimes,
         };
 
+        _db.Faculties.Update(faculty);
         await _db.TimeTables.AddAsync(timeTable, cancellationToken);
         await _db.SaveChangesAsync(cancellationToken);
 

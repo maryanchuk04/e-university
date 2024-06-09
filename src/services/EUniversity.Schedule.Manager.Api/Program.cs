@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure API services
 // *********************************
 builder.Services.ConfigureServices(builder.Configuration);
+builder.Services.AddDateOnlyTimeOnlyStringConverters();
 
 // *********************************
 // Add Custom Exception Handlers

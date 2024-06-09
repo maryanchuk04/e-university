@@ -7,8 +7,8 @@ public class LessonTime : BaseEntity
     public Guid Id { get; set; }
     public int LessonNumber { get; set; }
 
-    public DateTime StartAt { get; set; }
-    public DateTime EndAt { get; set; }
+    public TimeOnly StartAt { get; set; }
+    public TimeOnly EndAt { get; set; }
 
     public Guid TimeTableId { get; set; }
     public virtual TimeTable TimeTable { get; set; }

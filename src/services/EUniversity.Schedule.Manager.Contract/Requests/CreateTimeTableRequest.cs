@@ -1,6 +1,4 @@
-﻿using EUniversity.Shared.Extensions;
-
-namespace EUniversity.Schedule.Manager.Contract.Requests;
+﻿namespace EUniversity.Schedule.Manager.Contract.Requests;
 
 public class CreateTimeTableRequest
 {
@@ -18,7 +16,7 @@ public class LessonTimeDetails
 {
     public LessonTimeDetails() { }
 
-    public LessonTimeDetails(int lessonNumber, DateTime startAt, DateTime endAt)
+    public LessonTimeDetails(int lessonNumber, TimeOnly startAt, TimeOnly endAt)
     {
         LessonNumber = lessonNumber;
         StartAt = startAt;
@@ -26,6 +24,6 @@ public class LessonTimeDetails
     }
 
     public required int LessonNumber { get; set; }
-    public required DateTime StartAt { get; set; }
-    public required DateTime EndAt { get; set; }
+    public required TimeOnly StartAt { get; set; }
+    public required TimeOnly EndAt { get; set; }
 }

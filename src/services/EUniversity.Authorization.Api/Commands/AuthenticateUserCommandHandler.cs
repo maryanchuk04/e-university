@@ -15,6 +15,7 @@ public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest<Aut
 {
     public string Email { get; set; } = request.Email;
     public string Picture { get; set; } = request.Picture;
+    public string FullName { get; set; } = request.FullName;
 }
 
 public class AuthenticateUserCommandHandler(
@@ -38,7 +39,7 @@ public class AuthenticateUserCommandHandler(
         if (!await _mediator.Send(new CheckIfUserExistQuery(command.Email), cancellationToken))
         {
             // Register user if it not already exist.
-            userId = await _mediator.Send(new RegisterUserCommand(command.Email, command.Picture), cancellationToken);
+            userId = await _mediator.Send(new RegisterUserCommand(command.Email, command.Picture, command.FullName), cancellationToken);
         }
 
         _logger.LogInformation("Starting login for new user with email = '{Email}'", command.Email);
@@ -54,6 +55,12 @@ public class AuthenticateUserCommandHandler(
             user = await db.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken)
                ?? throw new UserNotFoundException(userId);
         }
+
+
+        user.FullName = command.FullName;
+        user.Picture = command.Picture;
+
+        _db.Users.Update(user);
 
         var userRoles = await _db.UserRoles
             .Where(ur => ur.UserId == user.Id)

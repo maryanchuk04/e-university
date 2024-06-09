@@ -13,6 +13,9 @@
     "profile": {
         "label": "Профіль"
     },
+    "header": {
+        "not_mention": "Не вказано!"
+    },
     "dashboard": {
         "hello": "Привіт, ",
         "logout": "Вийти",

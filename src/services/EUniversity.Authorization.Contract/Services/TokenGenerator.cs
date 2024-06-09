@@ -60,7 +60,8 @@ public class TokenGenerator(IOptions<JwtSettings> jwtSettings) : ITokenGenerator
             Subject = new ClaimsIdentity(claims),
             Audience = jwtSettings.Value.Audience,
             Issuer = jwtSettings.Value.Issuer,
-            Expires = DateTime.UtcNow.AddMinutes(30),
+            // TODO: Change after tesing 
+            Expires = DateTime.UtcNow.AddDays(30),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };

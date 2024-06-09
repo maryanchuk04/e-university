@@ -26,12 +26,10 @@ export class AuthenticateComponent extends BaseComponent implements OnInit {
 
     ngOnInit(): void {
         this.socialAuthService.authState.pipe(takeUntil(this.destroy$)).subscribe((user) => {
-            console.log('work');
             this.authService
-                .authenticate({ email: user.email, picture: user.photoUrl, })
+                .authenticate({ email: user.email, picture: user.photoUrl, fullName: user.name })
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
-
                     this.router.navigate(['/']);
                 });
         });

@@ -35,7 +35,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DeanId")
+                    b.Property<Guid?>("DeanId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -46,7 +46,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("TimeTableId")
+                    b.Property<Guid?>("TimeTableId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -71,13 +71,13 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CuratorId")
+                    b.Property<Guid?>("CuratorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FacultyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("HeadStudentId")
+                    b.Property<Guid?>("HeadStudentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDisabled")
@@ -130,7 +130,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Property<Guid?>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SubjectId")
+                    b.Property<Guid?>("SubjectId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TeacherId")
@@ -143,7 +143,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("WeekId")
@@ -175,14 +174,14 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndAt")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeOnly>("EndAt")
+                        .HasColumnType("time");
 
                     b.Property<int>("LessonNumber")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartAt")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeOnly>("StartAt")
+                        .HasColumnType("time");
 
                     b.Property<Guid>("TimeTableId")
                         .HasColumnType("uniqueidentifier");
@@ -465,9 +464,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                 {
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Teacher", "Dean")
                         .WithMany()
-                        .HasForeignKey("DeanId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("DeanId");
 
                     b.Navigation("Dean");
                 });
@@ -477,8 +474,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Teacher", "Curator")
                         .WithMany()
                         .HasForeignKey("CuratorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Faculty", "Faculty")
                         .WithMany()
@@ -489,8 +485,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Student", "HeadStudent")
                         .WithMany()
                         .HasForeignKey("HeadStudentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Speciality", "Speciality")
                         .WithMany()
@@ -528,8 +523,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Subject", "Subject")
                         .WithMany("Lessons")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Teacher", "Teacher")
                         .WithMany("Lessons")
@@ -668,8 +662,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
 
                     b.Navigation("TeacherFaculties");
 
-                    b.Navigation("TimeTable")
-                        .IsRequired();
+                    b.Navigation("TimeTable");
                 });
 
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Group", b =>

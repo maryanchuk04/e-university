@@ -11,4 +11,13 @@
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EUniversity.Core\EUniversity.Core.csproj" />
+      <ProjectReference Include="..\EUniversity.Schedule.Manager.Contract\EUniversity.Schedule.Manager.Contract.csproj" />
+    </ItemGroup>
+
 </Project>

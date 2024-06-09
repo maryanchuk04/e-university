@@ -2,9 +2,9 @@
 using System.Text;
 using EUniversity.Authorization.Client.Factories;
 using EUniversity.Schedule.Gateway.Api.Swagger;
+using EUniversity.Schedule.Gateway.Contract.Providers;
 using EUniversity.Schedule.Gateway.Contract.Requests;
 using EUniversity.Schedule.Manager.Client.Factories;
-using EUniversity.Shared.Authentication.Settings;
 using EUniversity.Shared.Exceptions;
 using EUniversity.Shared.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +19,9 @@ public static class ServiceCollectionExtensions
     {
         // add MediatR and tell it to scan this assembly
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<IPortalUserProvider, PortalUserProvider>();
     }
 
     public static void AddUniversityMicroservices(this IServiceCollection services, IConfiguration configuration)

@@ -26,13 +26,6 @@ public class UniversityScheduleManagerContext(DbContextOptions options)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Faculty and Teacher relationship (Dean)
-        modelBuilder.Entity<Faculty>()
-            .HasOne(f => f.Dean)
-            .WithMany()
-            .HasForeignKey(f => f.DeanId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         // Group relationships
         modelBuilder.Entity<Group>()
             .HasOne(g => g.Curator)

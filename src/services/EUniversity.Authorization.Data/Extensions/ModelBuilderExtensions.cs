@@ -1,5 +1,7 @@
 ﻿using EUniversity.Authorization.Data.Models;
+using EUniversity.Core.Enums;
 using Microsoft.EntityFrameworkCore;
+using Role = EUniversity.Authorization.Data.Models.Role;
 
 namespace EUniversity.Authorization.Data.Extensions;
 

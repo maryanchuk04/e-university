@@ -11,7 +11,7 @@ public class Lesson : BaseEntity
 
     public bool IsOnline { get; set; }
 
-    public string Url { get; set; }
+    public string? Url { get; set; }
 
     public LessonType Type { get; set; }
 
@@ -30,6 +30,6 @@ public class Lesson : BaseEntity
     public Guid TeacherId { get; set; }
     public virtual Teacher Teacher { get; set; }
 
-    public Guid SubjectId { get; set; }
-    public virtual Subject Subject { get; set; }
+    public Guid? SubjectId { get; set; }
+    public virtual Subject? Subject { get; set; }
 }

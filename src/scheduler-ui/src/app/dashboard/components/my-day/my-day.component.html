@@ -1,10 +1,10 @@
-<div id="my-day" class="">
+<div id="my-day hide-scrollbar" class="">
     <div class="flex justify-between items-center">
-        <h1 class="" translate="dashboard.my_day.title"></h1>
+        <h1 class="my-3" translate="dashboard.my_day.title"></h1>
         <p-tag class="text-2xl" [value]="today"/>
     </div>
 
-    <div class="flex flex-col gap-3 overflow-y-auto h-[65vh] pr-2">
+    <div class="flex flex-col gap-3 overflow-y-auto h-[82vh] hide-scrollbar pb-3">
         @for (lesson of myDay.lessons; track $index) {
         <div (click)="openLessonModal(lesson)" id="lesson-{{$index}}" class="text-white bg-blue-400 p-2 px-4 rounded-xl">
             <h2 class="mb-1 mt-0">{{lesson.name}}</h2>

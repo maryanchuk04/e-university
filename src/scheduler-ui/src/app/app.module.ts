@@ -5,11 +5,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
-    TranslateLoader,
-    TranslateModule,
-    TranslateService,
-    TranslateStore,
+    TranslateLoader, TranslateModule, TranslateService, TranslateStore
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -17,6 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { Language } from './core/models/languages';
+import { appEffects } from './core/state/effects';
+import { metaReducers, reducers } from './core/state/reducers';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { SharedModule } from './shared/shared.module';
@@ -59,6 +61,9 @@ export function TranslationLoaderFactory(http: HttpClient) {
             },
             isolate: true,
         }),
+        StoreModule.forRoot(reducers, { metaReducers }),
+        EffectsModule.forRoot(appEffects),
+        StoreDevtoolsModule.instrument(),
         LayoutModule,
     ],
     providers: [

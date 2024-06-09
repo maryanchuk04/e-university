@@ -65,8 +65,8 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DeanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DeanId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -148,6 +148,33 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TeacherFaculties",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FacultyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeacherFaculties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TeacherFaculties_Faculties_FacultyId",
+                        column: x => x.FacultyId,
+                        principalTable: "Faculties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeacherFaculties_Teachers_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Teachers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TimeTables",
                 columns: table => new
                 {
@@ -195,7 +222,9 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     LessonNumber = table.Column<int>(type: "int", nullable: false),
                     StartAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TimeTableId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,8 +245,8 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FacultyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SpecialityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HeadStudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CuratorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HeadStudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CuratorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDisabled = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -249,14 +278,14 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonNumber = table.Column<int>(type: "int", nullable: false),
                     IsOnline = table.Column<bool>(type: "bit", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
                     WeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonTimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -300,7 +329,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -408,6 +436,16 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TeacherFaculties_FacultyId",
+                table: "TeacherFaculties",
+                column: "FacultyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeacherFaculties_TeacherId",
+                table: "TeacherFaculties",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TimeTables_FacultyId",
                 table: "TimeTables",
                 column: "FacultyId",
@@ -453,6 +491,9 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Semesters");
+
+            migrationBuilder.DropTable(
+                name: "TeacherFaculties");
 
             migrationBuilder.DropTable(
                 name: "LessonTimes");

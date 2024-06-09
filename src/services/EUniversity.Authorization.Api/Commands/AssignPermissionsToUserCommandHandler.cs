@@ -1,6 +1,7 @@
 ﻿using EUniversity.Authorization.Contract.Exceptions;
 using EUniversity.Authorization.Data;
 using EUniversity.Authorization.Data.Models;
+using EUniversity.Core.Enums;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

@@ -18,6 +18,7 @@ builder.Services.AddUniversityMicroservices(builder.Configuration);
 builder.Services.AddGatewaySwaggerConfiguration();
 builder.Services.AddCorrelationIdTrackingServices();
 builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddDateOnlyTimeOnlyStringConverters();
 
 var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 builder.Services.AddCors(options =>

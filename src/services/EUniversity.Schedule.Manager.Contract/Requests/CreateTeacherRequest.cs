@@ -6,5 +6,5 @@ public class CreateTeacherRequest
     public string Position { get; set; }
     public Guid UserId { get; set; }
 
-    public IList<Guid> FacultyIds { get; set; }
+    public IList<Guid> FacultyIds { get; set; } = [];
 }

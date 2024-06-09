@@ -13,7 +13,17 @@ public class ScheduleManagerClient(
     TimeSpan? timeout = null)
     : MicroservicesClientBase<ScheduleManagerClient>(endpoint, apiKey, httpClientFactory, logger, timeout), IScheduleManagerClient
 {
+    #region Routes
+
     private const string FacultyRoute = "/api/faculty";
+    private const string TeacherRoute = "/api/teacher";
+    private const string StudentRoute = "/api/student";
+    private const string GroupRoute = "/api/groups";
+    private const string SpecialityRoute = "/api/speciality";
+
+    #endregion
+
+    #region Faculty
 
     public Task<Guid> CreateFacultyAsync(CreateFacultyRequest request, CancellationToken cancellationToken = default)
     {
@@ -31,4 +41,44 @@ public class ScheduleManagerClient(
     {
         return GetAsync<IList<FacultyDto>>(FacultyRoute, cancellationToken: cancellationToken);
     }
+
+    #endregion
+
+    #region Teacher
+
+    public Task<Guid> CreateTeacherAsync(CreateTeacherRequest request, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<CreateTeacherRequest, Guid>(TeacherRoute, request, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region Students
+
+    public Task<StudentInfoDto> GetStudentInfoByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        var route = $"{StudentRoute}/{userId}";
+
+        return GetAsync<StudentInfoDto>(route, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region Groups
+
+    public Task<Guid> CreateGroupAsync(CreateGroupRequest request, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<CreateGroupRequest, Guid>(GroupRoute, request, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region Speciality
+
+    public Task<Guid> CreateSpecialityAsync(CreateSpecialityRequest request, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<CreateSpecialityRequest, Guid>(SpecialityRoute, request, cancellationToken: cancellationToken);
+    }
+
+    #endregion
 }

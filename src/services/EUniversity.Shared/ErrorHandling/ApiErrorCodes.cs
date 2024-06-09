@@ -1,4 +1,4 @@
-﻿namespace EUniversity.Schedule.Manager.Api.Error;
+﻿namespace EUniversity.Shared.ErrorHandling;
 
 public static class ApiErrorCodes
 {
