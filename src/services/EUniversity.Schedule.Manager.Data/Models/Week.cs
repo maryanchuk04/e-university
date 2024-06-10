@@ -9,8 +9,5 @@ public class Week : BaseEntity
 
     public WeekType Type { get; set; }
 
-    public ICollection<Lesson> Lessons { get; set; }
-
-    //public Guid ScheduleId { get; set; }
-    //public virtual Schedule Schedule { get; set; }
+    public ICollection<Day> Days { get; set; }
 }

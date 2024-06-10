@@ -1,4 +1,4 @@
-﻿namespace EUniversity.Schedule.Manager.Contract.Models;
+﻿namespace EUniversity.Schedule.Manager.Contract.Models.SemesterSchedule;
 
 public class RoomDto
 {

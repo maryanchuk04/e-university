@@ -47,8 +47,8 @@ CREATE TABLE [Faculties] (
     [Name] nvarchar(max) NOT NULL,
     [Description] nvarchar(max) NOT NULL,
     [Adress] nvarchar(max) NOT NULL,
-    [DeanId] uniqueidentifier NOT NULL,
-    [TimeTableId] uniqueidentifier NOT NULL,
+    [DeanId] uniqueidentifier NULL,
+    [TimeTableId] uniqueidentifier NULL,
     [CreatedAt] datetime2 NOT NULL,
     [UpdatedAt] datetime2 NOT NULL,
     CONSTRAINT [PK_Faculties] PRIMARY KEY ([Id]),
@@ -92,6 +92,18 @@ CREATE TABLE [Specialities] (
 );
 GO
 
+CREATE TABLE [TeacherFaculties] (
+    [Id] uniqueidentifier NOT NULL,
+    [TeacherId] uniqueidentifier NOT NULL,
+    [FacultyId] uniqueidentifier NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_TeacherFaculties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_TeacherFaculties_Faculties_FacultyId] FOREIGN KEY ([FacultyId]) REFERENCES [Faculties] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_TeacherFaculties_Teachers_TeacherId] FOREIGN KEY ([TeacherId]) REFERENCES [Teachers] ([Id]) ON DELETE CASCADE
+);
+GO
+
 CREATE TABLE [TimeTables] (
     [Id] uniqueidentifier NOT NULL,
     [FacultyId] uniqueidentifier NOT NULL,
@@ -120,6 +132,8 @@ CREATE TABLE [LessonTimes] (
     [StartAt] datetime2 NOT NULL,
     [EndAt] datetime2 NOT NULL,
     [TimeTableId] uniqueidentifier NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NOT NULL,
     CONSTRAINT [PK_LessonTimes] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_LessonTimes_TimeTables_TimeTableId] FOREIGN KEY ([TimeTableId]) REFERENCES [TimeTables] ([Id])
 );
@@ -131,8 +145,8 @@ CREATE TABLE [Groups] (
     [Name] nvarchar(max) NOT NULL,
     [FacultyId] uniqueidentifier NOT NULL,
     [SpecialityId] uniqueidentifier NOT NULL,
-    [HeadStudentId] uniqueidentifier NOT NULL,
-    [CuratorId] uniqueidentifier NOT NULL,
+    [HeadStudentId] uniqueidentifier NULL,
+    [CuratorId] uniqueidentifier NULL,
     [IsDisabled] bit NOT NULL,
     [CreatedAt] datetime2 NOT NULL,
     [UpdatedAt] datetime2 NOT NULL,
@@ -147,14 +161,14 @@ CREATE TABLE [Lessons] (
     [Id] uniqueidentifier NOT NULL,
     [LessonNumber] int NOT NULL,
     [IsOnline] bit NOT NULL,
-    [Url] nvarchar(max) NOT NULL,
+    [Url] nvarchar(max) NULL,
     [Type] int NOT NULL,
     [WeekId] uniqueidentifier NOT NULL,
     [LessonTimeId] uniqueidentifier NOT NULL,
     [GroupId] uniqueidentifier NOT NULL,
     [RoomId] uniqueidentifier NULL,
     [TeacherId] uniqueidentifier NOT NULL,
-    [SubjectId] uniqueidentifier NOT NULL,
+    [SubjectId] uniqueidentifier NULL,
     [CreatedAt] datetime2 NOT NULL,
     [UpdatedAt] datetime2 NOT NULL,
     CONSTRAINT [PK_Lessons] PRIMARY KEY ([Id]),
@@ -169,7 +183,6 @@ GO
 
 CREATE TABLE [Students] (
     [Id] uniqueidentifier NOT NULL,
-    [FullName] nvarchar(max) NOT NULL,
     [UserId] uniqueidentifier NOT NULL,
     [GroupId] uniqueidentifier NOT NULL,
     [CreatedAt] datetime2 NOT NULL,
@@ -233,6 +246,12 @@ GO
 CREATE INDEX [IX_Students_GroupId] ON [Students] ([GroupId]);
 GO
 
+CREATE INDEX [IX_TeacherFaculties_FacultyId] ON [TeacherFaculties] ([FacultyId]);
+GO
+
+CREATE INDEX [IX_TeacherFaculties_TeacherId] ON [TeacherFaculties] ([TeacherId]);
+GO
+
 CREATE UNIQUE INDEX [IX_TimeTables_FacultyId] ON [TimeTables] ([FacultyId]);
 GO
 
@@ -240,7 +259,35 @@ ALTER TABLE [Groups] ADD CONSTRAINT [FK_Groups_Students_HeadStudentId] FOREIGN K
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20240607165319_SetupDatabaseStructure', N'8.0.6');
+VALUES (N'20240609054001_SetupDatabaseStructure', N'8.0.6');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[LessonTimes]') AND [c].[name] = N'StartAt');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [LessonTimes] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [LessonTimes] ALTER COLUMN [StartAt] time NOT NULL;
+GO
+
+DECLARE @var1 sysname;
+SELECT @var1 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[LessonTimes]') AND [c].[name] = N'EndAt');
+IF @var1 IS NOT NULL EXEC(N'ALTER TABLE [LessonTimes] DROP CONSTRAINT [' + @var1 + '];');
+ALTER TABLE [LessonTimes] ALTER COLUMN [EndAt] time NOT NULL;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240609062335_UseTimeOnlyForTimeTable', N'8.0.6');
 GO
 
 COMMIT;

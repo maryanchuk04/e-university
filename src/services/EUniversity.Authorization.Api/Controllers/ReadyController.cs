@@ -6,6 +6,9 @@ namespace EUniversity.Authorization.Api.Controllers;
 [Route("api/[controller]")]
 public class ReadyController : ControllerBase
 {
+    /// <summary>
+    /// Check if the service is working.
+    /// </summary>
     [HttpGet]
     public string CheckReadliness()
     {

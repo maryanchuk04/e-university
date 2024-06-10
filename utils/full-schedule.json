@@ -8,16 +8,14 @@
             "groups": [
                 {
                     "id": "",
-                    "name": "",
-                    "students": [], // Array of students
                     "days": [
                         {
                             "day": "1",
                             "lessons": [
                                 {
                                     "id": "",
-                                    "teacher": {},
-                                    "room": ""
+                                    "teacherId": "",
+                                    "roomId": ""
                                     // Other fields
                                 }
                             ]
@@ -27,8 +25,8 @@
                             "lessons": [
                                 {
                                     "id": "",
-                                    "teacher": {},
-                                    "room": ""
+                                    "teacherId": "",
+                                    "roomId": ""
                                     // Other fields
                                 }
                             ]

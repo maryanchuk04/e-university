@@ -4,7 +4,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { RippleModule } from 'primeng/ripple';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
@@ -22,8 +22,27 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
-    declarations: [BaseComponent, NavMenuComponent, AvatarComponent, NotificationsComponent, MenuBarComponent],
-    imports: [CommonModule, RouterModule, ButtonModule, TranslateModule, ToastModule, RippleModule, ToolbarModule, AvatarModule, BadgeModule, RippleModule, ChipModule, TagModule],
+    declarations: [
+        BaseComponent,
+        NavMenuComponent,
+        AvatarComponent,
+        NotificationsComponent,
+        MenuBarComponent,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        ButtonModule,
+        TranslateModule,
+        ToastModule,
+        RippleModule,
+        ToolbarModule,
+        AvatarModule,
+        BadgeModule,
+        RippleModule,
+        ChipModule,
+        TagModule,
+    ],
     exports: [
         ButtonModule,
         TranslateModule,
@@ -43,4 +62,4 @@ import { NotificationsComponent } from './components/notifications/notifications
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [MessageService, DialogService],
 })
-export class SharedModule { }
+export class SharedModule {}

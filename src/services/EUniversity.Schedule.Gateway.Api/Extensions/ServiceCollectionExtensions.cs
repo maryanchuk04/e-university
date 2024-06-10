@@ -15,6 +15,8 @@ namespace EUniversity.Schedule.Gateway.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    public const string APIDocumentationPath = $"/swagger/v1/swagger.json";
+
     public static void AddGatewayServices(this IServiceCollection services, IConfiguration configuration)
     {
         // add MediatR and tell it to scan this assembly
@@ -62,6 +64,7 @@ public static class ServiceCollectionExtensions
                 Version = GatewaySwaggerConstants.APIVersion,
                 Description = GatewaySwaggerConstants.APIDescription,
             });
+
             sa.OperationFilter<SharedApiKeyHeaderOperationFilter>();
             var apiXmlPath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
             var contractXmlPath = Path.Combine(AppContext.BaseDirectory, $"{AssemblyName.GetAssemblyName(typeof(AuthenticateRequest).Assembly.Location).Name}.xml");
@@ -69,6 +72,11 @@ public static class ServiceCollectionExtensions
             sa.IncludeXmlComments(apiXmlPath, includeControllerXmlComments: true);
             sa.IncludeXmlComments(contractXmlPath);
         });
+    }
+
+    public static void UseGatewaySwaggerUI(this IApplicationBuilder app)
+    {
+        app.UseSwaggerUI(x => x.SwaggerEndpoint(APIDocumentationPath, GatewaySwaggerConstants.APITitle));
     }
 
     public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)

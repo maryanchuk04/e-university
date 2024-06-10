@@ -21,6 +21,7 @@ public class UniversityScheduleManagerContext(DbContextOptions options)
     public DbSet<Semester> Semesters { get; set; }
     public DbSet<Room> Rooms { get; set; }
     public DbSet<TeacherFaculty> TeacherFaculties { get; set; }
+    public DbSet<Day> Days { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -79,12 +80,6 @@ public class UniversityScheduleManagerContext(DbContextOptions options)
             .HasOne(l => l.Teacher)
             .WithMany(t => t.Lessons)
             .HasForeignKey(l => l.TeacherId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<Lesson>()
-            .HasOne(l => l.Week)
-            .WithMany(w => w.Lessons)
-            .HasForeignKey(l => l.WeekId)
             .OnDelete(DeleteBehavior.NoAction);
 
         // LessonTime and TimeTable relationship

@@ -15,6 +15,10 @@ builder.Services.AddEndpointsApiExplorer();
 // ****************************************
 builder.Services.AddGatewayServices(builder.Configuration);
 builder.Services.AddUniversityMicroservices(builder.Configuration);
+
+// ****************************************
+// Swagger settings
+// ****************************************
 builder.Services.AddGatewaySwaggerConfiguration();
 builder.Services.AddCorrelationIdTrackingServices();
 builder.Services.AddJwtAuthentication(builder.Configuration);
@@ -36,7 +40,9 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseGatewaySwaggerUI();
+
+app.UseHttpsRedirection();
 app.UseCorrelationIdTrackingMiddleware();
 app.UseCors("GatewayPolicy");
 app.UseHttpsRedirection();

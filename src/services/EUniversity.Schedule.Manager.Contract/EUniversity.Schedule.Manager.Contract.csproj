@@ -12,6 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EUniversity.Core\EUniversity.Core.csproj" />
       <ProjectReference Include="..\EUniversity.Shared\EUniversity.Shared.csproj" />
     </ItemGroup>
 

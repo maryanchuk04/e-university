@@ -31,7 +31,7 @@ public class ScheduleController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Create()
+    public IActionResult CreateScheduleAsync()
     {
         return Ok();
     }

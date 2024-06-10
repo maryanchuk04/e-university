@@ -1,4 +1,6 @@
-﻿namespace EUniversity.Schedule.Manager.Contract.Models;
+﻿using EUniversity.Schedule.Manager.Contract.Models.SemesterSchedule;
+
+namespace EUniversity.Schedule.Manager.Contract.Models;
 
 public class GroupDto
 {

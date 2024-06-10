@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EUniversity.Authorization.Api.Controllers;
 
+/// <summary>
+/// Authenticate endpoints
+/// </summary>
 [ApiController]
 [Route("api/authenticate")]
 [Authorize(AuthenticationSchemes = SharedApiKeyContants.SchemeName)]
@@ -17,6 +20,11 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     private readonly ILogger<AuthenticationController> _logger = logger.ThrowIfNull();
     private readonly IMediator _mediator = mediator.ThrowIfNull();
 
+    /// <summary>
+    /// Authenticate user.
+    /// </summary>
+    /// <param name="request">Auth request</param>
+    /// <returns>User Id and Tokens</returns>
     [HttpPost]
     public async Task<ActionResult<AuthenticateResponse>> AuthenticateAsync([FromBody] AuthenticateRequest request)
     {

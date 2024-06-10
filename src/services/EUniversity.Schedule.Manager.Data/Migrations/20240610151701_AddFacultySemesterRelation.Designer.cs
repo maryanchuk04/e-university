@@ -4,6 +4,7 @@ using EUniversity.Schedule.Manager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EUniversity.Schedule.Manager.Data.Migrations
 {
     [DbContext(typeof(UniversityScheduleManagerContext))]
-    partial class UniversityScheduleManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20240610151701_AddFacultySemesterRelation")]
+    partial class AddFacultySemesterRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,31 +24,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Day", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("WeekId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WeekId");
-
-                    b.ToTable("Days");
-                });
 
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Faculty", b =>
                 {
@@ -140,9 +118,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DayId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("GroupId")
                         .HasColumnType("uniqueidentifier");
 
@@ -173,9 +148,10 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("WeekId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("DayId");
+                    b.HasKey("Id");
 
                     b.HasIndex("GroupId");
 
@@ -186,6 +162,8 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.HasIndex("SubjectId");
 
                     b.HasIndex("TeacherId");
+
+                    b.HasIndex("WeekId");
 
                     b.ToTable("Lessons");
                 });
@@ -490,17 +468,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.ToTable("Weeks");
                 });
 
-            modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Day", b =>
-                {
-                    b.HasOne("EUniversity.Schedule.Manager.Data.Models.Week", "Week")
-                        .WithMany("Days")
-                        .HasForeignKey("WeekId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Week");
-                });
-
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Faculty", b =>
                 {
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Teacher", "Dean")
@@ -545,12 +512,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
 
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Lesson", b =>
                 {
-                    b.HasOne("EUniversity.Schedule.Manager.Data.Models.Day", "Day")
-                        .WithMany("Lessons")
-                        .HasForeignKey("DayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EUniversity.Schedule.Manager.Data.Models.Group", "Group")
                         .WithMany("Lessons")
                         .HasForeignKey("GroupId")
@@ -578,7 +539,11 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Day");
+                    b.HasOne("EUniversity.Schedule.Manager.Data.Models.Week", "Week")
+                        .WithMany("Lessons")
+                        .HasForeignKey("WeekId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Group");
 
@@ -589,6 +554,8 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Navigation("Subject");
 
                     b.Navigation("Teacher");
+
+                    b.Navigation("Week");
                 });
 
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.LessonTime", b =>
@@ -703,11 +670,6 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.Navigation("Faculty");
                 });
 
-            modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Day", b =>
-                {
-                    b.Navigation("Lessons");
-                });
-
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Faculty", b =>
                 {
                     b.Navigation("Rooms");
@@ -755,7 +717,7 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
 
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Week", b =>
                 {
-                    b.Navigation("Days");
+                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

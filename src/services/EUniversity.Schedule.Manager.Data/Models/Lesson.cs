@@ -15,8 +15,8 @@ public class Lesson : BaseEntity
 
     public LessonType Type { get; set; }
 
-    public Guid WeekId { get; set; }
-    public virtual Week Week { get; set; }
+    public Guid DayId { get; set; }
+    public Day Day { get; set; }
 
     public Guid LessonTimeId { get; set; }
     public LessonTime LessonTime { get; set; }
