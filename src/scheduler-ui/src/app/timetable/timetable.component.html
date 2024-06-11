@@ -1,1 +1,34 @@
-<p>timetable works!</p>
+<div class="">
+    <div *ngIf="(timeTable$ | async) as timeTable; else loading">
+        <h2 class="text-2xl font-semibold mb-10" translate="timetable.title"></h2>
+        <div class="overflow-x-auto">
+            <p-table [value]="timeTable.lessonTimes" class="text-center">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th class="py-2 px-4" translate="timetable.lesson_number"></th>
+                        <th class="py-2 px-4" translate="timetable.start_time"></th>
+                        <th class="py-2 px-4" translate="timetable.end_time"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-lesson let-columns="columns">
+                    <tr>
+                        <td>
+                            {{lesson.lessonNumber}}
+                        </td>
+                        <td>
+                            <p-tag [value]="convertToNormalTime(lesson.startAt)" />
+                        </td>
+                        <td>
+                            <p-tag [value]="convertToNormalTime(lesson.endAt)" severity="success" />
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div class="flex justify-center items-center">
+            <uni-spinner></uni-spinner>
+        </div>
+    </ng-template>
+</div>

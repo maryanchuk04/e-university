@@ -2,6 +2,6 @@
 
 public class GroupScheduleDto
 {
-    public Guid Id { get; set; }
+    public Guid GroupId { get; set; }
     public List<DayScheduleDto> Days { get; set; }
 }

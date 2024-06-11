@@ -1,0 +1,28 @@
+<div>
+    <!-- <section class="flex justify-center pt-4"><p-tag [rounded]="true" styleClass="text-center text-sm" [value]="getToday()" /></section> -->
+    <section class="flex items-center justify-between mt-3">
+        <h4 translate="schedule.week_type" class="text-[#4b5563] my-0 p-0"></h4>
+        <div class="card flex justify-content-center">
+            <p-selectButton [unselectable]="true" [options]="stateOptions" [(ngModel)]="weekType" (ngModelChange)="onWeekTypeChange($event)"
+                optionLabel="label" optionValue="value">
+            </p-selectButton>
+        </div>
+    </section>
+    <section class="my-3 mb-1 flex justify-between">
+        <ng-container *ngFor="let day of workingDays; let i = index;">
+            <p-button *ngIf="day === activeDay" styleClass="my-1" [rounded]="true" pRipple (onClick)="changeDay(day)"
+                severity="primary" [raised]="true" [label]="'short_dayofweek.' + day | translate">
+            </p-button>
+            <p-button *ngIf="day !== activeDay" styleClass="my-1 border-[#4b5563]" [rounded]="true" pRipple
+                (onClick)="changeDay(day)" severity="secondary" [outlined]="true" [raised]="false"
+                [label]="'short_dayofweek.' + day | translate">
+            </p-button>
+        </ng-container>
+    </section>
+
+    <section *ngIf="schedule" class="h-[68vh] overflow-y-auto hide-scrollbar">
+        <div *ngFor="let lesson of lessons" class="lesson-item mb-2">
+            <uni-lesson-item [lesson]="lesson"></uni-lesson-item>
+        </div>
+    </section>
+</div>

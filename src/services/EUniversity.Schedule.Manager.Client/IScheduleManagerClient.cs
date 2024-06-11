@@ -1,5 +1,6 @@
 ﻿using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
+using EUniversity.Schedule.Manager.Contract.Responses;
 
 namespace EUniversity.Schedule.Manager.Client;
 
@@ -18,4 +19,8 @@ public interface IScheduleManagerClient
     Task<Guid> CreateGroupAsync(CreateGroupRequest request, CancellationToken cancellationToken = default);
 
     Task<Guid> CreateSpecialityAsync(CreateSpecialityRequest request, CancellationToken cancellationToken = default);
+
+    Task<ScheduleResponse> GetScheduleAsync(Guid facultyId, CancellationToken cancellationToken = default);
+
+    Task<TimeTableDto> GetFacultyTimeTableAsync(Guid facultyId, CancellationToken cancellationToken = default);
 }

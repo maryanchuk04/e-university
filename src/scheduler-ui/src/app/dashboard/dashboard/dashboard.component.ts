@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { Role } from '../../core/models/role';
-import { UserProvider } from '../../core/providers/user.provider';
-import { StudentService } from '../../core/services/student.service';
+import { loadStudent } from '../../core/state/student/student.actions';
 
 @Component({
     selector: 'uni-dashboard',
@@ -10,12 +9,9 @@ import { StudentService } from '../../core/services/student.service';
     styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
-    constructor(private userProvider: UserProvider, private studentService: StudentService) {}
+    constructor(private store: Store) {}
 
     ngOnInit(): void {
-        const user = this.userProvider.getCurrentUser();
-        if (user.role === Role.Student) {
-            this.studentService.getCurrentStudent().subscribe(x => console.log(x));
-        }
+        this.store.dispatch(loadStudent());
     }
 }

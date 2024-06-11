@@ -82,7 +82,7 @@ public class CreateSemesterScheduleCommandHandler(UniversityScheduleManagerConte
                     var lesson = new Lesson
                     {
                         Id = Guid.NewGuid(),
-                        GroupId = groupSchedule.Id,
+                        GroupId = groupSchedule.GroupId,
                         LessonNumber = lessonData.LessonNumber,
                         TeacherId = lessonData.TeacherId,
                         RoomId = lessonData.RoomId,
@@ -91,6 +91,7 @@ public class CreateSemesterScheduleCommandHandler(UniversityScheduleManagerConte
                         IsOnline = lessonData.IsOnline ?? false,
                         Url = lessonData.Url ?? null,
                         Type = lessonData.Type ?? LessonType.LectureAndPractice,
+                        SubjectId = await GetOrCreateSubjectAsync(lessonData.LessonName, cancellationToken),
                     };
 
                     day.Lessons.Add(lesson);
@@ -104,5 +105,20 @@ public class CreateSemesterScheduleCommandHandler(UniversityScheduleManagerConte
         week.Days = days;
         await _db.Days.AddRangeAsync(days, cancellationToken);
         await _db.Lessons.AddRangeAsync(lessons, cancellationToken);
+    }
+
+    private async Task<Guid> GetOrCreateSubjectAsync(string name, CancellationToken cancellationToken)
+    {
+        var subject = await _db.Subjects.FirstOrDefaultAsync(x => x.Name == name, cancellationToken);
+
+        if (subject == null)
+        {
+            var subjectId = Guid.NewGuid();
+            await _db.Subjects.AddAsync(new Subject { Id = subjectId, Name = name }, cancellationToken);
+
+            return subjectId;
+        }
+
+        return subject.Id;
     }
 }

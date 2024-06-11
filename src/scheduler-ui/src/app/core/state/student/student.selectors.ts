@@ -13,3 +13,9 @@ export const selectStudentError = createSelector(
   selectStudentState,
   (state: fromStudent.State) => state.error
 );
+
+export const selectMyDay = createSelector(
+    selectStudentState,
+    (state: fromStudent.State) => state.myDay
+);
+

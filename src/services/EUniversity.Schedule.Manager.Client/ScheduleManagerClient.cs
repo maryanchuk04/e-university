@@ -1,6 +1,7 @@
 ﻿using EUniversity.Core.Http;
 using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
+using EUniversity.Schedule.Manager.Contract.Responses;
 using Microsoft.Extensions.Logging;
 
 namespace EUniversity.Schedule.Manager.Client;
@@ -20,6 +21,7 @@ public class ScheduleManagerClient(
     private const string StudentRoute = "/api/student";
     private const string GroupRoute = "/api/groups";
     private const string SpecialityRoute = "/api/speciality";
+    private const string ScheduleRoute = "/api/schedule";
 
     #endregion
 
@@ -41,6 +43,12 @@ public class ScheduleManagerClient(
     {
         return GetAsync<IList<FacultyDto>>(FacultyRoute, cancellationToken: cancellationToken);
     }
+
+    public Task<TimeTableDto> GetFacultyTimeTableAsync(Guid facultyId, CancellationToken cancellationToken = default)
+    {
+        return GetAsync<TimeTableDto>($"{FacultyRoute}/{facultyId}/timetable", cancellationToken: cancellationToken);
+    }
+
 
     #endregion
 
@@ -78,6 +86,17 @@ public class ScheduleManagerClient(
     public Task<Guid> CreateSpecialityAsync(CreateSpecialityRequest request, CancellationToken cancellationToken = default)
     {
         return PostAsync<CreateSpecialityRequest, Guid>(SpecialityRoute, request, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region Schedule
+
+    public Task<ScheduleResponse> GetScheduleAsync(Guid facultyId, CancellationToken cancellationToken = default)
+    {
+        var route = $"{ScheduleRoute}/faculty/{facultyId}";
+
+        return GetAsync<ScheduleResponse>(route, cancellationToken: cancellationToken);
     }
 
     #endregion

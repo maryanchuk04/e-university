@@ -1,11 +1,11 @@
-<header *ngIf="(student$ | async) as student" class="bg-[#3b82f6] text-white rounded-b-3xl shadow-lg">
+<header *ngIf="(student$ | async) as student" class="bg-[#3b82f6] h-16 text-white rounded-b-3xl shadow-lg">
     <div class="app-container mx-auto">
         <div class="flex h-full justify-between items-center">
             <div class="flex gap-2 items-center">
                 <uni-avatar [image]="student.picture"></uni-avatar>
                 <h2 translate="dashboard.hello"><span>{{student.fullName.split(' ')[0]}}!</span></h2>
             </div>
-            <uni-notifications></uni-notifications>
+            <!-- <uni-notifications></uni-notifications> -->
         </div>
     </div>
 </header>

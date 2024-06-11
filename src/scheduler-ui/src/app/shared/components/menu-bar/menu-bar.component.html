@@ -1,7 +1,7 @@
 <div class="fixed bottom-0 rounded-t-xl w-full bg-dark h-16">
     <div class="app-container h-full flex justify-evenly items-center">
         @for (menuItem of menu; track $index) {
-        <a [routerLink]="menuItem.link" pRipple
+        <a [routerLink]="menuItem.link" [routerLinkActiveOptions]="{ exact: true }" pRipple
             class="text-[#c8a5ed8e] w-12 h-12 grid place-items-center rounded-full no-underline"
             routerLinkActive="bg-blue-500 !text-white">
             <i class="text-2xl pi {{menuItem.icon}}"></i></a>

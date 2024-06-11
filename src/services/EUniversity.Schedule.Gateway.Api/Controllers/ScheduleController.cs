@@ -1,38 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EUniversity.Schedule.Gateway.Api.Queries.Schedule;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EUniversity.Schedule.Gateway.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ScheduleController : ControllerBase
+public class ScheduleController(IMediator mediator) : ControllerBase
 {
-    /// <summary>
-    /// Retrieve schedule.
-    /// </summary>
-    /// <returns></returns>
     [HttpGet]
-    public IActionResult Get()
+    [Route("faculty/{facultyId}")]
+    public async Task<IActionResult> GetScheduleAsync(Guid facultyId, CancellationToken cancellationToken)
     {
-        return Ok();
-    }
+        var response = await mediator.Send(new GetScheduleQuery(facultyId), cancellationToken);
 
-    /// <summary>
-    /// Retrieve schedule by Id
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    public IActionResult GetById(Guid id)
-    {
-        return Ok();
-    }
-
-    /// <summary>
-    /// Create schedule by Xlsx file.
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost]
-    public IActionResult CreateScheduleAsync()
-    {
-        return Ok();
+        return Ok(response);
     }
 }

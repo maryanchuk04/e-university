@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
-import { LessonView } from '../../core/models/lesson-view';
+import { LessonGatewayView } from '../../core/models/schedule';
 
 @Component({
     selector: 'uni-lesson-info-modal',
     templateUrl: './lesson-info-modal.component.html',
 })
 export class LessonInfoModalComponent {
-    @Input() lesson: LessonView;
+    @Input() lesson: LessonGatewayView;
 }

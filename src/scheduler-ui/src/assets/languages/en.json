@@ -2,8 +2,8 @@
     "test": "This is just a test",
     "authenticate": {
         "welcome": "Welcome!",
-        "login": "Log In",
-        "org_email_requirements": "Authorization on the website is only available for users with university corporate email @chnu.edu.ua",
+        "login": "Login",
+        "org_email_requirements": "Authorization on the site is available only for users of the university's corporate email @chnu.edu.ua",
         "link": {
             "website": "<a href='https://www.chnu.edu.ua/' target='_blank'>Website</a>",
             "youtube": "YouTube",
@@ -11,6 +11,56 @@
         }
     },
     "profile": {
-        "label": "Profile"
+        "label": "Profile",
+        "labels": {
+            "faculty": "Faculty",
+            "speciality": "Specialty",
+            "logout": "Logout",
+            "course": "Course"
+        }
+    },
+    "header": {
+        "not_mention": "Not specified!"
+    },
+    "dashboard": {
+        "hello": "Hello, ",
+        "logout": "Logout from profile",
+        "my_day": {
+            "title": "My Day",
+            "teacher_label": "Teacher: "
+        }
+    },
+    "chip": {
+        "online": "Online",
+        "practice": "Practice",
+        "lecture": "Lecture",
+        "lecture_practice": "Lecture & Practice 😊"
+    },
+    "schedule": {
+        "week_type": "Week Type:"
+    },
+    "short_dayofweek": {
+        "1": "Mon",
+        "2": "Tue",
+        "3": "Wed",
+        "4": "Thu",
+        "5": "Fri"
+    },
+    "dayofweek": {
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday"
+    },
+    "week_type": {
+        "even": "Even",
+        "odd" : "Odd"
+    },
+    "timetable": {
+        "title" : "Bell Schedule ⏳",
+        "lesson_number": "Number",
+        "start_time": "Start",
+        "end_time": "End"
     }
 }

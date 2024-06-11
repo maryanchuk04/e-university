@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { StudentGatewayView } from '../../../core/models/student-gateway-view';
 import { mockUser } from '../../../core/models/user-view';
 import { MediaService } from '../../../core/services/media.service';
-import { loadStudent } from '../../../core/state/student/student.actions';
 import { selectStudent } from '../../../core/state/student/student.selectors';
 
 @Component({
@@ -23,7 +22,7 @@ export class NavMenuComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.store.dispatch(loadStudent());
+
     }
 
     showUserInfo = false;

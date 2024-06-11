@@ -19,6 +19,13 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
     private readonly ILogger<FacultyController> _logger = logger.ThrowIfNull();
 
     [HttpGet]
+    [Route("{facultyId}/timetable")]
+    public async Task<ActionResult<TimeTableDto>> GetScheduleTimetableAsync(Guid facultyId, CancellationToken cancellationToken)
+    {
+        return Ok(await _mediator.Send(new GetFacultyTimetableQuery(facultyId), cancellationToken));
+    }
+
+    [HttpGet]
     public async Task<ActionResult<IList<FacultyDto>>> GetFacultiesAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Get faculties was executed");

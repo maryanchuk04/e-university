@@ -2,6 +2,14 @@
 
 public class TimeTableDto
 {
+    public TimeTableDto() { }
+
+    public TimeTableDto(Guid id, List<LessonTimeDto> lessonTimes)
+    {
+        Id = id;
+        LessonTimes = [.. lessonTimes.OrderBy(l => l.LessonNumber)];
+    }
+
     public Guid Id { get; set; }
     public List<LessonTimeDto> LessonTimes { get; set; }
 }

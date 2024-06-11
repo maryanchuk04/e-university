@@ -11,8 +11,10 @@ public class LessonDto
     public string? TeacherName { get; set; }
     public Guid RoomId { get; set; }
     public string? RoomName { get; set; }
-    // new Dto fields
     public LessonType? Type { get; set; } = LessonType.LectureAndPractice;
     public string? Url { get; set; }
     public bool? IsOnline { get; set; } = false;
+
+    public TimeOnly? StartAt { get; set; }
+    public TimeOnly? EndAt { get; set; }
 }

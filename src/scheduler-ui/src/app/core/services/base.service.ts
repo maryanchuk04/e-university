@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({
     providedIn: 'root',
 })
-export class BaseService {
+export class BaseHttpService {
     protected baseUrl: string = environment.gatewayBaseAddress;
 
     constructor(

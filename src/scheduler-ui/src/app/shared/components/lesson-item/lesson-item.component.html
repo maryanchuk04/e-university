@@ -1,0 +1,23 @@
+<div class="text-white bg-blue-400 p-2 px-4 rounded-xl">
+    <h2 class="mb-1 mt-0">{{lesson.lessonName}}</h2>
+    <p class="my-0 mb-2" translate="dashboard.my_day.teacher_label"><span>{{lesson.teacherName}}</span></p>
+
+    <div class="flex flex-wrap gap-2">
+        <p-chip [label]="convertToNormalTime(lesson.startAt) + ' - ' + convertToNormalTime(lesson.endAt)"
+            icon="pi pi-clock" />
+        @if(lesson.isOnline){
+        <p-chip [label]="'chip.online' | translate" icon="pi pi-desktop" />
+        } @else {
+        <p-chip [label]="lesson.roomName" icon="pi pi-map-marker" />
+        }
+        @if(lesson.type === LessonType.Practice){
+        <p-chip [label]="'chip.practice' | translate" />
+        }
+        @if(lesson.type === LessonType.Lecture){
+        <p-chip [label]="'chip.lecture' | translate" />
+        }
+        @if(lesson.type === LessonType.PracticeAndLecture){
+        <p-chip [label]="'chip.lecture_practice' | translate" />
+        }
+    </div>
+</div>

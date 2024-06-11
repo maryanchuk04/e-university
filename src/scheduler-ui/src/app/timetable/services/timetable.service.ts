@@ -1,22 +1,23 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
-import { UserProvider } from '../../core/providers/user.provider';
+import { TimeTableGatewayView } from '../../core/models/timetable-gateway-view';
+import { BaseHttpService } from '../../core/services/base.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class TimetableService {
-    url = `${environment.gatewayBaseAddress}/api/timetable`;
+export class TimetableService extends BaseHttpService {
+    url = `api/faculty`;
 
-    constructor(private http: HttpClient, private userProvider: UserProvider) {}
+    constructor(http: HttpClient, cookieService: CookieService) {
+        super(http, cookieService);
+    }
 
-    getUserTimetable(): Observable<any> {
-        const userId = this.userProvider.getCurrentUser().id;
-
-        return this.http.post(`${this.url}/${userId}`, { withCredentials: true });
+    getFacultyTimetable(facultyId: string): Observable<TimeTableGatewayView> {
+        return this.get(`${this.url}/${facultyId}/timetable`);
     }
 }

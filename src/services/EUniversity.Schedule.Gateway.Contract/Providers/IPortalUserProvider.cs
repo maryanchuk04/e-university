@@ -8,14 +8,14 @@ namespace EUniversity.Schedule.Gateway.Contract.Providers;
 
 public interface IPortalUserProvider
 {
-    PortalUser GetPortalUser();
+    IPortalUser GetPortalUser();
 }
 
 public class PortalUserProvider(IHttpContextAccessor httpContextAccessor) : IPortalUserProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor.ThrowIfNull();
 
-    public PortalUser GetPortalUser()
+    public IPortalUser GetPortalUser()
     {
         var httpContext = _httpContextAccessor.HttpContext
             ?? throw new InvalidOperationException("HTTP context is not available.");

@@ -12,15 +12,15 @@ const navigationLinks: MenuItem[] = [
     },
     {
         icon: 'pi-calendar-clock',
-        link: '/schedule',
+        link: '/dashboard/schedule',
     },
     {
-        icon: 'pi-calendar-clock',
-        link: '/other',
+        icon: 'pi-clock',
+        link: '/dashboard/timetable',
     },
     {
         icon: 'pi-user',
-        link: '/profile ',
+        link: '/dashboard/profile/student',
     }
 ]
 

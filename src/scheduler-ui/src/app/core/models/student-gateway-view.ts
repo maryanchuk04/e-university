@@ -11,4 +11,6 @@ export interface StudentGatewayView {
     facultyName: string;
     specialityId: string;
     specialityName: string;
+
+    semesterId: string;
 }

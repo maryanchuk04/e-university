@@ -14,4 +14,6 @@ public class Semester : BaseEntity
 
     public Guid FacultyId { get; set; }
     public virtual Faculty Faculty { get; set; }
+
+    // TODO: Add start week (Odd or Even week was first in this semester)
 }
