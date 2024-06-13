@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build ./src/services/EUniversity.Schedule.Gateway.Api/EUniversity.Schedule.Gateway.Api.csproj --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
@@ -48,7 +48,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-      
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -63,4 +63,3 @@ jobs:
           app-name: 'e-uni-schedule-gateway'
           slot-name: 'Production'
           package: .
-          
