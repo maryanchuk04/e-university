@@ -23,7 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd ./src/schedule-ui
+          cd ./src/scheduler-ui
           npm install
           npm run build --if-present
           npm run test --if-present
