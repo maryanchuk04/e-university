@@ -14,7 +14,7 @@
                 severity="primary" [raised]="true" [label]="'short_dayofweek.' + day | translate">
             </p-button>
             <p-button *ngIf="day !== activeDay" styleClass="my-1 border-[#4b5563]" [rounded]="true" pRipple
-                (onClick)="changeDay(day)" severity="secondary" [outlined]="true" [raised]="false"
+                (click)="changeDay(day)" severity="secondary" [outlined]="true" [raised]="false"
                 [label]="'short_dayofweek.' + day | translate">
             </p-button>
         </ng-container>

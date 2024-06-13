@@ -5,11 +5,13 @@ import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { DialogService } from 'primeng/dynamicdialog';
+import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { TimelineModule } from 'primeng/timeline';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -56,6 +58,8 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         FormsModule,
         ProgressSpinnerModule,
         TableModule,
+        PanelModule,
+        TimelineModule,
     ],
     exports: [
         ButtonModule,
@@ -79,6 +83,8 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         SpinnerComponent,
         TableModule,
         FirstDigitPipe,
+        PanelModule,
+        TimelineModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [MessageService, DialogService],

@@ -1,17 +1,41 @@
-<div id="my-day hide-scrollbar" class="">
+<div id="my-day hide-scrollbar" id='myDay' class="">
     <div class="flex justify-between items-center">
         <h1 class="my-3" translate="dashboard.my_day.title"></h1>
-        <p-tag class="text-2xl" [value]="today" />
+        <p-tag class="text-2xl" [value]="today"></p-tag>
     </div>
 
     <ng-container *ngIf="(myDay$ | async) as myDay; else spinner">
 
-        <div class="flex flex-col gap-3 overflow-y-auto h-[82vh] hide-scrollbar pb-3">
-            @for (lesson of myDay.lessons; track $index) {
-            <div id="lesson-{{$index}}">
-                <uni-lesson-item [lesson]="lesson"></uni-lesson-item>
-            </div>
-            }
+        <div class="flex flex-col gap-3 overflow-y-auto h-[82vh] hide-scrollbar pb-3 w-full hide-opposite">
+            <p-timeline [value]="myDay.lessons" align="left">
+                <ng-template pTemplate="marker" let-lesson>
+                    <div class="marker flex justify-center items-center">
+                        <span
+                            [ngClass]="{
+                                'bg-success text-white': isLessonPassed(lesson),
+                                'bg-blue-500 text-white': !isLessonPassed(lesson),
+                                'bg-warning text-white': !isLessonPassed(lesson) && isLessonNow(lesson),
+                            }"
+                            class="w-8 h-8 flex items-center justify-center rounded-full !text-white">
+                            <ng-container *ngIf="isLessonPassed(lesson)">
+                                <i class="pi pi-check-circle"></i>
+                            </ng-container>
+                            <ng-container *ngIf="!isLessonPassed(lesson) && isLessonNow(lesson)">
+                                <i class="pi pi-bell" ></i>
+                            </ng-container>
+                            <ng-container *ngIf="!isLessonPassed(lesson) && !isLessonNow(lesson)">
+                                <i class="pi pi-book" ></i>
+                            </ng-container>
+                        </span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="content" let-lesson>
+                    <div>
+                        <uni-lesson-item class="my-2" [status]="determineLessonStatus(lesson)" [lesson]="lesson"></uni-lesson-item>
+                    </div>
+                </ng-template>
+            </p-timeline>
             <span class="mb-8"></span>
         </div>
 
@@ -21,7 +45,6 @@
 <ng-template #spinner>
     <div class="h-full w-full grid place-items-center">
         <p-progressSpinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".8s"
-            fill="var(--surface-ground)" />
+            fill="var(--surface-ground)"></p-progressSpinner>
     </div>
-
 </ng-template>

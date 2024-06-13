@@ -14,6 +14,8 @@ module.exports = {
             colors: {
                 primary: '#0047ab',
                 dark: '#181a29',
+                success: '#22c55e',
+                warning: "#f97316"
             }
 		},
 	},

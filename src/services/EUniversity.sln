@@ -46,7 +46,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EUniversity.Schedule.Manager.Client", "EUniversity.Schedule.Manager.Client\EUniversity.Schedule.Manager.Client.csproj", "{C6562E6D-6924-4151-B46E-B91C9B715B50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUniversity.Schedule.Manager.Client", "EUniversity.Schedule.Manager.Client\EUniversity.Schedule.Manager.Client.csproj", "{C6562E6D-6924-4151-B46E-B91C9B715B50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

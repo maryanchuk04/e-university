@@ -8,7 +8,7 @@
 @import "primeicons/primeicons.css";
 
 body {
-    margin: 0;  
+    margin: 0;
 }
 
 *:focus {
@@ -46,4 +46,30 @@ body {
 .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+.hide-opposite .p-timeline-event-opposite {
+    display: none !important;
+}
+
+#my-day {
+
+}
+
+.p-timeline-event {
+    margin-bottom: 1rem;
+}
+
+.lesson {
+    .p-chip-text {
+        margin: 3px 0;
+    }
+
+    .p-chip {
+        padding: 0 0.65rem;
+    }
+}
+
+.p-timeline-event-content {
+    padding-right: 0;
 }

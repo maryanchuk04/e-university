@@ -8,6 +8,8 @@ import { PortalUser } from './portal-user';
 
 @Injectable({ providedIn: 'root' })
 export class UserProvider {
+    private claimsKey = 'https://e-university.ua.com/';
+
     constructor(private cookieService: CookieService) {}
 
     getCurrentUser(): PortalUser | null {
@@ -21,11 +23,11 @@ export class UserProvider {
             const decoded: any = jwtDecode(token);
 
             const user: PortalUser = {
-                id: decoded['https://e-university.ua.com/userId'],
+                id: decoded['userId'],
                 permissions: this.parsePermissions(
-                    decoded['https://e-university.ua.com/permissions']
+                    decoded[`${this.claimsKey}permissions`]
                 ),
-                role: decoded['https://e-university.ua.com/roles'] as Role,
+                role: decoded[`${this.claimsKey}roles`] as Role,
             };
 
             return user;

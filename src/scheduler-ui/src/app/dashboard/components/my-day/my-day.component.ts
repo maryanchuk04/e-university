@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 
 import { LessonType, MyDayGatewayView } from '../../../core/models/my-day-gateway-view';
 import { LessonGatewayView } from '../../../core/models/schedule';
+import { LessonStatus } from '../../../core/models/timetable-gateway-view';
 import { loadMyDay } from '../../../core/state/student/student.actions';
 import { selectMyDay } from '../../../core/state/student/student.selectors';
 import { toENDay, toUADay } from '../../../utils/date';
@@ -15,7 +16,7 @@ import { LessonInfoModalComponent } from '../../lesson-info-modal/lesson-info-mo
 @Component({
     selector: 'uni-my-day',
     templateUrl: './my-day.component.html',
-    styleUrl: './my-day.component.scss'
+    styleUrls: ['./my-day.component.scss']
 })
 export class MyDayComponent implements OnInit {
     myDay$: Observable<MyDayGatewayView>;
@@ -58,5 +59,31 @@ export class MyDayComponent implements OnInit {
         const hours = Math.floor(diffMinutes / 60);
         const minutes = diffMinutes % 60;
         return `${hours}h ${minutes}m`;
+    }
+
+    isLessonPassed(lesson: LessonGatewayView): boolean {
+        const now = new Date();
+        const endTime = parse(lesson.endAt, 'HH:mm:ss.SSSSSSS', new Date());
+        return endTime < now;
+    }
+
+    isLessonNow(lesson: LessonGatewayView): boolean {
+
+        const now = new Date();
+        const startAt = parse(lesson.startAt, 'HH:mm:ss.SSSSSSS', new Date());
+        const endAt = parse(lesson.endAt, 'HH:mm:ss.SSSSSSS', new Date());
+        return startAt <= now && now <= endAt;
+    }
+
+    determineLessonStatus(lesson): LessonStatus {
+        if (this.isLessonNow(lesson)) {
+            return LessonStatus.Now;
+        }
+
+        if (this.isLessonPassed(lesson)) {
+            return LessonStatus.Passed;
+        }
+
+        return LessonStatus.NotPassed;
     }
 }
