@@ -77,3 +77,16 @@ body {
 .p-message-wrapper {
     padding: 0.5rem 1.50rem;
 }
+
+p-selectbutton {
+    div[role="radio"] {
+        padding: 0.5rem;
+    }
+
+}
+
+#schedule-days {
+    button {
+        padding: 0.5rem 0.9rem;
+    }
+}

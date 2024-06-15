@@ -8,7 +8,7 @@
             </p-selectButton>
         </div>
     </section>
-    <section class="my-3 mb-1 flex justify-between">
+    <section id="schedule-days" class="my-3 mb-1 flex justify-between">
         <ng-container *ngFor="let day of workingDays; let i = index;">
             <p-button *ngIf="day === activeDay" styleClass="my-1" [rounded]="true" pRipple (onClick)="changeDay(day)"
                 severity="primary" [raised]="true" [label]="'short_dayofweek.' + day | translate">
