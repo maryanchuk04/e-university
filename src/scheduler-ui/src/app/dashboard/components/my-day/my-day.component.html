@@ -1,4 +1,4 @@
-<div id="my-day hide-scrollbar" id='myDay' class="">
+<div id="my-day" class="hide-scrollbar">
     <div class="flex justify-between items-center">
         <h1 class="my-3" translate="dashboard.my_day.title"></h1>
         <p-tag class="text-2xl" [value]="today"></p-tag>
@@ -6,38 +6,33 @@
 
     <ng-container *ngIf="(myDay$ | async) as myDay; else spinner">
 
-        <div class="flex flex-col gap-3 overflow-y-auto h-[82vh] hide-scrollbar pb-3 w-full hide-opposite">
-            <p-timeline [value]="myDay.lessons" align="left">
-                <ng-template pTemplate="marker" let-lesson>
-                    <div class="marker flex justify-center items-center">
-                        <span
-                            [ngClass]="{
-                                'bg-success text-white': isLessonPassed(lesson),
-                                'bg-blue-500 text-white': !isLessonPassed(lesson),
-                                'bg-warning text-white': !isLessonPassed(lesson) && isLessonNow(lesson),
-                            }"
-                            class="w-8 h-8 flex items-center justify-center rounded-full !text-white">
-                            <ng-container *ngIf="isLessonPassed(lesson)">
-                                <i class="pi pi-check-circle"></i>
-                            </ng-container>
-                            <ng-container *ngIf="!isLessonPassed(lesson) && isLessonNow(lesson)">
-                                <i class="pi pi-bell" ></i>
-                            </ng-container>
-                            <ng-container *ngIf="!isLessonPassed(lesson) && !isLessonNow(lesson)">
-                                <i class="pi pi-book" ></i>
-                            </ng-container>
-                        </span>
+        @if (myDay.lessons.length > 0) {
+            <ng-container *ngTemplateOutlet="lessonTimelineTemplate; context: {$implicit: myDay}"></ng-container>
+        } @else {
+            <p-messages severity="info">
+                <ng-template pTemplate>
+                    <div class="flex flex-col">
+                        <h3 class="my-1">{{'dashboard.my_day.empty_day' | translate}}</h3>
+                        <p class="my-1" *ngIf="myDay.today === this.DayOfWeek.Saturday || myDay.today === this.DayOfWeek.Sunday; else emptyDayLabel">
+                            {{'dashboard.my_day.weekend' | translate}}
+                        </p>
+                        <ng-template #emptyDayLabel>
+                            <p class="my-1">{{'dashboard.my_day.empty_day_label' | translate}}</p>
+                        </ng-template>
                     </div>
                 </ng-template>
+            </p-messages>
 
-                <ng-template pTemplate="content" let-lesson>
-                    <div>
-                        <uni-lesson-item class="my-2" [status]="determineLessonStatus(lesson)" [lesson]="lesson"></uni-lesson-item>
+            @if(myDay.nextDayLessons && myDay.nextDayLessons.length > 0){
+                <h3 class="text-black/70">{{'dashboard.my_day.schedule_on' | translate}} {{'dayofweek.' + myDay.nextDay | translate | lowercase }}</h3>
+                @for (lesson of myDay.nextDayLessons; track $index) {
+                    <div class="mb-2">
+                        <uni-lesson-item class="my-2" [lesson]="lesson"></uni-lesson-item>
                     </div>
-                </ng-template>
-            </p-timeline>
-            <span class="mb-8"></span>
-        </div>
+                }
+            }
+
+        }
 
     </ng-container>
 </div>
@@ -46,5 +41,47 @@
     <div class="h-full w-full grid place-items-center">
         <p-progressSpinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".8s"
             fill="var(--surface-ground)"></p-progressSpinner>
+    </div>
+</ng-template>
+
+
+<ng-template #spinner>
+    <div class="h-full w-full grid place-items-center">
+        <p-progressSpinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".8s"
+            fill="var(--surface-ground)"></p-progressSpinner>
+    </div>
+</ng-template>
+
+<ng-template #lessonTimelineTemplate let-myDay="myDay">
+    <div class="flex flex-col gap-3 overflow-y-auto h-[82vh] hide-scrollbar pb-3 w-full hide-opposite">
+        <p-timeline [value]="myDay.lessons" align="left">
+            <ng-template pTemplate="marker" let-lesson>
+                <div class="marker flex justify-center items-center">
+                    <span [ngClass]="{
+                            'bg-success text-white': isLessonPassed(lesson),
+                            'bg-blue-500 text-white': !isLessonPassed(lesson),
+                            'bg-warning text-white': !isLessonPassed(lesson) && isLessonNow(lesson),
+                        }" class="w-8 h-8 flex items-center justify-center rounded-full !text-white">
+                        <ng-container *ngIf="isLessonPassed(lesson)">
+                            <i class="pi pi-check-circle"></i>
+                        </ng-container>
+                        <ng-container *ngIf="!isLessonPassed(lesson) && isLessonNow(lesson)">
+                            <i class="pi pi-bell"></i>
+                        </ng-container>
+                        <ng-container *ngIf="!isLessonPassed(lesson) && !isLessonNow(lesson)">
+                            <i class="pi pi-book"></i>
+                        </ng-container>
+                    </span>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="content" let-lesson>
+                <div>
+                    <uni-lesson-item class="my-2" [status]="determineLessonStatus(lesson)"
+                        [lesson]="lesson"></uni-lesson-item>
+                </div>
+            </ng-template>
+        </p-timeline>
+        <span class="mb-8"></span>
     </div>
 </ng-template>

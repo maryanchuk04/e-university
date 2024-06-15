@@ -1,7 +1,6 @@
 ﻿using EUniversity.Schedule.Gateway.Api.Commands.Authentication;
 using EUniversity.Schedule.Gateway.Api.Extensions;
 using EUniversity.Schedule.Gateway.Contract.Requests;
-using EUniversity.Schedule.Gateway.Contract.Responses;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +29,25 @@ public class AuthenticationController(
 
             HttpContext.SetAuthCookies(res);
 
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return Unauthorized();
+        }
+    }
+
+    [HttpPost("refresh-access-token")]
+    public async Task<IActionResult> RefreshAccessToken([FromQuery] string refreshToken, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(refreshToken))
+            return BadRequest("Refresh token should be provided.");
+
+        try
+        {
+            var res = await _mediator.Send(new RefreshAccessTokenCommand(refreshToken), cancellationToken);
+
+            HttpContext.SetAuthCookies(res);
             return Ok();
         }
         catch (Exception)

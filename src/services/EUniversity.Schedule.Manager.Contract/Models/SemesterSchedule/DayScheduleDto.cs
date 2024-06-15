@@ -1,4 +1,6 @@
-﻿namespace EUniversity.Schedule.Manager.Contract.Models.SemesterSchedule;
+﻿using DayOfWeek = EUniversity.Core.Enums.DayOfWeek;
+
+namespace EUniversity.Schedule.Manager.Contract.Models.SemesterSchedule;
 
 public class DayScheduleDto
 {

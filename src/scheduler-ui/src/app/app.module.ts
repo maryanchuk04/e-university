@@ -1,7 +1,7 @@
 import { CookieService } from 'ngx-cookie-service';
 
 import { LayoutModule } from '@angular/cdk/layout';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { AuthInterceptor } from './core/interceptors/http.interceptor';
 import { Language } from './core/models/languages';
 import { appEffects } from './core/state/effects';
 import { metaReducers, reducers } from './core/state/reducers';
@@ -74,6 +75,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
             multi: true,
             deps: [TranslateService, CookieService],
         },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent],
 })

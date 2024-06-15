@@ -15,4 +15,7 @@ public class UserToken
     public DateTime ExpiredOn { get; set; }
 
     public bool IsActive { get; set; } = true;
+
+    public Guid UserId { get; set; }
+    public virtual User User { get; set; }
 }

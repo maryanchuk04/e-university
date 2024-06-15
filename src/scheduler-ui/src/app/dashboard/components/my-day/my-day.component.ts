@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
+import { DayOfWeek } from '../../../core/models/day-of-week';
 import { LessonType, MyDayGatewayView } from '../../../core/models/my-day-gateway-view';
 import { LessonGatewayView } from '../../../core/models/schedule';
 import { LessonStatus } from '../../../core/models/timetable-gateway-view';
@@ -16,15 +18,21 @@ import { LessonInfoModalComponent } from '../../lesson-info-modal/lesson-info-mo
 @Component({
     selector: 'uni-my-day',
     templateUrl: './my-day.component.html',
-    styleUrls: ['./my-day.component.scss']
+    styleUrls: ['./my-day.component.scss'],
 })
 export class MyDayComponent implements OnInit {
     myDay$: Observable<MyDayGatewayView>;
 
-    today: string;
     LessonType = LessonType;
+    DayOfWeek = DayOfWeek;
 
-    constructor(private dialogService: DialogService, private store: Store) { }
+    today: string;
+
+    constructor(
+        private dialogService: DialogService,
+        private store: Store,
+        private translate: TranslateService
+    ) {}
 
     ngOnInit(): void {
         this.store.dispatch(loadMyDay());
@@ -37,23 +45,35 @@ export class MyDayComponent implements OnInit {
     getToday = () => {
         // TODO: Add dependency on choosen language
         if (true) {
-            return toUADay(new Date())
+            return toUADay(new Date());
         }
-        return toENDay(new Date())
+        return toENDay(new Date());
     };
 
     openLessonModal(lesson: LessonGatewayView) {
-        this.dialogService.open(LessonInfoModalComponent, { data: { lesson }, header: lesson.lessonName });
+        this.dialogService.open(LessonInfoModalComponent, {
+            data: { lesson },
+            header: lesson.lessonName,
+        });
     }
 
     getNextLesson(lessons: LessonGatewayView[]): LessonGatewayView | null {
         const now = new Date();
-        return lessons.find(lesson => parse(lesson.startAt, 'HH:mm:ss.SSSSSSS', new Date()) > now) || null;
+        return (
+            lessons.find(
+                lesson =>
+                    parse(lesson.startAt, 'HH:mm:ss.SSSSSSS', new Date()) > now
+            ) || null
+        );
     }
 
     getTimeUntilNextLesson(nextLesson: LessonGatewayView): string {
         const now = new Date();
-        const startTime = parse(nextLesson.startAt, 'HH:mm:ss.SSSSSSS', new Date());
+        const startTime = parse(
+            nextLesson.startAt,
+            'HH:mm:ss.SSSSSSS',
+            new Date()
+        );
         const diffMs = startTime.getTime() - now.getTime();
         const diffMinutes = Math.floor(diffMs / 60000);
         const hours = Math.floor(diffMinutes / 60);
@@ -68,7 +88,6 @@ export class MyDayComponent implements OnInit {
     }
 
     isLessonNow(lesson: LessonGatewayView): boolean {
-
         const now = new Date();
         const startAt = parse(lesson.startAt, 'HH:mm:ss.SSSSSSS', new Date());
         const endAt = parse(lesson.endAt, 'HH:mm:ss.SSSSSSS', new Date());

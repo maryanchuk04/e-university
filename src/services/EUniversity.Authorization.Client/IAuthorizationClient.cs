@@ -12,6 +12,8 @@ public interface IAuthorizationClient
     /// <param name="cancellationToken">Cancellation Token.</param>
     Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request, CancellationToken cancellationToken = default);
 
+    Task<AuthenticateResponse> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default);
+
     /// <summary>
     /// Get user by email.
     /// </summary>

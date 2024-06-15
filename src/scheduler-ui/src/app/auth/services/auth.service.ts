@@ -1,18 +1,33 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+import { BaseHttpService } from '../../core/services/base.service';
 import { AuthModel } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
-    url = `${environment.gatewayBaseAddress}/api/authenticate`;
+export class AuthService extends BaseHttpService {
+    url = `api/authenticate`;
 
-    constructor(private http: HttpClient) {}
+    constructor(http: HttpClient, cookieService: CookieService) {
+        super(http, cookieService);
+    }
 
     authenticate(request: AuthModel): Observable<any> {
-        return this.http.post(this.url, request, { withCredentials: true });
+        return this.post(this.url, request);
     }
+
+    refreshAccessToken(): Observable<any>{
+        return this.post(`${this.url}/refresh-access-token?refreshToken=${this.getRefreshToken()}`, {});
+    }
+
+    isRefreshTokenExists = (): boolean => this.getRefreshToken() != null;
+
+    logout() {
+        this.clearCookies();
+    }
+
+    override getAccessToken = () => this.getAccessToken();
 }

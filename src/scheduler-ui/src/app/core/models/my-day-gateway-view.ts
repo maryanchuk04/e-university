@@ -1,4 +1,4 @@
-import { WeekType } from './day-of-week';
+import { DayOfWeek, WeekType } from './day-of-week';
 import { LessonGatewayView } from './schedule';
 
 export enum LessonType {
@@ -11,5 +11,10 @@ export enum LessonType {
 export interface MyDayGatewayView {
     date: string;
     currentWeekType: WeekType;
-    lessons: LessonGatewayView[]
+    lessons: LessonGatewayView[];
+    today: DayOfWeek;
+
+    nextDay: DayOfWeek;
+    nextDayLessons: LessonGatewayView[];
+    nextDayWeekType: WeekType;
 }

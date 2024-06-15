@@ -1,6 +1,5 @@
 ﻿using EUniversity.Authorization.Contract.Requests;
 using EUniversity.Authorization.Contract.Response;
-using EUniversity.Authorization.Data.Models;
 using EUniversity.Core.Http;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +16,7 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
         IHttpClientFactory httpClientFactory,
         ILogger<AuthorizationClient> logger,
         TimeSpan? timeout = null)
-        : base(endpoint, apiKey, httpClientFactory, logger,timeout)
+        : base(endpoint, apiKey, httpClientFactory, logger, timeout)
     {
     }
 
@@ -37,5 +36,10 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
     public Task<UserResponse> GetUserAsync(Guid userId, CancellationToken cancellationToken = default)
     {
         return GetAsync<UserResponse>($"{UserRoute}/{userId}", cancellationToken: cancellationToken);
+    }
+
+    public Task<AuthenticateResponse> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<object, AuthenticateResponse>($"{AutheticateRoute}/refresh-token/{refreshToken}", null, cancellationToken: cancellationToken);
     }
 }

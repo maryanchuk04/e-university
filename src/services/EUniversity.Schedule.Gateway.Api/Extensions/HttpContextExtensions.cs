@@ -22,7 +22,7 @@ public static class HttpContextExtensions
             HttpOnly = false,
             Secure = true,
             SameSite = SameSiteMode.None,
-            Expires = DateTime.UtcNow.AddDays(7)
+            Expires = DateTime.UtcNow.AddDays(15)
         };
 
         context.Response.Cookies.Append(AccessTokenKey, response.AccessToken, accessTokenCookieOptions);

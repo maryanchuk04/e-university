@@ -9,6 +9,8 @@ import { environment } from '../../../environments/environment';
     providedIn: 'root',
 })
 export class BaseHttpService {
+    private accessTokenKey = 'e_access_token';
+    private refreshTokenKey = 'e_refresh_token';
     protected baseUrl: string = environment.gatewayBaseAddress;
 
     constructor(
@@ -17,7 +19,7 @@ export class BaseHttpService {
     ) {}
 
     protected getAuthHeaders(): HttpHeaders {
-        const token = this.cookieService.get('e_access_token');
+        const token = this.cookieService.get(this.accessTokenKey);
 
         return new HttpHeaders({
             Authorization: `Bearer ${token}`,
@@ -33,6 +35,7 @@ export class BaseHttpService {
     protected post<T>(endpoint: string, body: any) {
         return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, {
             headers: this.getAuthHeaders(),
+            withCredentials: true,
         });
     }
 
@@ -47,4 +50,10 @@ export class BaseHttpService {
             headers: this.getAuthHeaders(),
         });
     }
+
+    protected getAccessToken = () => this.cookieService.get(this.accessTokenKey);
+
+    protected getRefreshToken = () => this.cookieService.get(this.refreshTokenKey);
+
+    protected clearCookies = () => this.cookieService.deleteAll();
 }

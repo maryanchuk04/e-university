@@ -1,4 +1,5 @@
 ﻿using EUniversity.Schedule.Manager.Data.Models.Base;
+using DayOfWeek = EUniversity.Core.Enums.DayOfWeek;
 
 namespace EUniversity.Schedule.Manager.Data.Models;
 

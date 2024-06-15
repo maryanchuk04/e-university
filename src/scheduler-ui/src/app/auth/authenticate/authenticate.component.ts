@@ -30,6 +30,7 @@ export class AuthenticateComponent extends BaseComponent implements OnInit {
                 .authenticate({ email: user.email, picture: user.photoUrl, fullName: user.name })
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(() => {
+                    console.log('work')
                     this.router.navigate(['/']);
                 });
         });

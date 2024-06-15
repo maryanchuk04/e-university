@@ -1,4 +1,6 @@
-﻿namespace EUniversity.Shared.Extensions;
+﻿using DayOfWeek = EUniversity.Core.Enums.DayOfWeek;
+
+namespace EUniversity.Core.Extensions;
 
 public static class DateTimeExtensions
 {
@@ -12,7 +14,7 @@ public static class DateTimeExtensions
         var dayOfWeekIndex = (int)dateTime.DayOfWeek;
 
         // Adjust index to start from Monday (1 = Monday, ..., 7 = Sunday)
-        dayOfWeekIndex = (dayOfWeekIndex == 0) ? 7 : dayOfWeekIndex;
+        dayOfWeekIndex = dayOfWeekIndex == 0 ? 7 : dayOfWeekIndex;
 
         return (DayOfWeek)dayOfWeekIndex;
     }

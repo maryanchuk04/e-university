@@ -11,11 +11,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EUniversity.Authorization.Api.Commands;
 
-public class AuthenticateUserCommand(AuthenticateRequest request) : IRequest<AuthenticateResponse>
+public class AuthenticateUserCommand : IRequest<AuthenticateResponse>
 {
-    public string Email { get; set; } = request.Email;
-    public string Picture { get; set; } = request.Picture;
-    public string FullName { get; set; } = request.FullName;
+    public AuthenticateUserCommand(string email)
+    {
+        Email = email;
+    }
+
+    public AuthenticateUserCommand(AuthenticateRequest request)
+    {
+        Email = request.Email;
+        Picture = request.Picture;
+        FullName = request.FullName;
+    }
+
+    public string Email { get; set; }
+    public string Picture { get; set; }
+    public string FullName { get; set; }
 }
 
 public class AuthenticateUserCommandHandler(
@@ -39,7 +51,7 @@ public class AuthenticateUserCommandHandler(
         if (!await _mediator.Send(new CheckIfUserExistQuery(command.Email), cancellationToken))
         {
             // Register user if it not already exist.
-            userId = await _mediator.Send(new RegisterUserCommand(command.Email, command.Picture, command.FullName), cancellationToken);
+            userId = await _mediator.Send(new RegisterUserCommand(command.Email, command?.Picture, command?.FullName), cancellationToken);
         }
 
         _logger.LogInformation("Starting login for new user with email = '{Email}'", command.Email);
@@ -56,9 +68,8 @@ public class AuthenticateUserCommandHandler(
                ?? throw new UserNotFoundException(userId);
         }
 
-
-        user.FullName = command.FullName;
-        user.Picture = command.Picture;
+        if (!string.IsNullOrEmpty(command.FullName)) user.FullName = command.FullName;
+        if (!string.IsNullOrEmpty(command.Picture)) user.Picture = command.Picture;
 
         _db.Users.Update(user);
 
@@ -80,6 +91,7 @@ public class AuthenticateUserCommandHandler(
         await _db.UserTokens.AddAsync(new UserToken
         {
             Token = refreshToken,
+            UserId = user.Id,
             TokenType = Data.Enums.TokenType.RefreshToken,
             CreatedOn = DateTime.UtcNow,
             ExpiredOn = DateTime.UtcNow.AddDays(15),

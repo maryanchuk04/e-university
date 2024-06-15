@@ -26,13 +26,24 @@ public class AuthenticationController(ILogger<AuthenticationController> logger, 
     /// <param name="request">Auth request</param>
     /// <returns>User Id and Tokens</returns>
     [HttpPost]
-    public async Task<ActionResult<AuthenticateResponse>> AuthenticateAsync([FromBody] AuthenticateRequest request)
+    public async Task<ActionResult<AuthenticateResponse>> AuthenticateAsync([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(request.Email))
         {
             return BadRequest("Email field should be provided");
         }
 
-        return Ok(await _mediator.Send(new AuthenticateUserCommand(request)));
+        return Ok(await _mediator.Send(new AuthenticateUserCommand(request), cancellationToken));
+    }
+
+    [HttpPost("refresh-token/{refreshToken}")]
+    public async Task<ActionResult<AuthenticateResponse>> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(refreshToken))
+        {
+            return BadRequest("Refresh token should be provided");
+        }
+
+        return Ok(await _mediator.Send(new RefreshTokenCommand(refreshToken), cancellationToken));
     }
 }
