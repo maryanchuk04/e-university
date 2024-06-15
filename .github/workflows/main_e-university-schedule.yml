@@ -28,13 +28,15 @@ jobs:
           npm run build
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip ./src/scheduler-ui/dist/scheduler-ui/browser/* .
+        run: |
+          cd ./src/scheduler-ui/dist/scheduler-ui/browser
+          zip -r ../../../../../release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: release.zip
+          path: ./src/scheduler-ui/release.zip
 
   deploy:
     runs-on: ubuntu-latest
