@@ -12,15 +12,17 @@ public static class HttpContextExtensions
     {
         var accessTokenCookieOptions = new CookieOptions
         {
-            HttpOnly = true,
+            HttpOnly = false,
             Secure = true,
             SameSite = SameSiteMode.None, // Set to None for cross-site cookies
+            Domain = "e-university-schedule.azurewebsites.net",
             Expires = DateTime.UtcNow.AddDays(1),
         };
         var refreshTokenCookieOptions = new CookieOptions
         {
-            HttpOnly = true,
+            HttpOnly = false,
             Secure = true,
+            Domain = "e-university-schedule.azurewebsites.net",
             SameSite = SameSiteMode.None, // Set to None for cross-site cookies
             Expires = DateTime.UtcNow.AddDays(15)
         };
