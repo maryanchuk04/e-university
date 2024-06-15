@@ -12,11 +12,10 @@ namespace EUniversity.Gateway.Api.Controllers;
 [Route("api/authenticate")]
 public class AuthenticationController(
     ILogger<AuthenticationController> logger,
-    IMediator mediator, IConfiguration configuration) : ControllerBase
+    IMediator mediator) : ControllerBase
 {
     private readonly ILogger<AuthenticationController> _logger = logger.ThrowIfNull();
     private readonly IMediator _mediator = mediator.ThrowIfNull();
-    private readonly IConfiguration _configuration = configuration.ThrowIfNull();
 
     /// <summary>
     /// Authenticate user endpoint
@@ -29,7 +28,7 @@ public class AuthenticationController(
             _logger.LogInformation("[AuthenticationController]: Received request to authenticate user = {Email}", request.Email);
             var res = await _mediator.Send(new AuthenticateUserCommand(request), cancellationToken);
 
-            HttpContext.SetAuthCookies(res, _configuration.GetSecretOrThrow<string>("CookiesDomain"));
+            HttpContext.SetAuthCookies(res);
 
             return Ok();
         }
@@ -49,7 +48,7 @@ public class AuthenticationController(
         {
             var res = await _mediator.Send(new RefreshAccessTokenCommand(refreshToken), cancellationToken);
 
-            HttpContext.SetAuthCookies(res, _configuration.GetSecretOrThrow<string>("CookiesDomain"));
+            HttpContext.SetAuthCookies(res);
             return Ok();
         }
         catch (Exception)

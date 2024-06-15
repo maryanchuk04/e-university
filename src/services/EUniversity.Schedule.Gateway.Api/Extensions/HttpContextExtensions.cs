@@ -8,14 +8,13 @@ public static class HttpContextExtensions
     private const string AccessTokenKey = "e_access_token";
     private const string RefreshTokenKey = "e_refresh_token";
 
-    public static void SetAuthCookies(this HttpContext context, AuthenticateResponse response, string domain)
+    public static void SetAuthCookies(this HttpContext context, AuthenticateResponse response)
     {
         var accessTokenCookieOptions = new CookieOptions
         {
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.None, // Set to None for cross-site cookies
-            Domain = domain,
             Expires = DateTime.UtcNow.AddDays(1),
         };
         var refreshTokenCookieOptions = new CookieOptions
@@ -23,7 +22,6 @@ public static class HttpContextExtensions
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.None, // Set to None for cross-site cookies
-            Domain = domain,
             Expires = DateTime.UtcNow.AddDays(15)
         };
 
