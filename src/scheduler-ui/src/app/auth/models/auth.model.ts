@@ -3,3 +3,8 @@ export interface AuthModel {
     picture: string;
     fullName: string;
 }
+
+export interface AuthTokens {
+    refreshToken: string;
+    accessToken: string;
+}

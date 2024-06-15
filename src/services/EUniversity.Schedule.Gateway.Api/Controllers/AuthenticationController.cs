@@ -30,7 +30,7 @@ public class AuthenticationController(
 
             HttpContext.SetAuthCookies(res);
 
-            return Ok();
+            return Ok(res);
         }
         catch (Exception)
         {
@@ -49,7 +49,7 @@ public class AuthenticationController(
             var res = await _mediator.Send(new RefreshAccessTokenCommand(refreshToken), cancellationToken);
 
             HttpContext.SetAuthCookies(res);
-            return Ok();
+            return Ok(res);
         }
         catch (Exception)
         {
