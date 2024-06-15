@@ -20,7 +20,7 @@
         </ng-container>
     </section>
 
-    <section *ngIf="schedule" class="h-[68vh] overflow-y-auto hide-scrollbar">
+    <section *ngIf="schedule" class="h-[68vh] rounded-t-xl overflow-y-auto hide-scrollbar pb-12">
         <div *ngFor="let lesson of lessons" class="lesson-item mb-2">
             <uni-lesson-item [lesson]="lesson"></uni-lesson-item>
         </div>
