@@ -1,5 +1,11 @@
 name: Schedule Manager Deploy
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 
 jobs:
   build:
@@ -29,6 +35,7 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
+    if: github.event_name == 'workflow_dispatch'
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
