@@ -56,7 +56,7 @@ export class BaseHttpService {
         });
     }
 
-    protected getAccessToken = () => this.cookieService.get(this.accessTokenKey);
+    protected getToken = () => this.cookieService.get(this.accessTokenKey);
 
     protected getRefreshToken = () =>
         this.cookieService.get(this.refreshTokenKey);

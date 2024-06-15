@@ -38,5 +38,5 @@ export class AuthService extends BaseHttpService {
         this.clearCookies();
     }
 
-    override getAccessToken = () => this.getAccessToken();
+    getAccessToken = () => this.getToken();
 }
