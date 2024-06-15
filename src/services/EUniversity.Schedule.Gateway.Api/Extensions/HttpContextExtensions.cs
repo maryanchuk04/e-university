@@ -12,17 +12,17 @@ public static class HttpContextExtensions
     {
         var accessTokenCookieOptions = new CookieOptions
         {
-            HttpOnly = false,
+            HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.None, // Set to None for cross-site cookies
             Domain = domain,
             Expires = DateTime.UtcNow.AddDays(1),
         };
         var refreshTokenCookieOptions = new CookieOptions
         {
-            HttpOnly = false,
+            HttpOnly = true,
             Secure = true,
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.None, // Set to None for cross-site cookies
             Domain = domain,
             Expires = DateTime.UtcNow.AddDays(15)
         };
