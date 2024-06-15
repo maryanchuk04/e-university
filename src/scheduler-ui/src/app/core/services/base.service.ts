@@ -29,6 +29,7 @@ export class BaseHttpService {
     protected get<T>(endpoint: string) {
         return this.http.get<T>(`${this.baseUrl}/${endpoint}`, {
             headers: this.getAuthHeaders(),
+            withCredentials: true,
         });
     }
 
@@ -42,12 +43,14 @@ export class BaseHttpService {
     protected put<T>(endpoint: string, body: any) {
         return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, {
             headers: this.getAuthHeaders(),
+            withCredentials: true,
         });
     }
 
     protected delete<T>(endpoint: string) {
         return this.http.delete<T>(`${this.baseUrl}/${endpoint}`, {
             headers: this.getAuthHeaders(),
+            withCredentials: true,
         });
     }
 
