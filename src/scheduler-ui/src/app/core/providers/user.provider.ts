@@ -1,8 +1,8 @@
 import { jwtDecode } from 'jwt-decode';
-import { CookieService } from 'ngx-cookie-service';
 
 import { Injectable } from '@angular/core';
 
+import { AuthService } from '../../auth/services/auth.service';
 import { Role } from '../models/role';
 import { PortalUser } from './portal-user';
 
@@ -10,10 +10,10 @@ import { PortalUser } from './portal-user';
 export class UserProvider {
     private claimsKey = 'https://e-university.ua.com/';
 
-    constructor(private cookieService: CookieService) {}
+    constructor(private authService: AuthService) {}
 
     getCurrentUser(): PortalUser | null {
-        const token = this.cookieService.get('e_access_token');
+        const token = this.authService.getAccessToken();
 
         if (!token) {
             return null;

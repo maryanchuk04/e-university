@@ -10,12 +10,8 @@ import { environment } from '../../../environments/environment';
     providedIn: 'root',
 })
 export class BaseHttpService {
-    // backend tokens
-    private accessTokenKey = 'e_access_token';
-    private refreshTokenKey = 'e_refresh_token';
-    // UI Tokens
-    private idTokenKey = 'e_uni_id_token_key';
-    private idRefreshTokenKey = 'e_uni_id_refresh_token';
+    private accessTokenKey = 'e_uni_access_token';
+    private refreshTokenKey = 'e_uni_refresh_token';
 
     protected baseUrl: string = environment.gatewayBaseAddress;
 
@@ -25,7 +21,7 @@ export class BaseHttpService {
     ) {}
 
     protected getAuthHeaders(): HttpHeaders {
-        const token = this.cookieService.get(this.idTokenKey);
+        const token = this.cookieService.get(this.accessTokenKey);
 
         return new HttpHeaders({
             Authorization: `Bearer ${token}`,
@@ -60,10 +56,10 @@ export class BaseHttpService {
         });
     }
 
-    protected getAccessToken = () => this.cookieService.get(this.idTokenKey);
+    protected getAccessToken = () => this.cookieService.get(this.accessTokenKey);
 
     protected getRefreshToken = () =>
-        this.cookieService.get(this.idRefreshTokenKey);
+        this.cookieService.get(this.refreshTokenKey);
 
     protected clearCookies = () => this.cookieService.deleteAll();
 
@@ -83,12 +79,12 @@ export class BaseHttpService {
         };
 
         this.cookieService.set(
-            this.idTokenKey,
+            this.accessTokenKey,
             accessToken,
             accessTokenCookieOptions
         );
         this.cookieService.set(
-            this.idRefreshTokenKey,
+            this.refreshTokenKey,
             refreshToken,
             refreshTokenCookieOptions
         );
