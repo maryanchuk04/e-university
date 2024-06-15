@@ -14,6 +14,7 @@ export class AppComponent implements OnInit{
     constructor(private primengConfig: PrimeNGConfig, private userProvider: UserProvider, private router: Router) {}
 
      ngOnInit() {
+        document.body.style.height = `${window.innerHeight}px`;
         this.primengConfig.ripple = true;
 
         const user = this.userProvider.getCurrentUser();
