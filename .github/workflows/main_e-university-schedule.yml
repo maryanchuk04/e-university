@@ -28,7 +28,7 @@ jobs:
           npm run build
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip ./src/scheduler-ui/dist/scheduler-ui
+        run: zip -r release.zip ./src/scheduler-ui/dist/scheduler-ui/browser/* .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
