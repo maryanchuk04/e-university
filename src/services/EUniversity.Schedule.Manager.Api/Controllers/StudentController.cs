@@ -15,4 +15,12 @@ public class StudentController(IMediator mediator) : ControllerBase
         return Ok(
             await mediator.Send(new GetStudentInfoQuery(userId), cancellationToken));
     }
+
+    [HttpGet("faculty/{facultyId:guid}")]
+    public async Task<ActionResult<List<StudentInfoDto>>> GetStudentsByFacultyIdAsync(Guid facultyId, CancellationToken cancellationToken)
+    {
+        return Ok(
+            await mediator.Send(new GetStudentsByFacultyQuery(facultyId), cancellationToken));
+    }
+
 }

@@ -221,6 +221,44 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                     b.ToTable("LessonTimes");
                 });
 
+            modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Manager", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("FacultyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("StundentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TeacherId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Managers");
+                });
+
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Room", b =>
                 {
                     b.Property<Guid>("Id")
@@ -600,6 +638,27 @@ namespace EUniversity.Schedule.Manager.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("TimeTable");
+                });
+
+            modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Manager", b =>
+                {
+                    b.HasOne("EUniversity.Schedule.Manager.Data.Models.Faculty", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId");
+
+                    b.HasOne("EUniversity.Schedule.Manager.Data.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+
+                    b.HasOne("EUniversity.Schedule.Manager.Data.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Faculty");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("EUniversity.Schedule.Manager.Data.Models.Room", b =>

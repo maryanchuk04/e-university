@@ -1,4 +1,4 @@
-<div class="text-white bg-blue-400 p-2 px-4 rounded-xl lesson">
+<div class="text-white bg-blue-400 p-2 px-4 rounded-xl lesson" [ngClass]="{ 'bg-success' : isPassed}">
     <h3 class="mb-1 mt-0">{{lesson.lessonName}}</h3>
     <p class="my-0 mb-2" translate="dashboard.my_day.teacher_label"><span>{{lesson.teacherName}}</span></p>
 

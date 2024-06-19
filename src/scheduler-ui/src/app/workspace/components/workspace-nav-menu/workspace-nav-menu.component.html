@@ -1,0 +1,24 @@
+<div class="flex justify-content-center w-full">
+    <p-menu [model]="items" styleClass="w-full flex flex-col h-screen rounded-none">
+
+        <ng-template pTemplate="start">
+            <span class="align-items-center gap-1 px-2 py-2 flex flex-col">
+                <span class="text-xl font-semibold">e-University<span
+                        class="text-primary font-medium">Schedule</span></span>
+                <span class="text-xl font-light">Workspace</span>
+            </span>
+        </ng-template>
+        <ng-template pTemplate="submenuheader" let-item>
+            <span class="text-primary font-bold">{{ item.label | translate }}</span>
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            <a pRipple [routerLink]="item.url" routerLinkActive="bg-[#e5e7eb]"
+                class="flex align-items-center p-menuitem-link">
+                <span [class]="item.icon"></span>
+                <span class="ml-2">{{ item.label | translate }}</span>
+                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+            </a>
+        </ng-template>
+
+    </p-menu>
+</div>

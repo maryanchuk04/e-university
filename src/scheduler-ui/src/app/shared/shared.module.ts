@@ -4,7 +4,9 @@ import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
 import { DialogService } from 'primeng/dynamicdialog';
+import { MenuModule } from 'primeng/menu';
 import { MessagesModule } from 'primeng/messages';
 import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -61,7 +63,9 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         TableModule,
         PanelModule,
         TimelineModule,
-        MessagesModule
+        MessagesModule,
+        MenuModule,
+        DropdownModule,
     ],
     exports: [
         ButtonModule,
@@ -88,6 +92,8 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         PanelModule,
         TimelineModule,
         MessagesModule,
+        MenuModule,
+        DropdownModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [MessageService, DialogService],

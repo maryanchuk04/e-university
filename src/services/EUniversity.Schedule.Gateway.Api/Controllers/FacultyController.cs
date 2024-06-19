@@ -17,7 +17,7 @@ public class FacultyController(IMediator mediator, ILogger<FacultyController> lo
     {
         logger.LogInformation("[FacultyController]: Get all faculties was called in Gateway");
         return Ok(await mediator.Send(new GetAllFacultiesQuery(), cancellationToken));
-    }
+    }   
 
     [HttpGet]
     [Route("{facultyId}/timetable")]

@@ -22,7 +22,7 @@ const routes: Routes = [
         canActivate: mapToCanActivate([AuthGuard, StudentGuard])
     },
     {
-        path: 'schedule',
+        path: 'full-schedule',
         loadChildren: () => import('./schedule/schedule-routing.module').then((m) => m.ScheduleRoutingModule),
     },
     {
@@ -38,6 +38,11 @@ const routes: Routes = [
         path: 'teacher',
         loadChildren: () => import('./teacher/teacher-routing.module').then(m => m.TeacherRoutingModule),
         canActivate: mapToCanActivate([AuthGuard, TeacherGuard]),
+    },
+    {
+        path: 'workspace',
+        loadChildren: () => import('./workspace/workspace-routing.module').then(m => m.WorkspaceRoutingModule),
+        //canActivate: mapToCanActivate([AdminGuard])
     }
 ];
 

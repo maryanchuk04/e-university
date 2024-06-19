@@ -1,0 +1,12 @@
+::ng-deep .cal-header {
+    display: none;
+  }
+
+  ::ng-deep .cal-week-view .cal-days {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  ::ng-deep .cal-week-view .cal-day-headers {
+    display: none;
+  }

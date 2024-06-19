@@ -27,6 +27,6 @@ public class FacultyDto
     public string Description { get; set; }
     public string Address { get; set; }
 
-    public TeacherDto Dean { get; set; }
-    public TimeTableDto TimeTable { get; set; }
+    public TeacherDto? Dean { get; set; }
+    public TimeTableDto? TimeTable { get; set; }
 }

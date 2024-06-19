@@ -19,4 +19,5 @@ public interface IUniversityScheduleManagerContext
     public DbSet<Semester> Semesters { get; set; }
     public DbSet<Room> Rooms { get; set; }
     public DbSet<Day> Days { get; set; }
+    public DbSet<Models.Manager> Managers { get; set; }
 }

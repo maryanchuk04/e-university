@@ -20,7 +20,7 @@ export class BaseHttpService {
         private cookieService: CookieService
     ) {}
 
-    protected getAuthHeaders(): HttpHeaders {
+    public getAuthHeaders(): HttpHeaders {
         const token = this.cookieService.get(this.accessTokenKey);
 
         return new HttpHeaders({
@@ -28,40 +28,40 @@ export class BaseHttpService {
         });
     }
 
-    protected get<T>(endpoint: string) {
+    public get<T>(endpoint: string) {
         return this.http.get<T>(`${this.baseUrl}/${endpoint}`, {
             headers: this.getAuthHeaders(),
             withCredentials: true,
         });
     }
 
-    protected post<T>(endpoint: string, body: any) {
+    public post<T>(endpoint: string, body: any) {
         return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, {
             headers: this.getAuthHeaders(),
             withCredentials: true,
         });
     }
 
-    protected put<T>(endpoint: string, body: any) {
+    public put<T>(endpoint: string, body: any) {
         return this.http.put<T>(`${this.baseUrl}/${endpoint}`, body, {
             headers: this.getAuthHeaders(),
             withCredentials: true,
         });
     }
 
-    protected delete<T>(endpoint: string) {
+    public delete<T>(endpoint: string) {
         return this.http.delete<T>(`${this.baseUrl}/${endpoint}`, {
             headers: this.getAuthHeaders(),
             withCredentials: true,
         });
     }
 
-    protected getToken = () => this.cookieService.get(this.accessTokenKey);
+    public getToken = () => this.cookieService.get(this.accessTokenKey);
 
-    protected getRefreshToken = () =>
+    public getRefreshToken = () =>
         this.cookieService.get(this.refreshTokenKey);
 
-    protected clearCookies = () => this.cookieService.deleteAll();
+    public clearCookies = () => this.cookieService.deleteAll();
 
     protected setAuthCookies = ({ accessToken, refreshToken }) => {
         const accessTokenCookieOptions = {

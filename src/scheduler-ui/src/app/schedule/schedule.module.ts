@@ -1,3 +1,6 @@
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -17,6 +20,10 @@ import { ScheduleRoutingModule } from './schedule-routing.module';
         ScheduleRoutingModule,
         SharedModule,
         RouterModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
     ]
 })
 export class ScheduleModule { }

@@ -1,4 +1,7 @@
 ﻿using EUniversity.Authorization.Api.Queries.Users;
+using EUniversity.Authorization.Contract.Requests;
+using EUniversity.Authorization.Contract.Response;
+using EUniversity.Authorization.Data;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +13,7 @@ namespace EUniversity.Authorization.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-public class UserController(IMediator mediator) : ControllerBase
+public class UserController(IMediator mediator, AuthorizationDbContext authorizationDbContext) : ControllerBase
 {
     private readonly IMediator _mediator = mediator.ThrowIfNull();
 
@@ -24,6 +27,12 @@ public class UserController(IMediator mediator) : ControllerBase
     public async Task<ActionResult> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         return Ok(await _mediator.Send(new GetUserQuery(userId), cancellationToken));
+    }
+
+    [HttpGet("all")]
+    public async Task<ActionResult<UserResponse>> GetUsersAsync(CancellationToken cancellationToken)
+    {
+        return Ok(await _mediator.Send(new GetUsersQuery(), cancellationToken));
     }
 
     /// <summary>

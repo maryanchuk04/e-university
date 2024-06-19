@@ -19,6 +19,8 @@ export const workingDays = [
     DayOfWeek.Friday,
 ];
 
+export const week = [...workingDays, DayOfWeek.Saturday, DayOfWeek.Sunday];
+
 export enum WeekType {
     Even = 0,
     Odd = 1,

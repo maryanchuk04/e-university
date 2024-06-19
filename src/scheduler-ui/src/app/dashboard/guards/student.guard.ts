@@ -12,9 +12,9 @@ export class StudentGuard {
     canActivate(): boolean {
         const currentUser = this.userProvider.getCurrentUser();
 
-        if (currentUser && currentUser.role === Role.Student)
-            return true;
+        if (!currentUser || (currentUser.role === Role.Teacher || currentUser.role === Role.User))
+            return false;
 
-        return false;
+        return true;
     }
 }

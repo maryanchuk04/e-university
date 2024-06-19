@@ -14,6 +14,8 @@ public interface IAuthorizationClient
 
     Task<AuthenticateResponse> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default);
 
+    Task<List<UserResponse>> GetUsersAsync(CancellationToken cancellationToken);
+
     /// <summary>
     /// Get user by email.
     /// </summary>

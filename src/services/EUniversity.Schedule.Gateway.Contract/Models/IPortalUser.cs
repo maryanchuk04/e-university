@@ -8,6 +8,8 @@ public interface IPortalUser
     public string Email { get; set; }
     public Role Role { get; set; }
     public IList<PermissionType> Permissions { get; set; }
+
+    bool IsAdmin();
 }
 
 public class PortalUser : IPortalUser
@@ -16,4 +18,6 @@ public class PortalUser : IPortalUser
     public string Email { get; set; }
     public Role Role { get; set; }
     public IList<PermissionType> Permissions { get; set; }
+
+    public bool IsAdmin() => Role == Role.Admin || Role == Role.ScheduleAdmin || Role == Role.FacultyAdmin;
 }

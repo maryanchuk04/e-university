@@ -40,21 +40,10 @@
 </div>
 
 <ng-template #spinner>
-    <div class="h-full w-full grid place-items-center">
-        <p-progressSpinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".8s"
-            fill="var(--surface-ground)"></p-progressSpinner>
-    </div>
+    <uni-spinner></uni-spinner>
 </ng-template>
 
-
-<ng-template #spinner>
-    <div class="h-full w-full grid place-items-center">
-        <p-progressSpinner styleClass="w-16 h-16" strokeWidth="8" animationDuration=".8s"
-            fill="var(--surface-ground)"></p-progressSpinner>
-    </div>
-</ng-template>
-
-<ng-template #lessonTimelineTemplate let-myDay="myDay">
+<ng-template #lessonTimelineTemplate let-myDay>
     <div class="flex flex-col gap-3 overflow-y-auto h-[82vh] hide-scrollbar pb-3 w-full hide-opposite">
         <p-timeline [value]="myDay.lessons" align="left">
             <ng-template pTemplate="marker" let-lesson>

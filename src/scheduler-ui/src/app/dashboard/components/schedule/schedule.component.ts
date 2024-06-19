@@ -18,6 +18,7 @@ import { toENDay, toUADay } from '../../../utils/date';
     styleUrls: ['./schedule.component.scss'],
 })
 export class ScheduleComponent extends BaseComponent implements OnInit {
+    isLoading: boolean = true;
     stateOptions: any[];
 
     workingDays = workingDays;
@@ -34,6 +35,7 @@ export class ScheduleComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isLoading = true;
         this.translate.get(['week_type.odd', 'week_type.even']).subscribe(translations => {
             this.stateOptions = [
                 { label: translations['week_type.even'], value: WeekType.Even },
@@ -46,6 +48,7 @@ export class ScheduleComponent extends BaseComponent implements OnInit {
             .subscribe(scheduleRes => {
                 this.schedule = scheduleRes;
                 this.updateLessons();
+                this.isLoading = false;
             });
 
         this.store.select(selectStudent)
@@ -53,6 +56,7 @@ export class ScheduleComponent extends BaseComponent implements OnInit {
             .subscribe(studentRes => {
                 this.student = studentRes;
                 this.updateLessons();
+                this.isLoading = false;
             });
     }
 

@@ -22,6 +22,7 @@ public class ScheduleManagerClient(
     private const string GroupRoute = "/api/groups";
     private const string SpecialityRoute = "/api/speciality";
     private const string ScheduleRoute = "/api/schedule";
+    private const string ManagerRoute = "/api/manager";
 
     #endregion
 
@@ -49,7 +50,6 @@ public class ScheduleManagerClient(
         return GetAsync<TimeTableDto>($"{FacultyRoute}/{facultyId}/timetable", cancellationToken: cancellationToken);
     }
 
-
     #endregion
 
     #region Teacher
@@ -57,6 +57,11 @@ public class ScheduleManagerClient(
     public Task<Guid> CreateTeacherAsync(CreateTeacherRequest request, CancellationToken cancellationToken = default)
     {
         return PostAsync<CreateTeacherRequest, Guid>(TeacherRoute, request, cancellationToken: cancellationToken);
+    }
+
+    public Task<IList<TeacherDto>> GetTeachersByFacultyIdAsync(Guid facultyId, CancellationToken cancellationToken = default)
+    {
+        return GetAsync<IList<TeacherDto>>($"{TeacherRoute}/faculty/{facultyId}", cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -68,6 +73,12 @@ public class ScheduleManagerClient(
         var route = $"{StudentRoute}/{userId}";
 
         return GetAsync<StudentInfoDto>(route, cancellationToken: cancellationToken);
+    }
+
+    public Task<List<StudentInfoDto>> GetStudentsByFacultyIdAsync(Guid facultyId, CancellationToken cancellationToken = default)
+    {
+        var route = $"{StudentRoute}/faculty/{facultyId}";
+        return GetAsync<List<StudentInfoDto>>(route, cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -97,6 +108,15 @@ public class ScheduleManagerClient(
         var route = $"{ScheduleRoute}/faculty/{facultyId}";
 
         return GetAsync<ScheduleResponse>(route, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region Manager
+
+    public Task<ManagerDto> GetManagerInfoByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        return GetAsync<ManagerDto>($"{ManagerRoute}/{userId}", cancellationToken: cancellationToken);
     }
 
     #endregion

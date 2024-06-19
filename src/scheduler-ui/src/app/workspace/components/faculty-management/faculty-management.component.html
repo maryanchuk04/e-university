@@ -1,0 +1,29 @@
+<div class="h-20" id="faculty-admin">
+    <ng-container *ngIf="(manager$ | async ) as manager">
+        @if (manager?.facultyId) {
+        <p-messages severity="info" styleClass="">
+            <ng-template pTemplate>
+                <i class="pi pi-info-circle text-3xl mr-5"></i>
+                <div class="flex flex-col">
+                    <h4 class="my-0">{{'workspace.faculty.faculty' | translate}}</h4>
+                    <p class="my-1">{{'workspace.faculty.helper' | translate}}</p>
+                </div>
+            </ng-template>
+        </p-messages>
+        } @else {
+        <p-messages severity="info">
+            <ng-template pTemplate>
+                <i class="pi pi-info-circle mr-3 text-2xl"></i>
+                <div class="flex items-center justify-between w-full">
+                    <h4 class="my-0 font-medium">{{'workspace.faculty.info' | translate}}</h4>
+                    <p-dropdown optionLabel="name" panelStyleClass="text-sm" styleClass="text-sm"
+                        [(ngModel)]="currentFaculty" [options]="faculties"
+                        [placeholder]="'workspace.faculty.choose' | translate" [loading]="isFacultiesLoading"
+                        (onChange)="onFacultyChange($event)"></p-dropdown>
+                </div>
+            </ng-template>
+        </p-messages>
+
+        }
+    </ng-container>
+</div>

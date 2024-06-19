@@ -38,6 +38,11 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
         return GetAsync<UserResponse>($"{UserRoute}/{userId}", cancellationToken: cancellationToken);
     }
 
+    public Task<List<UserResponse>> GetUsersAsync(CancellationToken cancellationToken)
+    {
+        return GetAsync<List<UserResponse>>($"{UserRoute}/all", cancellationToken: cancellationToken);
+    }
+
     public Task<AuthenticateResponse> RefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
     {
         return PostAsync<object, AuthenticateResponse>($"{AutheticateRoute}/refresh-token/{refreshToken}", null, cancellationToken: cancellationToken);

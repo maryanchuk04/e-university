@@ -1,6 +1,9 @@
 ﻿using System.Net;
 using EUniversity.Core.Error;
 using EUniversity.Schedule.Manager.Api.Commands.Teacher;
+using EUniversity.Schedule.Manager.Api.Queries.Students;
+using EUniversity.Schedule.Manager.Api.Queries.Teachers;
+using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
 using EUniversity.Shared.ErrorHandling;
 using EUniversity.Shared.Extensions;
@@ -32,5 +35,12 @@ public class TeacherController(IMediator mediator, ILogger<TeacherController> lo
             _logger.LogWarning(ex, "Create teacher request body was null");
             return BadRequest(new ErrorModel(HttpStatusCode.BadRequest, ApiErrorCodes.InvalidRequest));
         }
+    }
+
+    [HttpGet("faculty/{facultyId:guid}")]
+    public async Task<ActionResult<List<TeacherDto>>> GetTeachersByFacultyIdAsync(Guid facultyId, CancellationToken cancellationToken)
+    {
+        return Ok(
+            await mediator.Send(new GetTeachersByFacultyQuery(facultyId), cancellationToken));
     }
 }

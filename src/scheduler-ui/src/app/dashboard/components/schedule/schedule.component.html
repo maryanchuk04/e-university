@@ -1,10 +1,9 @@
-<div>
-    <!-- <section class="flex justify-center pt-4"><p-tag [rounded]="true" styleClass="text-center text-sm" [value]="getToday()" /></section> -->
-    <section class="flex items-center justify-between mt-3">
+<div class="flex flex-col">
+    <section class="flex items-center justify-between mt-3 max-w-xs w-full self-end">
         <h4 translate="schedule.week_type" class="text-[#4b5563] my-0 p-0"></h4>
-        <div class="card flex justify-content-center">
-            <p-selectButton [unselectable]="true" [options]="stateOptions" [(ngModel)]="weekType" (ngModelChange)="onWeekTypeChange($event)"
-                optionLabel="label" optionValue="value">
+        <div class="card flex justify-content-center ">
+            <p-selectButton [unselectable]="true" [options]="stateOptions" [(ngModel)]="weekType"
+                (ngModelChange)="onWeekTypeChange($event)" optionLabel="label" optionValue="value">
             </p-selectButton>
         </div>
     </section>
@@ -20,9 +19,13 @@
         </ng-container>
     </section>
 
-    <section *ngIf="schedule" class="h-[68vh] rounded-t-xl overflow-y-auto hide-scrollbar pb-12">
+    <section *ngIf="!isLoading; else spinner" class="h-[68vh] rounded-t-xl overflow-y-auto hide-scrollbar pb-12">
         <div *ngFor="let lesson of lessons" class="lesson-item mb-2">
             <uni-lesson-item [lesson]="lesson"></uni-lesson-item>
         </div>
     </section>
 </div>
+
+<ng-template #spinner>
+    <uni-spinner></uni-spinner>
+</ng-template>

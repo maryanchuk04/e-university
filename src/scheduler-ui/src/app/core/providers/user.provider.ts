@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from '../models/role';
-import { PortalUser } from './portal-user';
+import { Permissions, PortalUser } from './portal-user';
 
 @Injectable({ providedIn: 'root' })
 export class UserProvider {
@@ -35,6 +35,26 @@ export class UserProvider {
             console.error('Error decoding token:', error);
             return null;
         }
+    }
+
+    hasAdminAccess() {
+        const user = this.getCurrentUser();
+
+        if (!user) return false;
+
+        return (
+            user.role === Role.Admin ||
+            user.permissions.includes(Permissions.FacultyFullAccess) ||
+            user.permissions.includes(Permissions.FullAccess)
+        );
+    }
+
+    hasAccessToDashboard(): boolean {
+        const user = this.getCurrentUser();
+
+        if (!user) return false;
+
+        return user.role === Role.Student || user.role === Role.Admin;
     }
 
     private parsePermissions = (decodedPermissions: any) => {

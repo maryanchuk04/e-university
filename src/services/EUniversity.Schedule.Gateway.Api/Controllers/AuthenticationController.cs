@@ -1,7 +1,6 @@
 ﻿using EUniversity.Schedule.Gateway.Api.Commands.Authentication;
 using EUniversity.Schedule.Gateway.Api.Extensions;
 using EUniversity.Schedule.Gateway.Contract.Requests;
-using EUniversity.Shared.Exceptions;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -23,4 +23,10 @@ public interface IScheduleManagerClient
     Task<ScheduleResponse> GetScheduleAsync(Guid facultyId, CancellationToken cancellationToken = default);
 
     Task<TimeTableDto> GetFacultyTimeTableAsync(Guid facultyId, CancellationToken cancellationToken = default);
+
+    Task<List<StudentInfoDto>> GetStudentsByFacultyIdAsync(Guid facultyId, CancellationToken cancellationToken = default);
+
+    Task<ManagerDto> GetManagerInfoByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
+
+    Task<IList<TeacherDto>> GetTeachersByFacultyIdAsync(Guid facultyId, CancellationToken cancellationToken = default);
 }

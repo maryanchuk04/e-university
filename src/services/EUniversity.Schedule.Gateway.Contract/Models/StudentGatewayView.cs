@@ -8,6 +8,7 @@ public class StudentGatewayView
     // from auth service
     public string FullName { get; set; }
     public string Picture { get; set; }
+    public string Email { get; set; }
 
     // from manager
     public Guid GroupId { get; set; }
