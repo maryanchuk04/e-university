@@ -68,6 +68,12 @@ public class AuthenticateUserCommandHandler(
                ?? throw new UserNotFoundException(userId);
         }
 
+        if (!user.IsActive)
+        {
+            user.IsActive = true;
+            _db.Users.Update(user);
+        }
+
         if (!string.IsNullOrEmpty(command.FullName)) user.FullName = command.FullName;
         if (!string.IsNullOrEmpty(command.Picture)) user.Picture = command.Picture;
 

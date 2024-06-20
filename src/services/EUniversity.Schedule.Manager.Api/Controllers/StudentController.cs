@@ -23,4 +23,10 @@ public class StudentController(IMediator mediator) : ControllerBase
             await mediator.Send(new GetStudentsByFacultyQuery(facultyId), cancellationToken));
     }
 
+    [HttpPost]
+    public async Task<ActionResult<Guid>> CreateStudentAsync(CancellationToken cancellationToken) 
+    {
+
+        return Ok();
+    }
 }

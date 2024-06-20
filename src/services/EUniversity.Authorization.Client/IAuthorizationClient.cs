@@ -25,4 +25,9 @@ public interface IAuthorizationClient
     /// Get user by id.
     /// </summary>
     Task<UserResponse> GetUserAsync(Guid userId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Create non active user
+    /// </summary>
+    Task<Guid> CreateNonActiveUserAsync(CreateUserRequest request, CancellationToken cancellationToken = default);
 }

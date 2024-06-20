@@ -3,7 +3,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+    BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -23,6 +25,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { SharedModule } from './shared/shared.module';
 import { WorkspaceModule } from './workspace/workspace.module';
+
+export class CustomHammerConfig extends HammerGestureConfig {
+    override overrides = {
+        swipe: { direction: Hammer.DIRECTION_HORIZONTAL },
+    };
+}
 
 export function LanguageLoader(
     translate: TranslateService,
@@ -67,6 +75,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
         EffectsModule.forRoot(appEffects),
         StoreDevtoolsModule.instrument(),
         LayoutModule,
+        HammerModule,
     ],
     providers: [
         TranslateStore,
@@ -76,6 +85,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
             multi: true,
             deps: [TranslateService, CookieService],
         },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
     ],
     bootstrap: [AppComponent],
 })

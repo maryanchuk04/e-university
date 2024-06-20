@@ -21,7 +21,7 @@ public class CreateTeacherCommandHandler(UniversityScheduleManagerContext db) : 
             Id = Guid.NewGuid(),
             FullName = command.Teacher.FullName,
             Position = command.Teacher.Position,
-            UserId = command.Teacher.UserId,
+            UserId = command.Teacher.UserId ?? Guid.Empty,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };

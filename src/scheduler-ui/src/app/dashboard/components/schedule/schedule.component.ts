@@ -58,6 +58,8 @@ export class ScheduleComponent extends BaseComponent implements OnInit {
                 this.updateLessons();
                 this.isLoading = false;
             });
+
+        this.initializeSwipeListeners();
     }
 
     changeDay(day: DayOfWeek) {
@@ -98,5 +100,29 @@ export class ScheduleComponent extends BaseComponent implements OnInit {
 
         const daySchedule = group.days.find(d => d.day === this.activeDay);
         this.lessons = daySchedule ? daySchedule.lessons : [];
+    }
+
+    private initializeSwipeListeners() {
+
+        const element = document.querySelector('uni-schedule') as HTMLElement;
+        console.log(element);
+        if (element) {
+            const hammer = new Hammer(element);
+            hammer.on('swipeleft', () => this.changeToNextDay());
+            hammer.on('swiperight', () => this.changeToPreviousDay());
+        }
+    }
+
+
+    private changeToNextDay() {
+        const currentIndex = this.workingDays.indexOf(this.activeDay);
+        const nextIndex = (currentIndex + 1) % this.workingDays.length;
+        this.changeDay(this.workingDays[nextIndex]);
+    }
+
+    private changeToPreviousDay() {
+        const currentIndex = this.workingDays.indexOf(this.activeDay);
+        const previousIndex = (currentIndex - 1 + this.workingDays.length) % this.workingDays.length;
+        this.changeDay(this.workingDays[previousIndex]);
     }
 }

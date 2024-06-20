@@ -1,8 +1,10 @@
-﻿using EUniversity.Schedule.Gateway.Api.Queries.Schedule;
+﻿using EUniversity.Schedule.Gateway.Api.Commands.Teacher;
 using EUniversity.Schedule.Gateway.Api.Queries.Users.Students;
 using EUniversity.Schedule.Gateway.Contract.Models;
 using EUniversity.Schedule.Manager.Client;
 using EUniversity.Schedule.Manager.Contract.Models;
+using EUniversity.Schedule.Manager.Contract.Requests;
+using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +35,25 @@ public class UsersManagementController(IMediator mediator, IScheduleManagerClien
     }
 
     [HttpPost("teacher")]
-    public async Task<IActionResult> CreateTeacherAsync()
+    [HttpPost]
+    public async Task<ActionResult<Guid>> CreateTeacherAsync(CreateTeacherRequest request, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        return Ok();
+        try
+        {
+            request.ThrowIfNull();
+
+            return Ok(await mediator.Send(new CreateTeacherCommand(request), cancellationToken));
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
+
+
+    //[HttpPost]
+    //public async Task<ActionResult> CreateStudentAsync(CancellationToken cancellationToken)
+    //{
+
+    //}
 }

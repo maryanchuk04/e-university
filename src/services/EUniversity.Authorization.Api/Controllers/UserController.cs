@@ -1,4 +1,5 @@
-﻿using EUniversity.Authorization.Api.Queries.Users;
+﻿using EUniversity.Authorization.Api.Commands;
+using EUniversity.Authorization.Api.Queries.Users;
 using EUniversity.Authorization.Contract.Requests;
 using EUniversity.Authorization.Contract.Response;
 using EUniversity.Authorization.Data;
@@ -45,5 +46,11 @@ public class UserController(IMediator mediator, AuthorizationDbContext authoriza
     public async Task<ActionResult> GetUserByEmailAsync([FromQuery] string email, CancellationToken cancellationToken)
     {
         return Ok(await _mediator.Send(new GetUserQuery(email), cancellationToken));
+    }
+
+    [HttpPost("non-active")]
+    public async Task<ActionResult<Guid>> CreateNonActiveUserAsync(CreateUserRequest request, CancellationToken cancellationToken)
+    {
+        return Ok(await _mediator.Send(new CreateNonActiveUserCommand(request), cancellationToken));
     }
 }

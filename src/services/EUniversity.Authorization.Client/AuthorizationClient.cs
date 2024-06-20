@@ -47,4 +47,9 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
     {
         return PostAsync<object, AuthenticateResponse>($"{AutheticateRoute}/refresh-token/{refreshToken}", null, cancellationToken: cancellationToken);
     }
+
+    public Task<Guid> CreateNonActiveUserAsync(CreateUserRequest request, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<CreateUserRequest, Guid>($"{UserRoute}/non-active", request, cancellationToken: cancellationToken);
+    }
 }
