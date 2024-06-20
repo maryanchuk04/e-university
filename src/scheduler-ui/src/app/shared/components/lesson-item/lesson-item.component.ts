@@ -21,6 +21,7 @@ export class LessonItemComponent implements OnInit {
     LessonType = LessonType;
 
     ngOnInit(): void {
+        console.log(this.lesson)
         this.isPassed = this.checkIfPassed();
     }
 

@@ -23,11 +23,13 @@ public class GetFacultyTimetableQueryHandler(UniversityScheduleManagerContext db
             .AsNoTracking()
             .AsSplitQuery()
             .Include(tt => tt.LessonTimes)
+            .Include(tt => tt.Faculty)
             .FirstOrDefaultAsync(tt => tt.FacultyId == query.FacultyId, cancellationToken: cancellationToken)
         ?? throw new EntityNotFoundException(nameof(TimeTable), nameof(query.FacultyId), query.FacultyId.ToString());
 
         return new TimeTableDto(
             timetable.Id,
-            timetable.LessonTimes.Select(lt => new LessonTimeDto(lt.Id, lt.LessonNumber, lt.StartAt, lt.EndAt)).ToList());
+            timetable.LessonTimes.Select(lt => new LessonTimeDto(lt.Id, lt.LessonNumber, lt.StartAt, lt.EndAt)).ToList(),
+            timetable.Faculty.Name);
     }
 }

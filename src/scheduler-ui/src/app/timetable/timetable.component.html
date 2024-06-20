@@ -1,6 +1,7 @@
 <div class="">
     <div *ngIf="(timeTable$ | async) as timeTable; else loading">
-        <h2 class="text-2xl font-semibold mb-10" translate="timetable.title"></h2>
+        <h2 class="text-2xl font-semibold mb-1" translate="timetable.title"></h2>
+        <h4 class="text-xl mt-0 font-light mb-10">{{timeTable.facultyName}}</h4>
         <div class="overflow-x-auto">
             <p-table [value]="timeTable.lessonTimes" class="text-center">
                 <ng-template pTemplate="header" let-columns>

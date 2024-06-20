@@ -1,5 +1,22 @@
-<uni-nav-menu></uni-nav-menu>
-<div class="app-container">
-    <router-outlet></router-outlet>
+<div class="flex flex-col">
+    <ng-container *ngIf="isMobile(); else notMobile">
+        <uni-nav-menu></uni-nav-menu>
+        <div class="app-container flex">
+            <router-outlet></router-outlet>
+        </div>
+        <uni-menu-bar></uni-menu-bar>
+    </ng-container>
+
+    <ng-template #notMobile>
+        <div class="flex w-full">
+            <div class="w-fix max-w-[16%] border-r-2 border-blue-500">
+                <uni-sidebar-menu></uni-sidebar-menu>
+            </div>
+            <div class="min-w-[84%] w-full mx-8">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+    </ng-template>
 </div>
-<uni-menu-bar></uni-menu-bar>
+

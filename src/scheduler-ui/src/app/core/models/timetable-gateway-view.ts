@@ -1,5 +1,6 @@
 export interface TimeTableGatewayView {
     id: string;
+    facultyName: string;
     lessonTimes: LessonTimeGatewayView[];
 }
 

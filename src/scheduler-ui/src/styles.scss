@@ -37,7 +37,7 @@ body {
 }
 
 ::-webkit-scrollbar-button {
-    display:none;
+    display: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -53,9 +53,7 @@ body {
     display: none !important;
 }
 
-#my-day {
-
-}
+#my-day {}
 
 .p-timeline-event {
     margin-bottom: 1rem;
@@ -97,7 +95,21 @@ p-selectbutton {
         margin: 0;
     }
 
-    .p-message-wrapper{
+    .p-message-wrapper {
         padding: 0.5rem 1rem;
     }
+}
+
+.p-sidebar-header {
+    margin: 0;
+    padding: 1rem 0.25rem 0 0.25rem;
+}
+
+.calendar-container {
+
+    .cal-event {
+        background-color: #60a5fa;
+        color: white;
+    }
+
 }

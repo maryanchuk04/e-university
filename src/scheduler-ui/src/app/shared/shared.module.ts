@@ -1,3 +1,5 @@
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
@@ -12,6 +14,7 @@ import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TimelineModule } from 'primeng/timeline';
@@ -26,10 +29,12 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BaseComponent } from './components/base/base.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 import { LessonItemComponent } from './components/lesson-item/lesson-item.component';
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FirstDigitPipe } from './pipes/first-digit.pipe';
 
@@ -43,6 +48,8 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         LessonItemComponent,
         SpinnerComponent,
         FirstDigitPipe,
+        SidebarMenuComponent,
+        CalendarComponent
     ],
     imports: [
         CommonModule,
@@ -66,6 +73,11 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         MessagesModule,
         MenuModule,
         DropdownModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        SidebarModule,
     ],
     exports: [
         ButtonModule,
@@ -94,6 +106,9 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         MessagesModule,
         MenuModule,
         DropdownModule,
+        SidebarMenuComponent,
+        CalendarComponent,
+        SidebarModule,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [MessageService, DialogService],

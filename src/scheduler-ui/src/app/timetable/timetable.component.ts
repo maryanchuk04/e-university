@@ -29,9 +29,11 @@ export class TimetableComponent extends BaseComponent implements OnInit {
             .select(selectStudent)
             .pipe(takeUntil(this.destroy$))
             .subscribe(student => {
-                this.timeTable$ = this.timetableService.getFacultyTimetable(
-                    student.facultyId
-                );
+                if (student) {
+                    this.timeTable$ = this.timetableService.getFacultyTimetable(
+                        student.facultyId
+                    );
+                }
             });
     }
 

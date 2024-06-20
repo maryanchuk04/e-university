@@ -73,6 +73,10 @@
         "even": "Парний",
         "odd": "Не парний"
     },
+    "view_type": {
+        "day": "День",
+        "week": "Тиждень"
+    },
     "workspace": {
         "faculty": {
             "choose": "Виберіть факультет: ",
@@ -93,5 +97,17 @@
                 "teachers": "Викладачі"
             }
         }
+    },
+    "nav_menu": {
+        "dashboard": "Мій день",
+        "schedule": "Розклад",
+        "timetable": "Розклад дзвінків",
+        "profile": "Профіль"
+    },
+    "lesson_sidebar": {
+        "lesson_info": "Інформація про предмет",
+        "teacher": "Викладач",
+        "room": "Аудиторія",
+        "go_lesson": "Перейти"
     }
 }

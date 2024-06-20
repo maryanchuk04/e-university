@@ -1,31 +1,78 @@
 <div class="flex flex-col">
-    <section class="flex items-center justify-between mt-3 max-w-xs w-full self-end">
-        <h4 translate="schedule.week_type" class="text-[#4b5563] my-0 p-0"></h4>
-        <div class="card flex justify-content-center ">
-            <p-selectButton [unselectable]="true" [options]="stateOptions" [(ngModel)]="weekType"
+    <div class="flex justify-end my-3 gap-2">
+        <div class="card flex" *ngIf="viewType === ViewType.Day">
+            <p-selectButton [unselectable]="true" [options]="weekTypeOptions" [(ngModel)]="weekType"
                 (ngModelChange)="onWeekTypeChange($event)" optionLabel="label" optionValue="value">
             </p-selectButton>
         </div>
-    </section>
-    <section id="schedule-days" class="my-3 mb-1 flex justify-between">
-        <ng-container *ngFor="let day of workingDays; let i = index;">
-            <p-button *ngIf="day === activeDay" styleClass="my-1" [rounded]="true" pRipple (onClick)="changeDay(day)"
-                severity="primary" [raised]="true" [label]="'short_dayofweek.' + day | translate">
-            </p-button>
-            <p-button *ngIf="day !== activeDay" styleClass="my-1 border-[#4b5563]" [rounded]="true" pRipple
-                (click)="changeDay(day)" severity="secondary" [outlined]="true" [raised]="false"
-                [label]="'short_dayofweek.' + day | translate">
-            </p-button>
-        </ng-container>
-    </section>
-
-    <section *ngIf="!isLoading; else spinner" class="h-[68vh] rounded-t-xl overflow-y-auto hide-scrollbar pb-12">
-        <div *ngFor="let lesson of lessons" class="lesson-item mb-2">
-            <uni-lesson-item [lesson]="lesson"></uni-lesson-item>
+        <div class="card flex ">
+            <p-selectButton [unselectable]="true" [disabled]="isViewTypeDisabled" [options]="viewTypeOptions" [(ngModel)]="viewType"
+                (ngModelChange)="onViewTypeChange($event)" optionLabel="label" optionValue="value">
+            </p-selectButton>
         </div>
-    </section>
+    </div>
+
+    <ng-container *ngIf="viewType === ViewType.Day">
+        <section id="schedule-days" class="my-3 mb-1 flex justify-between">
+            <ng-container *ngFor="let day of workingDays; let i = index;">
+                <p-button *ngIf="day === activeDay" styleClass="my-1" [rounded]="true" pRipple
+                    (onClick)="changeDay(day)" severity="primary" [raised]="true"
+                    [label]="'short_dayofweek.' + day | translate">
+                </p-button>
+                <p-button *ngIf="day !== activeDay" styleClass="my-1 border-[#4b5563]" [rounded]="true" pRipple
+                    (click)="changeDay(day)" severity="secondary" [outlined]="true" [raised]="false"
+                    [label]="'short_dayofweek.' + day | translate">
+                </p-button>
+            </ng-container>
+        </section>
+
+        <section *ngIf="!isLoading; else spinner" class="h-[68vh] rounded-t-xl overflow-y-auto hide-scrollbar pb-20">
+            <div *ngFor="let lesson of lessons" class="lesson-item mb-2">
+                <uni-lesson-item [lesson]="lesson"></uni-lesson-item>
+            </div>
+        </section>
+    </ng-container>
+
+    <ng-container *ngIf="viewType === ViewType.Week">
+        <ng-container *ngIf="!isLoading; else spinner">
+            <uni-calendar (onEventClick)="showLesson($event)" [schedule]="schedule"></uni-calendar>
+        </ng-container>
+    </ng-container>
 </div>
 
 <ng-template #spinner>
     <uni-spinner></uni-spinner>
 </ng-template>
+
+<p-sidebar [(visible)]="isSidebarVisible" position="right">
+    <p-divider />
+    <h3 class="my-1">{{'lesson_sidebar.lesson_info' | translate}}</h3>
+    <p-divider />
+    <div class="p-4" *ngIf="sidebarLesson">
+        <div class="flex flex-wrap my-3">
+            <label class="font-extrabold  mr-2">{{'lesson_sidebar.teacher' | translate}}: </label>
+            <span>{{ sidebarLesson?.teacherName }}</span>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <!-- Lesson Type -->
+            @if(sidebarLesson?.isOnline){
+            <p-chip [label]="'chip.online' | translate" icon="pi pi-desktop" />
+            } @else {
+            <p-chip [label]="sidebarLesson.roomName" icon="pi pi-map-marker" />
+            }
+            @if(sidebarLesson?.type === LessonType.Practice){
+            <p-chip [label]="'chip.practice' | translate" />
+            }
+            @if(sidebarLesson?.type === LessonType.Lecture){
+            <p-chip [label]="'chip.lecture' | translate" />
+            }
+            @if(sidebarLesson?.type === LessonType.PracticeAndLecture){
+            <p-chip [label]="'chip.lecture_practice' | translate" />
+            }
+
+        </div>
+        <p-button *ngIf="sidebarLesson?.isOnline" styleClass="mt-3" [label]="'lesson_sidebar.go_lesson' | translate"
+            [outlined]="true" icon="pi pi-external-link" />
+    </div>
+</p-sidebar>

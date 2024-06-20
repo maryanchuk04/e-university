@@ -95,6 +95,10 @@ export class MyDayComponent implements OnInit {
         return startAt <= now && now <= endAt;
     }
 
+    isAllLessonsPassed(lessons: LessonGatewayView[]) {
+        return lessons.every(l => this.isLessonPassed(l));
+    }
+
     determineLessonStatus(lesson: LessonGatewayView): LessonStatus {
         if (this.isLessonNow(lesson)) {
             return LessonStatus.Now;
