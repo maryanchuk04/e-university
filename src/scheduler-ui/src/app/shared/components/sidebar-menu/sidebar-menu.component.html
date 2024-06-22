@@ -8,7 +8,7 @@
     </div>
     <div class="mx-3 my-3 flex-grow">
         <div *ngIf="(student$ | async) as student" class="flex items-center border-b">
-            <uni-avatar styles="h-11 w-11" [image]="student.picture" class="mr-2" />
+            <uni-avatar styles="h-10 w-10" [image]="student.picture" class="mr-2" />
             <div *ngIf="!isCollapsed" class="flex flex-col w-full">
                 <span *ngFor="let word of student.fullName.split(' ')">{{ word }}</span>
             </div>

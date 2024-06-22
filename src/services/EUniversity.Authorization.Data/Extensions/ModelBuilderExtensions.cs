@@ -12,6 +12,7 @@ internal static class ModelBuilderExtensions
         modelBuilder.Entity<Role>().HasData([
             new Role { Id = Core.Enums.Role.Admin, Name = "Admin", Description = "Administrator role. Full Access" },
             new Role { Id = Core.Enums.Role.Student, Name = "Student", Description = "Student role" },
+            new Role { Id = Core.Enums.Role.Teacher, Name = "Teacher", Description = "Teacher role" },
             new Role { Id = Core.Enums.Role.FacultyAdmin, Name = "Faculty Admin", Description = "Faculty administrator. Has admin role on own faculty." },
             new Role { Id = Core.Enums.Role.ScheduleAdmin, Name = "Schedule Admin", Description = "Schedule administrator"},
             new Role { Id = Core.Enums.Role.User, Name = "User", Description = "User" },]);

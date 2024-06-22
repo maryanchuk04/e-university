@@ -45,10 +45,11 @@
 </ng-template>
 
 <p-sidebar [(visible)]="isSidebarVisible" position="right">
-    <p-divider />
-    <h3 class="my-1">{{'lesson_sidebar.lesson_info' | translate}}</h3>
-    <p-divider />
     <div class="p-4" *ngIf="sidebarLesson">
+        <div class="flex flex-wrap my-3">
+            <h3 class="my-0">{{ sidebarLesson?.lessonName }}</h3>
+        </div>
+        <p-divider />
         <div class="flex flex-wrap my-3">
             <label class="font-extrabold  mr-2">{{'lesson_sidebar.teacher' | translate}}: </label>
             <span>{{ sidebarLesson?.teacherName }}</span>
@@ -72,7 +73,7 @@
             }
 
         </div>
-        <p-button *ngIf="sidebarLesson?.isOnline" styleClass="mt-3" [label]="'lesson_sidebar.go_lesson' | translate"
+        <p-button size="small" *ngIf="sidebarLesson?.isOnline" styleClass="mt-3" [label]="'lesson_sidebar.go_lesson' | translate"
             [outlined]="true" icon="pi pi-external-link" />
     </div>
 </p-sidebar>

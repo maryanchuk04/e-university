@@ -5,7 +5,7 @@ namespace EUniversity.Authorization.Contract.Response;
 public class UserResponse
 {
     public UserResponse() { }
-    public UserResponse(Guid id, string email, string picture, IList<string> permissions, Role role, string fullName)
+    public UserResponse(Guid id, string email, string picture, IList<string> permissions, Role role, string fullName, bool isActive)
     {
         Id = id;
         Email = email;
@@ -13,6 +13,7 @@ public class UserResponse
         Permissions = permissions;
         Role = role;
         FullName = fullName;
+        IsActive = isActive;
     }
 
     public Guid Id { get; set; }
@@ -22,4 +23,5 @@ public class UserResponse
 
     public IList<string> Permissions { get; set; }
     public Role Role { get; set; }
+    public bool IsActive { get; set; }
 }

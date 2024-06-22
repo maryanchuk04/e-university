@@ -40,7 +40,8 @@ public class GetStudentsQueryHandler(
                 GroupName = student.GroupName,
                 Picture = user.Picture,
                 Email = user.Email,
-            };
+                IsActive = user.IsActive,
+            };      
         }).ToList();
     }
 }

@@ -14,6 +14,16 @@ public class GetManagerQueryHandler(IScheduleManagerClient scheduleManagerClient
 {
     public async Task<ManagerDto> Handle(GetManagerQuery request, CancellationToken cancellationToken)
     {
-        return await scheduleManagerClient.GetManagerInfoByUserIdAsync(request.UserId, cancellationToken);
+        var managerTask = scheduleManagerClient.GetManagerInfoByUserIdAsync(request.UserId, cancellationToken);
+
+        var userTask = authorizationClient.GetUserAsync(request.UserId, cancellationToken);
+
+        var manager = await managerTask;
+        var user = await userTask;
+
+        manager.Picture = user.Picture;
+        manager.FullName = user.FullName;
+
+        return manager;
     }
 }

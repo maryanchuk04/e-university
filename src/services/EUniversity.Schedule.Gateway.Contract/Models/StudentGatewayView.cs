@@ -19,4 +19,6 @@ public class StudentGatewayView
     public string SpecialityName { get; set; }
 
     public Guid SemesterId { get; set; } = Guid.Parse("65C7E30C-EEAA-4213-A438-4AA75CED22DA");
+
+    public bool IsActive { get; set; }
 }

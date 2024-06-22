@@ -30,4 +30,6 @@ public interface IAuthorizationClient
     /// Create non active user
     /// </summary>
     Task<Guid> CreateNonActiveUserAsync(CreateUserRequest request, CancellationToken cancellationToken = default);
+
+    Task DeleteUserAsync(Guid userId, CancellationToken cancellationToken = default);
 }

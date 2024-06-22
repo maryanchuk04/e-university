@@ -1,1 +1,110 @@
-<p>students works!</p>
+<div class="">
+    <ng-container *ngIf="facultyId; else chooseFaculty">
+        <ng-container *ngIf="(students$ | async) as students; else spinner">
+            <div id="studentsControls" class="mb-2">
+                <p-buttonGroup>
+                    <p-button size="small" (onClick)="openAddStudentSidebar()"
+                        [label]="'students_control.add' | translate" icon="pi pi-plus" />
+                    <p-button (click)="op.toggle($event)" size="small" severity="success"
+                        [label]="'students_control.upload_xlsx' | translate" icon="pi pi-file-excel" />
+                    <p-overlayPanel #op>
+                        <div class="flex flex-column gap-3 w-40">
+                            <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                                 [multiple]="true" accept="image/*" maxFileSize="1000000">
+                                <ng-template pTemplate="content">
+
+                                </ng-template>
+                            </p-fileUpload>
+
+                        </div>
+                    </p-overlayPanel>
+                    <p-button size="small" (onClick)="confirmDeletionStudents($event)" severity="danger"
+                        [label]="'students_control.delete' | translate" icon="pi pi-trash"
+                        [badge]="selectedStudents.length.toString()" [disabled]="selectedStudents.length === 0" />
+                </p-buttonGroup>
+            </div>
+            <p-table dataKey="studentId" [(selection)]="selectedStudents" [paginator]="true" [rows]="10"
+                [value]="students" class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 4rem"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th class="px-4 py-2">{{ 'students_labels.fullName' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'students_labels.picture' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'students_labels.email' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'students_labels.groupName' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'students_labels.facultyName' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'students_labels.specialityName' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'students_labels.state' | translate }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-student>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="student"></p-tableCheckbox>
+                        </td>
+                        <td class="px-4 py-2">{{ student.fullName }}</td>
+                        <td class="px-4 py-2">
+                            <uni-avatar [image]="student.picture" alt="student picture" styles="w-10 h-10"></uni-avatar>
+                        </td>
+                        <td class="px-4 py-2">{{ student.email }}</td>
+                        <td class="px-4 py-2">{{ student.groupName }}</td>
+                        <td class="px-4 py-2">{{ student.facultyName }}</td>
+                        <td class="px-4 py-2">{{ student.specialityName }}</td>
+                        <td>
+                            <p-tag [value]="('students_labels.student_state.' + +student.isActive) | translate"
+                                [severity]="student.isActive ? 'success' : 'danger'"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-container>
+    </ng-container>
+
+    <ng-template #spinner>
+        <uni-spinner></uni-spinner>
+    </ng-template>
+
+    <ng-template #chooseFaculty>
+        <p class="text-center text-2xl">{{'workspace.faculty.choose_faculty' | translate}}</p>
+    </ng-template>
+
+    <p-confirmPopup #confirmPopupRef>
+        <ng-template pTemplate="headless" let-message let-test>
+            <div class="border-round p-3">
+                <span>{{ message.message }}</span>
+                <div class="flex align-items-center gap-2 mt-3">
+                    <p-button (click)="accept()" [label]="'common.confirm' | translate" size="small" />
+                    <p-button (click)="reject()" [label]="'common.cancel' | translate" [outlined]="true" size="small" />
+                </div>
+            </div>
+        </ng-template>
+    </p-confirmPopup>
+
+    <p-sidebar [(visible)]="isCreateStudentSidebarVisible" position="right" styleClass="w-96">
+        <h2>{{ 'add_student.title' | translate }}</h2>
+        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="p-fluid">
+            <div class="my-4">
+                <input type="text" [placeholder]="'add_student.email' | translate" pInputText formControlName="email" />
+                <div *ngIf="studentForm.controls['email'].hasError('chnuEmail') && studentForm.controls['email'].touched"
+                    class="p-error">
+                    {{ 'add_student.email_error' | translate }}
+                </div>
+            </div>
+            <div class="my-4">
+                <p-dropdown [options]="groups" optionValue="id" formControlName="groupId" optionLabel="name"
+                    panelStyleClass="text-sm" styleClass="text-sm"
+                    [placeholder]="'add_student.choose_group' | translate"></p-dropdown>
+            </div>
+            <div class="my-4">
+                <p-multiSelect [options]="permissionsOptions" formControlName="permissions"
+                    [placeholder]="'permission.access' | translate" optionLabel="label" optionValue="value"
+                    display="chip" [showClear]="true" />
+            </div>
+
+            <div class="my-8">
+                <button type="submit" pButton label="{{ 'add_student.add' | translate }}"
+                    [disabled]="studentForm.invalid"></button>
+            </div>
+        </form>
+    </p-sidebar>
+</div>

@@ -1,5 +1,7 @@
-﻿using EUniversity.Schedule.Manager.Api.Queries.Students;
+﻿using EUniversity.Schedule.Manager.Api.Commands.Student;
+using EUniversity.Schedule.Manager.Api.Queries.Students;
 using EUniversity.Schedule.Manager.Contract.Models;
+using EUniversity.Schedule.Manager.Contract.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +26,8 @@ public class StudentController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> CreateStudentAsync(CancellationToken cancellationToken) 
+    public async Task<ActionResult<Guid>> CreateStudentAsync(CreateStudentRequest request, CancellationToken cancellationToken) 
     {
-
-        return Ok();
+        return Ok(await mediator.Send(new CreateStudentCommand(request), cancellationToken));
     }
 }

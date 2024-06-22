@@ -6,5 +6,7 @@ export interface ManagerGatewayView {
     teacherId?: string;
     facultyId?: string;
 
+    picture: string;
+    fullName: string;
     facultyName: string;
 }

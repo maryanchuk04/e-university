@@ -21,7 +21,7 @@ public class GetUsersQueryHandler(AuthorizationDbContext db) : IRequestHandler<G
                 user.Picture,
                 user.UserPermissions.Select(p => p.Permission.Name).ToList(),
                 user.UserRole.RoleId,
-                user.FullName))
+                user.FullName, user.IsActive))
             .ToListAsync(cancellationToken: cancellationToken);
     }
 }

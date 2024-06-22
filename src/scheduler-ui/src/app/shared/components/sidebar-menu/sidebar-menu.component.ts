@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../../auth/services/auth.service';
 import { StudentGatewayView } from '../../../core/models/student-gateway-view';
+import { UserProvider } from '../../../core/providers/user.provider';
 import { selectStudent } from '../../../core/state/student/student.selectors';
 
 interface MenuItem {
@@ -43,14 +44,25 @@ const navigationLinks: MenuItem[] = [
 })
 export class SidebarMenuComponent implements OnInit {
     student$: Observable<StudentGatewayView>;
+    menu = navigationLinks;
 
-    constructor(private store: Store, private auth: AuthService) {}
+    constructor(private store: Store, private auth: AuthService, private userProvider: UserProvider) {}
 
     ngOnInit(): void {
+        this.menu = [ ...navigationLinks];
+
+        if (this.userProvider.hasAdminAccess()) {
+            this.menu.push({
+                icon: 'pi-cog',
+                link: '/workspace',
+                label: 'nav_menu.workspace',
+            },)
+        }
+
         this.student$ = this.store.select(selectStudent);
     }
 
-    menu = navigationLinks;
+
     isCollapsed = false;
 
     toggleSidebar() {

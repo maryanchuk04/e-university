@@ -53,4 +53,12 @@ public class UserController(IMediator mediator, AuthorizationDbContext authoriza
     {
         return Ok(await _mediator.Send(new CreateNonActiveUserCommand(request), cancellationToken));
     }
+
+    [HttpDelete("{userId}")]
+    public async Task<ActionResult> DeleteUserAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(new DeleteUserCommand(userId), cancellationToken);
+
+        return NoContent();
+    }
 }

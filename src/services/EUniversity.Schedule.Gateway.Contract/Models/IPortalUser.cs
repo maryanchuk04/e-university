@@ -19,5 +19,9 @@ public class PortalUser : IPortalUser
     public Role Role { get; set; }
     public IList<PermissionType> Permissions { get; set; }
 
-    public bool IsAdmin() => Role == Role.Admin || Role == Role.ScheduleAdmin || Role == Role.FacultyAdmin;
+    public bool IsAdmin() => Role == Role.Admin
+        || Role == Role.ScheduleAdmin
+        || Role == Role.FacultyAdmin 
+        || Permissions.Contains(PermissionType.FullAccess)
+        || Permissions.Contains(PermissionType.FacultyFullAccess);
 }

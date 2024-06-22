@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 export class AvatarComponent {
     @Input() image = '';
     @Input() alt = '';
-    @Input() styles = '';
+    @Input() styles: string | null;
     //TODO: Add sizes XL L XXL ect.
 }

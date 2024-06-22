@@ -2,12 +2,14 @@
 
 public class ManagerDto
 {
-    public Guid ManagerId { get; set; }
+    public Guid? ManagerId { get; set; }
     public Guid UserId { get; set; }
 
     public Guid? StundentId { get; set; }
     public Guid? TeacherId { get; set; }
     public Guid? FacultyId { get; set; }
 
-    public string FacultyName { get; set; }
+    public string? FullName { get; set; }
+    public string? Picture { get; set; }
+    public string? FacultyName { get; set; }
 }

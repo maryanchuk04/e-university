@@ -1,1 +1,10 @@
-<img [src]="image" [alt]="alt" class="h-12 w-12 rounded-xl {{styles}}">
+
+<ng-container *ngIf="image; else defaultAvatar">
+    <img [src]="image" [alt]="alt" [class]="(styles ?? 'h-12 w-12') + ' rounded-xl'">
+</ng-container>
+
+<ng-template #defaultAvatar>
+    <p-avatar
+    icon="pi pi-user"
+    [styleClass]="styles + '  rounded-xl'" />
+</ng-template>

@@ -4,7 +4,6 @@ using EUniversity.Schedule.Gateway.Contract.Responses;
 using EUniversity.Schedule.Manager.Client;
 using EUniversity.Schedule.Manager.Contract.Extensions;
 using EUniversity.Schedule.Manager.Contract.Models.SemesterSchedule;
-using EUniversity.Shared.Extensions;
 using MediatR;
 
 namespace EUniversity.Schedule.Gateway.Api.Queries.Users.Students;
@@ -49,7 +48,7 @@ public class GetStudentDayQueryHandler(
         // Find next day with lessons
         if (dayLessons.Count == 0)
         {
-            if (today == Core.Enums.DayOfWeek.Saturday || today == Core.Enums.DayOfWeek.Sunday)
+            if (today is Core.Enums.DayOfWeek.Saturday or Core.Enums.DayOfWeek.Sunday)
             {
                 DayScheduleDto? day;
 

@@ -23,6 +23,7 @@ public class ScheduleManagerClient(
     private const string SpecialityRoute = "/api/speciality";
     private const string ScheduleRoute = "/api/schedule";
     private const string ManagerRoute = "/api/manager";
+    private const string UserRoute = "/api/user";
 
     #endregion
 
@@ -81,6 +82,11 @@ public class ScheduleManagerClient(
         return GetAsync<List<StudentInfoDto>>(route, cancellationToken: cancellationToken);
     }
 
+    public Task<Guid> CreateStudentAsync(CreateStudentRequest request, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<CreateStudentRequest, Guid>(StudentRoute, request, cancellationToken: cancellationToken);
+    }
+
     #endregion
 
     #region Groups
@@ -88,6 +94,11 @@ public class ScheduleManagerClient(
     public Task<Guid> CreateGroupAsync(CreateGroupRequest request, CancellationToken cancellationToken = default)
     {
         return PostAsync<CreateGroupRequest, Guid>(GroupRoute, request, cancellationToken: cancellationToken);
+    }
+
+    public Task<List<GroupInfoDto>> GetGroupsInfoDtosAsync(Guid facultyId, CancellationToken cancellationToken = default)
+    {
+        return GetAsync<List<GroupInfoDto>>($"{GroupRoute}/faculty/{facultyId}", cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -117,6 +128,20 @@ public class ScheduleManagerClient(
     public Task<ManagerDto> GetManagerInfoByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
     {
         return GetAsync<ManagerDto>($"{ManagerRoute}/{userId}", cancellationToken: cancellationToken);
+    }
+
+    public Task<Guid> CreateManagerAsync(ManagerDto request, CancellationToken cancellationToken = default)
+    {
+        return PostAsync<ManagerDto, Guid>(ManagerRoute, request, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region User
+
+    public Task DeleteUserAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        return DeleteJsonAsync<object>($"{UserRoute}/{userId}", cancellationToken: cancellationToken);
     }
 
     #endregion

@@ -1,20 +1,27 @@
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
+import { ButtonGroupModule } from 'primeng/buttongroup';
 import { ChipModule } from 'primeng/chip';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogService } from 'primeng/dynamicdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { MessagesModule } from 'primeng/messages';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SidebarModule } from 'primeng/sidebar';
+import { SpeedDialModule } from 'primeng/speeddial';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TimelineModule } from 'primeng/timeline';
@@ -23,7 +30,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -36,6 +43,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { AbbreviationPipe } from './pipes/abbreviation.pipe';
 import { FirstDigitPipe } from './pipes/first-digit.pipe';
 
 @NgModule({
@@ -49,7 +57,8 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         SpinnerComponent,
         FirstDigitPipe,
         SidebarMenuComponent,
-        CalendarComponent
+        CalendarComponent,
+        AbbreviationPipe,
     ],
     imports: [
         CommonModule,
@@ -78,6 +87,14 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
             useFactory: adapterFactory,
         }),
         SidebarModule,
+        SpeedDialModule,
+        ButtonGroupModule,
+        ConfirmPopupModule,
+        ReactiveFormsModule,
+        MultiSelectModule,
+        InputTextModule,
+        OverlayPanelModule,
+        FileUploadModule,
     ],
     exports: [
         ButtonModule,
@@ -109,8 +126,18 @@ import { FirstDigitPipe } from './pipes/first-digit.pipe';
         SidebarMenuComponent,
         CalendarComponent,
         SidebarModule,
+        AvatarComponent,
+        AbbreviationPipe,
+        SpeedDialModule,
+        ButtonGroupModule,
+        ConfirmPopupModule,
+        ReactiveFormsModule,
+        MultiSelectModule,
+        InputTextModule,
+        FileUploadModule,
+        OverlayPanelModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    providers: [MessageService, DialogService],
+    providers: [MessageService, DialogService, ConfirmationService],
 })
 export class SharedModule {}

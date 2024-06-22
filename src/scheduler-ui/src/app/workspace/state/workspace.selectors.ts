@@ -18,3 +18,8 @@ export const selectManagerError = createSelector(
   selectManagerState,
   state => state.error
 );
+
+export const selectManagedFacultyId = createSelector(
+    selectManagerState,
+    state => state.managedFacultyId
+)

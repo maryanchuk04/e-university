@@ -1,24 +1,47 @@
-<div class="flex justify-content-center w-full">
-    <p-menu [model]="items" styleClass="w-full flex flex-col h-screen rounded-none">
+<div [ngClass]="{ 'w-64': !isCollapsed, 'w-16': isCollapsed }"
+    class="h-screen bg-blue-200 shadow-xl flex flex-col transition-width duration-300">
+    <div class="flex flex-col items-start justify-between p-3 pb-1 relative">
+        <ng-container  *ngIf="!isCollapsed; else abriv">
+            <h3 class="text-xl mt-2 mb-0 font-extrabold">
+                eUniversity<span class="text-primary font-medium">Schedule</span>
+            </h3>
+            <span class="text-xl font-light mt-1">Workspace</span>
+        </ng-container>
 
-        <ng-template pTemplate="start">
-            <span class="align-items-center gap-1 px-2 py-2 flex flex-col">
-                <span class="text-xl font-semibold">e-University<span
-                        class="text-primary font-medium">Schedule</span></span>
-                <span class="text-xl font-light">Workspace</span>
-            </span>
+        <ng-template #abriv>
+            <h3 class="text-xl font-bold">eU<span class="text-primary font-medium">S</span></h3>
         </ng-template>
-        <ng-template pTemplate="submenuheader" let-item>
-            <span class="text-primary font-bold">{{ item.label | translate }}</span>
-        </ng-template>
-        <ng-template pTemplate="item" let-item>
-            <a pRipple [routerLink]="item.url" routerLinkActive="bg-[#e5e7eb]"
-                class="flex align-items-center p-menuitem-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label | translate }}</span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+
+        <i class="pi {{ isCollapsed ? 'pi-angle-double-right' : 'pi-angle-double-left' }} p-2 absolute -right-5 shadow-lg bg-blue-500 text-white rounded-full"
+            (click)="toggleSidebar()" pRipple></i>
+    </div>
+
+
+    <div class="mx-3 my-3 flex-grow">
+        <div *ngIf="(manager$ | async) as manager" class="flex items-center border-b">
+            <uni-avatar styles="h-10 w-10" [image]="manager.picture" class="mr-2" />
+            <div *ngIf="!isCollapsed" class="flex flex-col w-full">
+                <span *ngFor="let word of manager.fullName.split(' ')">{{ word }}</span>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2 py-4">
+            @for (item of menu; track $index) {
+                <ng-container *ngIf="!isCollapsed;else collapsedSubHeader">
+                    <span class="text-primary font-bold">{{ item.label | translate }}</span>
+                </ng-container>
+                <ng-template #collapsedSubHeader><span class="text-primary font-bold text-center">{{ item.label | translate | abbreviation | uppercase }}</span></ng-template>
+
+            <a *ngFor="let menuItem of item.items" [routerLink]="menuItem.url" [routerLinkActiveOptions]="{ exact: true }"
+                pRipple
+                class="flex items-center min-w-10 text-center p-2 text-white no-underline hover:bg-blue-300 hover:text-white transition duration-200 rounded-lg"
+                routerLinkActive="bg-blue-500 text-white">
+                <i class="pi {{menuItem.icon}} text-xl" [ngClass]="{'mr-3': !isCollapsed, 'w-10': isCollapsed}"></i>
+                <span class="text-base flex-grow text-left" *ngIf="!isCollapsed">{{ menuItem.label | translate }}</span>
             </a>
-        </ng-template>
-
-    </p-menu>
+            }
+        </div>
+    </div>
+    <div class="px-3 py-2">
+        <button pButton [outlined]="true"  [icon]="'pi pi-sign-out'" [label]="!isCollapsed ? ('dashboard.logout' | translate) : null" class="w-full"></button>
+    </div>
 </div>

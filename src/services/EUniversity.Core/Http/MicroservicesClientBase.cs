@@ -71,9 +71,9 @@ public abstract class MicroservicesClientBase<T>
         return await PerformCallAsync<TPayload, TResponse>(relativeUri, HttpMethod.Put, payload, acceptableNonSuccessStatusCodes, oneTimeCustomHeaders, cancellationToken: cancellationToken);
     }
 
-    protected Task<TResponse> DeleteJsonAsync<TResponse>(string relativeUri, IEnumerable<HttpStatusCode> acceptableNonSuccessStatusCodes = null, Dictionary<string, string> oneTimeCustomHeaders = null)
+    protected Task<TResponse> DeleteJsonAsync<TResponse>(string relativeUri, IEnumerable<HttpStatusCode> acceptableNonSuccessStatusCodes = null, Dictionary<string, string> oneTimeCustomHeaders = null, CancellationToken cancellationToken = default)
     {
-        return PerformCallAsync<object, TResponse>(relativeUri, HttpMethod.Delete, default, acceptableNonSuccessStatusCodes, oneTimeCustomHeaders);
+        return PerformCallAsync<object, TResponse>(relativeUri, HttpMethod.Delete, default, acceptableNonSuccessStatusCodes, oneTimeCustomHeaders, cancellationToken: cancellationToken);
     }
 
     protected async Task<TResponse> PatchJsonAsync<TPayload, TResponse>(string relativeUri, TPayload payload, IEnumerable<HttpStatusCode> acceptableNonSuccessStatusCodes = null, Dictionary<string, string> oneTimeCustomHeaders = null)

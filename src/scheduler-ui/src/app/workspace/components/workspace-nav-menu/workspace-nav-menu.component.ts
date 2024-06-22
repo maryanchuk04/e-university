@@ -1,9 +1,13 @@
 import { MenuItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
+import { ManagerGatewayView } from '../../../core/models/manager-gateway-view';
 import { BaseComponent } from '../../../shared/components/base/base.component';
+import { selectManager } from '../../state/workspace.selectors';
 
 @Component({
     selector: 'uni-workspace-nav-menu',
@@ -11,23 +15,26 @@ import { BaseComponent } from '../../../shared/components/base/base.component';
     styleUrl: './workspace-nav-menu.component.scss',
 })
 export class WorkspaceNavMenuComponent extends BaseComponent {
-    items: MenuItem[] | undefined;
+    manager$: Observable<ManagerGatewayView>;
 
-    constructor(private translate: TranslateService) {
+    isCollapsed = false;
+
+    menu: MenuItem[] | undefined;
+
+    constructor(private translate: TranslateService, private store: Store) {
         super();
     }
 
     ngOnInit() {
-        this.items = [
-            {
-                separator: true,
-            },
+        this.manager$ = this.store.select(selectManager);
+
+        this.menu = [
             {
                 label: 'workspace.menu.users_management.sub_title',
                 items: [
                     {
                         label: 'workspace.menu.users_management.students',
-                        icon: 'pi pi-users',
+                        icon: 'pi pi-graduation-cap',
                         url: '/workspace/users-management/students'
                     },
                     {
@@ -52,13 +59,12 @@ export class WorkspaceNavMenuComponent extends BaseComponent {
                         label: 'workspace.menu.educational_process.сall_schedule',
                         icon: 'pi pi-calendar-clock',
                     },
-                    {
-                        label: 'Logout',
-                        icon: 'pi pi-sign-out',
-                    },
                 ],
             },
-
         ];
+    }
+
+    toggleSidebar() {
+        this.isCollapsed = !this.isCollapsed;
     }
 }

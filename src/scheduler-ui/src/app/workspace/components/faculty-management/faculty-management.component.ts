@@ -18,7 +18,7 @@ export class FacultyManagementComponent extends BaseComponent implements OnInit 
     manager$: Observable<ManagerGatewayView>;
     faculties: Faculty[];
 
-    currentFaculty: Faculty;
+    currentFaculty: Faculty = null;
 
     isFacultiesLoading: boolean = true;
 

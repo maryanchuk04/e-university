@@ -17,6 +17,5 @@ export class WorkspaceComponent implements OnInit {
 
     ngOnInit() {
         this.store.dispatch(loadManager())
-
     }
 }

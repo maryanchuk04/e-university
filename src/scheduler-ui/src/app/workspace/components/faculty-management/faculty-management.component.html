@@ -11,7 +11,7 @@
             </ng-template>
         </p-messages>
         } @else {
-        <p-messages severity="info">
+        <p-messages [severity]="!currentFaculty ? 'warn' : 'info'">
             <ng-template pTemplate>
                 <i class="pi pi-info-circle mr-3 text-2xl"></i>
                 <div class="flex items-center justify-between w-full">
@@ -23,7 +23,6 @@
                 </div>
             </ng-template>
         </p-messages>
-
         }
     </ng-container>
 </div>

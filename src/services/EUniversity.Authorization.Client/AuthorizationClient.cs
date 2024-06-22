@@ -52,4 +52,9 @@ public class AuthorizationClient : MicroservicesClientBase<AuthorizationClient>,
     {
         return PostAsync<CreateUserRequest, Guid>($"{UserRoute}/non-active", request, cancellationToken: cancellationToken);
     }
+
+    public Task DeleteUserAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        return DeleteJsonAsync<object>($"{UserRoute}/{userId}", cancellationToken: cancellationToken);
+    }
 }

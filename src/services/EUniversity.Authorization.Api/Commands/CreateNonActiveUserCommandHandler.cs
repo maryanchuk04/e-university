@@ -25,7 +25,7 @@ public class CreateNonActiveUserCommandHandler(AuthorizationDbContext db) : IReq
             IsActive = false,
         };
 
-        var userRole = new UserRole { RoleId = command.User.Role, UserId = user.Id };
+        var userRole = new UserRole { Id = Guid.NewGuid(), RoleId = command.User.Role, UserId = user.Id };
         var usersPermissions = new List<UserPermission>();
 
         var requestedPermissionsIds = await db.Permissions
@@ -34,7 +34,7 @@ public class CreateNonActiveUserCommandHandler(AuthorizationDbContext db) : IReq
 
         foreach (var permissionId in requestedPermissionsIds)
         {
-            usersPermissions.Add(new UserPermission { UserId = user.Id, PermissionId = permissionId });
+            usersPermissions.Add(new UserPermission { Id = Guid.NewGuid(), UserId = user.Id, PermissionId = permissionId });
         }
 
         user.UserRole = userRole;

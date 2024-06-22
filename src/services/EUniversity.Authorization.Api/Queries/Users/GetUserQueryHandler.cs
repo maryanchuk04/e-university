@@ -55,6 +55,6 @@ public class GetUserQueryHandler(AuthorizationDbContext db) : IRequestHandler<Ge
             user.Picture,
             user.UserPermissions.Select(p => p.Permission.Name).ToList(),
             user.UserRole.RoleId,
-            user.FullName);
+            user.FullName, user.IsActive);
     }
 }

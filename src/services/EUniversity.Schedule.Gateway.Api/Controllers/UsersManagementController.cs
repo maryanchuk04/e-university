@@ -1,12 +1,16 @@
-﻿using EUniversity.Schedule.Gateway.Api.Commands.Teacher;
+﻿using EUniversity.Schedule.Gateway.Api.Commands;
+using EUniversity.Schedule.Gateway.Api.Commands.Students;
+using EUniversity.Schedule.Gateway.Api.Commands.Teacher;
 using EUniversity.Schedule.Gateway.Api.Queries.Users.Students;
 using EUniversity.Schedule.Gateway.Contract.Models;
+using EUniversity.Schedule.Gateway.Contract.Requests;
 using EUniversity.Schedule.Manager.Client;
 using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
 using EUniversity.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using CreateStudentRequest = EUniversity.Schedule.Gateway.Contract.Requests.CreateStudentRequest;
 
 namespace EUniversity.Schedule.Gateway.Api.Controllers;
 
@@ -28,15 +32,14 @@ public class UsersManagementController(IMediator mediator, IScheduleManagerClien
     }
 
     [HttpPost("student")]
-    public async Task<IActionResult> CreateStudentAsync()
+    public async Task<ActionResult<Guid>> CreateStudentAsync(Guid facultyId, CreateStudentRequest request, CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        return Ok();
+        return Ok(await mediator.Send(new CreateStudentCommand(request), cancellationToken));
     }
 
     [HttpPost("teacher")]
     [HttpPost]
-    public async Task<ActionResult<Guid>> CreateTeacherAsync(CreateTeacherRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<Guid>> CreateTeacherAsync(Guid facultyId, CreateTeacherRequest request, CancellationToken cancellationToken)
     {
         try
         {
@@ -50,10 +53,17 @@ public class UsersManagementController(IMediator mediator, IScheduleManagerClien
         }
     }
 
-
-    //[HttpPost]
-    //public async Task<ActionResult> CreateStudentAsync(CancellationToken cancellationToken)
-    //{
-
-    //}
+    [HttpPost("delete/users")]
+    public async Task<ActionResult> DeleteUserAsync(DeleteUsersRequest request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await mediator.Send(new DeleteUserCommand(request.UserIds), cancellationToken);
+            return NoContent();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
