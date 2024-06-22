@@ -15,6 +15,10 @@ const routes: Routes = [
                         './users-management/users-management-routing.module'
                     ).then(m => m.UsersManagementRoutingModule),
             },
+            {
+                path: 'schedule-management',
+                loadChildren: () => import ('./schedule/schedule-routing.module').then(m => m.ScheduleRoutingModule),
+            }
         ],
     },
 ];

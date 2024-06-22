@@ -2,6 +2,7 @@ import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -21,7 +22,7 @@ export class WorkspaceNavMenuComponent extends BaseComponent {
 
     menu: MenuItem[] | undefined;
 
-    constructor(private translate: TranslateService, private store: Store) {
+    constructor(private translate: TranslateService, private store: Store, private router: Router) {
         super();
     }
 
@@ -47,17 +48,14 @@ export class WorkspaceNavMenuComponent extends BaseComponent {
             {
                 label: 'workspace.menu.educational_process.sub_title',
                 items: [
-                    {
-                        label: 'workspace.menu.educational_process.subjects',
-                        icon: 'pi pi-book',
-                    },
+                    // {
+                    //     label: 'workspace.menu.educational_process.subjects',
+                    //     icon: 'pi pi-book',
+                    // },
                     {
                         label: 'workspace.menu.educational_process.schedule',
                         icon: 'pi pi-calendar',
-                    },
-                    {
-                        label: 'workspace.menu.educational_process.сall_schedule',
-                        icon: 'pi pi-calendar-clock',
+                        url: '/workspace/schedule-management'
                     },
                 ],
             },
@@ -66,5 +64,9 @@ export class WorkspaceNavMenuComponent extends BaseComponent {
 
     toggleSidebar() {
         this.isCollapsed = !this.isCollapsed;
+    }
+
+    logout() {
+        this.router.navigate(['/logout']);
     }
 }

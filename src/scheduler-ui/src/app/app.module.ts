@@ -25,6 +25,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { SharedModule } from './shared/shared.module';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { LogoutComponent } from './logout/logout.component';
 
 export class CustomHammerConfig extends HammerGestureConfig {
     override overrides = {
@@ -52,7 +53,7 @@ export function TranslationLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, LogoutComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

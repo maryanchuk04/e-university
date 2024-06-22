@@ -42,6 +42,6 @@
         </div>
     </div>
     <div class="px-3 py-2">
-        <button pButton [outlined]="true"  [icon]="'pi pi-sign-out'" [label]="!isCollapsed ? ('dashboard.logout' | translate) : null" class="w-full"></button>
+        <button pButton [outlined]="true" (click)="logout()" [icon]="'pi pi-sign-out'" [label]="!isCollapsed ? ('dashboard.logout' | translate) : null" class="w-full"></button>
     </div>
 </div>

@@ -24,6 +24,9 @@ export class ProfileComponent implements OnInit {
 
     logout() {
         this.auth.logout();
-        window.location.href = "/authenticate"
+        setTimeout(() => {
+            window.location.href = "/authenticate"
+        }, 1000);
+
     }
 }

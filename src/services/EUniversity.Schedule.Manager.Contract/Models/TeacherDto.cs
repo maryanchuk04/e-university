@@ -14,5 +14,6 @@ public class TeacherDto
     public Guid Id { get; set; }
     public string FullName { get; set; }
     public string Position { get; set; }
+    public Guid UserId { get; set; }
     public List<FacultyDto> Faculties { get; set; }
 }

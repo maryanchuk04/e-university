@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Role } from '../models/role';
 import { UserProvider } from '../providers/user.provider';
 
 @Injectable({
@@ -15,7 +14,7 @@ export class AdminGuard {
 
         if (!currentUser) return false;
 
-        if (currentUser.role === Role.User || currentUser.role === Role.Student || currentUser.role === Role.Teacher)
+        if (!this.userProvider.hasAdminAccess())
             return false;
 
         return true;

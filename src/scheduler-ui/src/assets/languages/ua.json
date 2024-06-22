@@ -152,5 +152,31 @@
         "faculty_admin": "Адміністратор Факультету",
         "schedule_viewer": "Переглядач Розкладу",
         "access": "Вкажіть доступ"
+    },
+    "teachers_control": {
+        "add": "Додати викладача",
+        "upload_xlsx": "Завантажити XLSX",
+        "delete": "Видалити",
+        "delete_confirmation": "Ви впевнені, що хочете видалити {{count}} викладачів?",
+        "delete_confirmation_single": "Ви впевнені, що хочете видалити цього викладача?"
+    },
+    "teachers_labels": {
+        "fullName": "Повне ім'я",
+        "picture": "Зображення",
+        "position": "Посада",
+        "facultyName": "Назва факультету",
+        "state": "Статус",
+        "teacher_state": {
+            "true": "Активний",
+            "false": "Неактивний"
+        }
+    },
+    "add_teacher": {
+        "title": "Додати викладача",
+        "fullName": "Повне ім'я",
+        "position": "Посада",
+        "add": "Додати викладача",
+        "success": "Викладача успішно додано",
+        "error": "Не вдалося додати викладача"
     }
 }

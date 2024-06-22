@@ -1,5 +1,6 @@
 ﻿using EUniversity.Schedule.Manager.Contract.Requests;
 using EUniversity.Schedule.Manager.Data;
+using EUniversity.Schedule.Manager.Data.Models;
 using EUniversity.Shared.Extensions;
 using MediatR;
 
@@ -28,6 +29,7 @@ public class CreateTeacherCommandHandler(UniversityScheduleManagerContext db) : 
 
         if (command.Teacher.FacultyIds.Count > 0)
         {
+            teacher.TeacherFaculties = [];
             foreach (var facultyId in command.Teacher.FacultyIds)
             {
                 teacher.TeacherFaculties.Add(new Data.Models.TeacherFaculty

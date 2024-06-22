@@ -24,6 +24,7 @@ public class GetTeacherByFacultyQueryHandler(UniversityScheduleManagerContext db
                 Id = t.Id,
                 FullName = t.FullName,
                 Position = t.Position,
+                UserId = t.UserId,
                 Faculties = t.TeacherFaculties.Select(x => new FacultyDto
                 {
                     Address = x.Faculty.Adress,

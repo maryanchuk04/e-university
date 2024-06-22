@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { mapToCanActivate, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticateComponent } from './auth/authenticate/authenticate.component';
+import { AdminGuard } from './core/guards/admin.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 import { StudentGuard } from './dashboard/guards/student.guard';
+import { LogoutComponent } from './logout/logout.component';
 import { TeacherGuard } from './teacher/teacher.guard';
 
 const routes: Routes = [
@@ -42,7 +44,11 @@ const routes: Routes = [
     {
         path: 'workspace',
         loadChildren: () => import('./workspace/workspace-routing.module').then(m => m.WorkspaceRoutingModule),
-        //canActivate: mapToCanActivate([AdminGuard])
+        canActivate: mapToCanActivate([AdminGuard])
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent
     }
 ];
 

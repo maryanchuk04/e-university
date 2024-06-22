@@ -1,1 +1,101 @@
-<p>teachers works!</p>
+<div class="">
+    <ng-container *ngIf="facultyId; else chooseFaculty">
+        <ng-container *ngIf="(teachers$ | async) as teachers; else spinner">
+            <div id="teachersControls" class="mb-2">
+                <p-buttonGroup>
+                    <p-button size="small" (onClick)="openAddTeacherSidebar()"
+                        [label]="'teachers_control.add' | translate" icon="pi pi-plus" />
+                    <!-- <p-button (click)="op.toggle($event)" size="small" severity="success"
+                        [label]="'teachers_control.upload_xlsx' | translate" icon="pi pi-file-excel" />
+                    <p-overlayPanel #op>
+                        <div class="flex flex-column gap-3 w-40">
+                            <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
+                                 [multiple]="true" accept="image/*" maxFileSize="1000000">
+                                <ng-template pTemplate="content">
+
+                                </ng-template>
+                            </p-fileUpload>
+
+                        </div>
+                    </p-overlayPanel> -->
+                    <p-button size="small" (onClick)="confirmDeletionTeachers($event)" severity="danger"
+                        [label]="'teachers_control.delete' | translate" icon="pi pi-trash"
+                        [badge]="selectedTeachers.length.toString()" [disabled]="selectedTeachers.length === 0" />
+                </p-buttonGroup>
+            </div>
+            <p-table dataKey="teacherId" [(selection)]="selectedTeachers" [paginator]="true" [rows]="10"
+                [value]="teachers" class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 4rem"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th class="px-4 py-2">{{ 'teachers_labels.fullName' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'teachers_labels.picture' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'teachers_labels.position' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'teachers_labels.facultyName' | translate }}</th>
+                        <th class="px-4 py-2">{{ 'teachers_labels.state' | translate }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-teacher>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="teacher"></p-tableCheckbox>
+                        </td>
+                        <td class="px-4 py-2">{{ teacher.fullName }}</td>
+                        <td class="px-4 py-2">
+                            <uni-avatar [image]="teacher.picture" alt="teacher picture" styles="w-10 h-10"></uni-avatar>
+                        </td>
+                        <td class="px-4 py-2">{{ teacher.position }}</td>
+                        <td class="px-4 py-2">{{ getTeachersFacultiesNames(teacher) }}</td>
+                        <td>
+                            <p-tag [value]="('students_labels.student_state.' + +teacher.isActive) | translate"
+                                [severity]="teacher.isActive ? 'success' : 'danger'"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-container>
+    </ng-container>
+
+    <ng-template #spinner>
+        <uni-spinner></uni-spinner>
+    </ng-template>
+
+    <ng-template #chooseFaculty>
+        <p class="text-center text-2xl">{{'workspace.faculty.choose_faculty' | translate}}</p>
+    </ng-template>
+
+    <p-confirmPopup #confirmPopupRef>
+        <ng-template pTemplate="headless" let-message let-test>
+            <div class="border-round p-3">
+                <span>{{ message.message }}</span>
+                <div class="flex align-items-center gap-2 mt-3">
+                    <p-button (click)="accept()" [label]="'common.confirm' | translate" size="small" />
+                    <p-button (click)="reject()" [label]="'common.cancel' | translate" [outlined]="true" size="small" />
+                </div>
+            </div>
+        </ng-template>
+    </p-confirmPopup>
+
+    <p-sidebar [(visible)]="isCreateTeacherSidebarVisible" position="right" styleClass="w-96">
+        <h2>{{ 'add_teacher.title' | translate }}</h2>
+        <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()" class="p-fluid">
+            <div class="my-4">
+                <input type="text" [placeholder]="'add_student.email' | translate" pInputText formControlName="email" />
+                <div *ngIf="teacherForm.controls['email'].hasError('chnuEmail') && teacherForm.controls['email'].touched"
+                    class="p-error">
+                    {{ 'add_student.email_error' | translate }}
+                </div>
+            </div>
+            <div class="my-4">
+                <input type="text" [placeholder]="'add_teacher.fullName' | translate" pInputText formControlName="fullName" />
+            </div>
+            <div class="my-4">
+                <input type="text" [placeholder]="'add_teacher.position' | translate" pInputText formControlName="position" />
+            </div>
+            <div class="my-8">
+                <button type="submit" pButton label="{{ 'add_teacher.add' | translate }}"
+                    [disabled]="teacherForm.invalid"></button>
+            </div>
+        </form>
+    </p-sidebar>
+</div>

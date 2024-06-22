@@ -7,6 +7,13 @@ export interface CreateStudentRequest {
     permissions: number[];
 }
 
+export interface CreateTeacherRequest {
+    email: string;
+    facultyIds: string[];
+    fullName: string,
+    posada: string
+}
+
 export const permissionsToNumbers = (permissions: Permissions[]) => {
     const array = [];
 

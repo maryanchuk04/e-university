@@ -61,7 +61,7 @@
 
         <p-timeline [value]="myDay.lessons" align="left">
             <ng-template pTemplate="marker" let-lesson>
-                <div class="marker flex justify-center items-center">
+                <div class="marker flex justify-center items-center last: mb-10">
                     <span [ngClass]="{
                             'bg-success text-white': isLessonPassed(lesson),
                             'bg-blue-500 text-white': !isLessonPassed(lesson),

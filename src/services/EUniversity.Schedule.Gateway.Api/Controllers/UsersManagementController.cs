@@ -2,8 +2,10 @@
 using EUniversity.Schedule.Gateway.Api.Commands.Students;
 using EUniversity.Schedule.Gateway.Api.Commands.Teacher;
 using EUniversity.Schedule.Gateway.Api.Queries.Users.Students;
+using EUniversity.Schedule.Gateway.Api.Queries.Users.Teachers;
 using EUniversity.Schedule.Gateway.Contract.Models;
 using EUniversity.Schedule.Gateway.Contract.Requests;
+using EUniversity.Schedule.Gateway.Contract.Responses;
 using EUniversity.Schedule.Manager.Client;
 using EUniversity.Schedule.Manager.Contract.Models;
 using EUniversity.Schedule.Manager.Contract.Requests;
@@ -26,9 +28,9 @@ public class UsersManagementController(IMediator mediator, IScheduleManagerClien
     }
 
     [HttpGet("teachers")]
-    public async Task<ActionResult<List<TeacherDto>>> GetTeachersAsync(Guid facultyId, CancellationToken cancellationToken)
+    public async Task<ActionResult<List<TeacherResponse>>> GetTeachersAsync(Guid facultyId, CancellationToken cancellationToken)
     {
-        return Ok(await scheduleManagerClient.GetTeachersByFacultyIdAsync(facultyId, cancellationToken));
+        return Ok(await mediator.Send(new GetTeachersQuery(facultyId),  cancellationToken));
     }
 
     [HttpPost("student")]
