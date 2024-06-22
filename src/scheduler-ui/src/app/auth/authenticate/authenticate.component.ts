@@ -1,4 +1,4 @@
-import { EMPTY, map, takeUntil } from 'rxjs';
+import { catchError, EMPTY, map, takeUntil } from 'rxjs';
 
 import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
@@ -63,6 +63,13 @@ export class AuthenticateComponent extends BaseComponent implements OnInit {
 
                             if (user.role === Role.Teacher)
                                 this.router.navigate(['/teacher']);
+                        }),
+                        catchError((err) => {
+                            if (err.status && err.status === 400) {
+                                this.toastr.error("Помилка", "Ви повинні використовувати корпоративний обліковий запис @chnu.edu.ua")
+                            }
+
+                            return EMPTY;
                         })
                     )
                     .subscribe();

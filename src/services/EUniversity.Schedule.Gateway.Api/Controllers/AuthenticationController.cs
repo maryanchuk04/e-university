@@ -24,6 +24,11 @@ public class AuthenticationController(
     {
         try
         {
+            if (!request.Email.Contains("chnu.edu.ua") && !request.Email.Equals("lion20914king@gmail.com", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return BadRequest();
+            }
+
             _logger.LogInformation("[AuthenticationController]: Received request to authenticate user = {Email}", request.Email);
             var res = await _mediator.Send(new AuthenticateUserCommand(request), cancellationToken);
 

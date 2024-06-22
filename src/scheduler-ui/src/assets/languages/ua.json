@@ -1,7 +1,8 @@
 {
     "authenticate": {
         "errors": {
-            "something_went_wrong": "Щось пішло не так, спробуйте будь ласка ще раз"
+            "something_went_wrong": "Щось пішло не так, спробуйте будь ласка ще раз",
+            "only_chnu": "Ви повинні використовувати корпоративний обліковий запис @chnu.edu.ua"
         },
         "link": {
             "tiktok": "TikTok",
